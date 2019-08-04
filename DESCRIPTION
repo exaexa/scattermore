@@ -1,0 +1,15 @@
+Package: scattermore
+Title: Scatterplots With More Points
+Version: 0.1
+Authors@R: 
+    person(given = "Mirek",
+           family = "Kratochvil",
+           role = c("aut", "cre"),
+           email = "exa.exa@gmail.com",
+           comment = c(ORCID = "0000-0001-7356-4075"))
+Description: C-based conversion of large scatterplot data to rasters. Speeds up
+             plotting of data with millions of points.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
