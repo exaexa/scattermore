@@ -36,7 +36,7 @@ system.time(plot(data, pch='.', xlim=c(-3,3), ylim=c(-3,3), col=rgb(0.25,0.5,0.7
   9.752   0.023   9.794 
 ```
 
-That's roughly a nice 20x speedup on my laptop. Moreover, if you are using different plotting setups (basically any non-Cairo, windows- or quartz-based grDevices backend), you will very possibly see much greater speedups. Cairo is itself sometimes more than 10x faster than the other backends. That's 200x faster in total.
+This way, 0.46 seconds of `scattermore` means a nice ~20x speedup over `plot` on my laptop. Moreover, if you use different plotting setups (basically any non-Cairo, say windows- or quartz-based `grDevices` backends), you will very possibly see much greater speedups. Cairo is itself sometimes more than 10x faster than the other backends. That's 200x faster in total.
 
 ## How does it work
 
