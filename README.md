@@ -6,6 +6,9 @@ Scatterplots with more datapoints. If you want to plot bazillions of points with
 ## Example
 
 ```r
+# install the package
+devtools::install_github('exaexa/scattermore')
+
 # create 10 million 2D datapoints
 data <- cbind(rnorm(1e7),rnorm(1e7))
 
@@ -19,7 +22,7 @@ system.time(plot(scattermore(data, rgba=c(64,128,192,10), xlim=c(-3,3), ylim=c(-
   0.413   0.044   0.461 
 ```
 
-The result:
+You should immediately see _quite a bit_ of tiny points:
 
 ![Resulting scatterplot](media/result.png "Scatterplot")
 
