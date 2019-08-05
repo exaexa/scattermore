@@ -72,7 +72,7 @@ void scattermore (
 			}
 		}
 	} else {
-		const int cr=ceilf(cex), crsq=ceilf(cex*cex);
+		const int cr=ceilf(cex), crsq=cex*cex;
 		if(ncol==1) {
 			get_color(0);
 			for(i=0;i<n;++i) {
@@ -80,7 +80,7 @@ void scattermore (
 				const int cx=(xy[i]-xb)*xips, \
 					cy=(xy[i+n]-yb)*yips, \
 					pxb=cx<=cr?0:cx-cr, \
-					pxe=cx+cr>=sizex?sizex:cx+cr, \
+					pxe=cx+cr+1>=sizex?sizex:cx+cr+1, \
 					pyb=cy<=cr?0:cy-cr, \
 					pye=cy+cr+1>=sizey?sizey:cy+cr+1; \
 				\
