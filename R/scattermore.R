@@ -53,6 +53,6 @@ scattermore <- function(
     rgba=as.integer(rgba),
     rd=as.integer(rd))
 
-  if(output.raster) as.raster(array(res$rd,c(size[1],size[2],4)), max=255L)
-  else array(res$rd,c(size[1],size[2],4))
+  if(output.raster) as.raster(array(res$rd,c(size[2],size[1],4)), max=255L)
+  else array(res$rd,c(size[2],size[1],4))
 }

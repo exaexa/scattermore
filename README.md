@@ -64,7 +64,6 @@ points  .  average time (s)
 
 ## Caveats and future work
 
-- Y axis is flipped in R rasters! (but you can easily flip `ylim` parameter to fix that)
 - You can plot the raster into standard axes (so that it looks like normal `points` output) but it requires some careful manipulation of the R plot functions (and quite a lot of reading TFM).
 - Guessing the best raster size for plotting (ideally for pixel-on-pixel output) in R is tricky at best.
 - Doing the above 2 tricks in ggplot would be cool, right?

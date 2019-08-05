@@ -27,8 +27,8 @@ void scattermore (
 	const float xb=xlim[0],
 		xe=xlim[1],
 		xips=(sizex-1)/(xe-xb),
-		yb=ylim[0],
-		ye=ylim[1],
+		yb=ylim[1],
+		ye=ylim[0],
 		yips=(sizey-1)/(ye-yb),
 		cex=*pcex;
 
@@ -49,7 +49,7 @@ void scattermore (
 				if(x>=sizex || y>=sizey) continue;
 				get_xy;
 #define paint_point \
-				const size_t off=x*sizey+y; \
+				const size_t off=y+sizey*x; \
 				const unsigned \
 					dr=rd[off], \
 					dg=rd[off+offg], \
