@@ -24,6 +24,7 @@
 #'
 #' @useDynLib scattermore, .registration = TRUE
 #' @examples
+#' library(scattermore)
 #' plot(scattermore(cbind(rnorm(1e7),rnorm(1e7)), rgba=c(64,128,192,10)))
 #' @export
 scattermore <- function(
@@ -57,4 +58,50 @@ scattermore <- function(
 
   if(output.raster) as.raster(array(res$rd,c(size[2],size[1],4)), max=255L)
   else array(res$rd,c(size[2],size[1],4))
+}
+
+#' scattermoreplot
+#'
+#' Convenience base-graphics-like layer around scattermore. Currently only works with linear axes!
+#'
+#' @param x,y,xlim,ylim,... used as in plot() or forwarded to plot()
+#' @param col point color(s)
+#' @param cex forwarded to scattermore()
+#' @param size forwarded to scattermore(), or auto-derived from device and plot size if missing (the estimate is not pixel-perfect, but pretty close)
+#' @examples
+#' library(scattermore)
+#' scattermoreplot(rnorm(1e7), rnorm(1e7), col=heat.colors(1e7, alpha=.1))
+#' @export
+scattermoreplot <- function(
+  x,
+  y,
+  xlim,
+  ylim,
+  size,
+  col=rgb(0,0,0,1),
+  cex=0, ...)
+{
+  if(missing(x)) stop("Supply at least one vector")
+  if(!missing(y)) x <- cbind(x,y)
+
+  if(missing(xlim)) xlim <- c(min(x[,1]),max(x[,1]))
+  if(missing(ylim)) ylim <- c(min(x[,2]),max(x[,2]))
+
+  plot(x[1,], pch='', xlim=xlim, ylim=ylim, ...)
+  usr <- par('usr')
+  if(missing(size)) size <- as.integer(dev.size('px')/par('fin')*par('pin'))
+  rasterImage(
+    scattermore(
+      x,
+      size=size,
+      xlim=usr[1:2],
+      ylim=usr[3:4],
+      cex=cex,
+      rgba=col2rgb(col, alpha=T),
+      output.raster=T),
+    xleft=usr[1],
+    xright=usr[2],
+    ybottom=usr[3],
+    ytop=usr[4],
+  )
 }

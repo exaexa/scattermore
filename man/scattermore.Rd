@@ -40,5 +40,6 @@ Convert points to raster scatterplot rather quickly.
 scattermore::scattermore(cbind(rnorm(1000),rnorm(1000)))
 }
 \examples{
+library(scattermore)
 plot(scattermore(cbind(rnorm(1e7),rnorm(1e7)), rgba=c(64,128,192,10)))
 }
