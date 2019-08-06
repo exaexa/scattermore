@@ -3,12 +3,28 @@
 
 Scatterplots with more datapoints. If you want to plot bazillions of points without much waiting, use this.
 
-## Example
+## Installation
 
 ```r
-# install the package
 devtools::install_github('exaexa/scattermore')
+```
 
+## Quick How-To
+
+Function `scattermoreplot` is meant to behave roughly like the standard `plot`:
+```r
+library(scattermore)
+scattermoreplot(rnorm(1e7),
+                rnorm(1e7),
+		col=heat.colors(1e7, alpha=.1),
+		main='Scattermore demo')
+```
+
+## Advanced usage
+
+Function `scattermore` only creates the raster graphics for the plots; this can be plotted out afterwards (or processed in any other weird ways). Let's try a manual benchmark:
+
+```r
 # create 10 million 2D datapoints
 data <- cbind(rnorm(1e7),rnorm(1e7))
 
@@ -62,8 +78,3 @@ points  .  average time (s)
 
 (Multicolor plotting is slightly slower (usually 2x), because the reading and transporting of the relatively large color matrix eats quite a lot of cache.)
 
-## Caveats and future work
-
-- You can plot the raster into standard axes (so that it looks like normal `points` output) but it requires some careful manipulation of the R plot functions (and quite a lot of reading TFM).
-- Guessing the best raster size for plotting (ideally for pixel-on-pixel output) in R is tricky at best.
-- Doing the above 2 tricks in ggplot would be cool, right?

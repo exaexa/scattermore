@@ -70,7 +70,11 @@ scattermore <- function(
 #' @param size forwarded to scattermore(), or auto-derived from device and plot size if missing (the estimate is not pixel-perfect, but pretty close)
 #' @examples
 #' library(scattermore)
-#' scattermoreplot(rnorm(1e7), rnorm(1e7), col=heat.colors(1e7, alpha=.1))
+#' scattermoreplot(
+#'   rnorm(1e7),
+#'   rnorm(1e7),
+#'   col=heat.colors(1e7, alpha=.1),
+#'   main="scattermore demo")
 #' @export
 scattermoreplot <- function(
   x,
@@ -89,7 +93,7 @@ scattermoreplot <- function(
 
   plot(x[1,], pch='', xlim=xlim, ylim=ylim, ...)
   usr <- par('usr')
-  if(missing(size)) size <- as.integer(dev.size('px')/par('fin')*par('pin'))
+  if(missing(size)) size <- as.integer(dev.size('px')/dev.size('in')*par('pin'))
   rasterImage(
     scattermore(
       x,
