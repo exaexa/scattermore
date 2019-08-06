@@ -5,10 +5,10 @@
 \title{scattermoreplot}
 \usage{
 scattermoreplot(x, y, xlim, ylim, size, col = rgb(0, 0, 0, 1), cex = 0,
-  ...)
+  xlab, ylab, ...)
 }
 \arguments{
-\item{x, y, xlim, ylim, ...}{used as in plot() or forwarded to plot()}
+\item{x, y, xlim, ylim, xlab, ylab, ...}{used as in plot() or forwarded to plot()}
 
 \item{size}{forwarded to scattermore(), or auto-derived from device and plot size if missing (the estimate is not pixel-perfect, but pretty close)}
 

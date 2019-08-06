@@ -64,7 +64,7 @@ scattermore <- function(
 #'
 #' Convenience base-graphics-like layer around scattermore. Currently only works with linear axes!
 #'
-#' @param x,y,xlim,ylim,... used as in plot() or forwarded to plot()
+#' @param x,y,xlim,ylim,xlab,ylab,... used as in plot() or forwarded to plot()
 #' @param col point color(s)
 #' @param cex forwarded to scattermore()
 #' @param size forwarded to scattermore(), or auto-derived from device and plot size if missing (the estimate is not pixel-perfect, but pretty close)
@@ -83,15 +83,21 @@ scattermoreplot <- function(
   ylim,
   size,
   col=rgb(0,0,0,1),
-  cex=0, ...)
+  cex=0,
+  xlab,
+  ylab,
+  ...)
 {
   if(missing(x)) stop("Supply at least one vector")
-  if(!missing(y)) x <- cbind(x,y)
+  if(!missing(y)) x <- matrix(ncol=2,c(x,y))
 
   if(missing(xlim)) xlim <- c(min(x[,1]),max(x[,1]))
   if(missing(ylim)) ylim <- c(min(x[,2]),max(x[,2]))
 
-  plot(x[1,], pch='', xlim=xlim, ylim=ylim, ...)
+  xlab <- if(!missing(xlab)) xlab else if(!is.null(colnames(x))) colnames(x)[1] else "X"
+  ylab <- if(!missing(ylab)) ylab else if(!is.null(colnames(x))) colnames(x)[2] else "Y"
+
+  plot(x[1,], pch='', xlim=xlim, ylim=ylim, xlab=xlab, ylab=ylab, ...)
   usr <- par('usr')
   if(missing(size)) size <- as.integer(dev.size('px')/dev.size('in')*par('pin'))
   rasterImage(
