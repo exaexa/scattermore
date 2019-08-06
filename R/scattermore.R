@@ -23,6 +23,8 @@
 #' @return Raster with the result.
 #'
 #' @useDynLib scattermore, .registration = TRUE
+#' @examples
+#' plot(scattermore(cbind(rnorm(1e7),rnorm(1e7)), rgba=c(64,128,192,10)))
 #' @export
 scattermore <- function(
   xy,

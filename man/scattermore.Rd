@@ -6,7 +6,7 @@
 \usage{
 scattermore(xy, size = c(512, 512), xlim = c(min(xy[, 1]), max(xy[,
   1])), ylim = c(min(xy[, 2]), max(xy[, 2])), rgba = c(0L, 0L, 0L,
-  255L), cex = 0)
+  255L), cex = 0, output.raster = T)
 }
 \arguments{
 \item{xy}{2-column float matrix with point coordinates. As usual with
@@ -25,6 +25,10 @@ system by flipping the ylim vector.}
 vector for c(r,g,b,a). Best created with col2rgb(..., alpha=T).}
 
 \item{cex}{Point radius in pixels, 0=single-pixel dots.}
+
+\item{output.raster}{Output R-style raster (as.raster)? Default TRUE. Raw
+array output can be used much faster,
+e.g. in png::writePNG.}
 }
 \value{
 Raster with the result.
@@ -34,4 +38,7 @@ Convert points to raster scatterplot rather quickly.
 }
 \details{
 scattermore::scattermore(cbind(rnorm(1000),rnorm(1000)))
+}
+\examples{
+plot(scattermore(cbind(rnorm(1e7),rnorm(1e7)), rgba=c(64,128,192,10)))
 }
