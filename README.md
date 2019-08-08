@@ -20,6 +20,14 @@ scattermoreplot(rnorm(1e7),
 		main='Scattermore demo')
 ```
 
+If you use `ggplot2`, you can use `geom_scattermore` instead of `geom_point` to rasterize the graphics (e.g. to reduce PDF size):
+
+```r
+ggplot(....) + geom_scattermore()
+```
+
+(Note that the processing of data in ggplot is usually too slow itself; use `geom_scattermost` to dodge that.)
+
 ## Advanced usage
 
 Function `scattermore` only creates the raster graphics for the plots; this can be plotted out afterwards (or processed in any other weird ways). Let's try a manual benchmark:
@@ -77,4 +85,3 @@ points  .  average time (s)
 ```
 
 (Multicolor plotting is slightly slower (usually 2x), because the reading and transporting of the relatively large color matrix eats quite a lot of cache.)
-
