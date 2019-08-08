@@ -115,3 +115,178 @@ scattermoreplot <- function(
     ytop=usr[4],
   )
 }
+
+# Internally used utility for naming grobs
+ggname <- function(p, g) {
+  g$name <- grid::grobName(g, p)
+  g
+}
+
+#' geom_scattermore
+#' 
+#' `ggplot2` integration. This is nice and cooperates with the rest of ggplot (so
+#' you can use it to e.g. add rasterized scatterplots to vector output in order
+#' to reduce PDF size), but the ggplot processing overhead still dominates the
+#' whole processing time. Use `geom_scattermost` to tradeoff some niceness and
+#' circumvent ggplot logic to gain speed.
+#'
+#' Accepts aesthetics `x`, `y`, `colour` and `alpha`. Point size is fixed for
+#' all points. Due to rasterization properties it is often beneficial to try
+#' non-integer point sizes, e.g. `3.2` looks much better than `3`.
+#'
+#' @inheritParams ggplot2::layer
+#'
+#' @param na.rm Remove NA values, just as with `geom_point`.
+#' @param ... Passed to `layer`.
+#' @param interpolate Default FALSE, passed to `rasterGrob`.
+#' @param pointsize Radius of rasterized point. Use `0` for single pixels (fastest).
+#' @param pixels Vector with X and Y resolution of the raster, default `c(512,512)`.
+#' @examples
+#' library(ggplot2)
+#' library(scattermore)
+#' ggplot(data.frame(x=rnorm(100000), y=rexp(100000))) +
+#'   geom_scattermore(aes(x,y,color=x),
+#'                    pointsize=2.5,
+#'                    alpha=0.3,
+#'                    pixels=c(1000,1000),
+#'                    interpolate=T) +
+#'   scale_color_viridis_d()
+#' @export
+geom_scattermore <- function(
+  mapping=NULL, data=NULL, stat="identity", position="identity", ...,
+  na.rm=FALSE, show.legend = NA, inherit.aes = TRUE,
+  interpolate = FALSE, pointsize = 0, pixels=c(512,512)) {
+
+  ggplot2::layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    position = position,
+    geom = GeomScattermore,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      na.rm = na.rm,
+      interpolate = interpolate,
+      pointsize = pointsize,
+      pixels=pixels,
+      ...
+    )
+  )
+}
+
+GeomScattermore <- ggplot2::ggproto("GeomScattermore", ggplot2::Geom,
+  required_aes = c("x", "y"),
+  non_missing_aes = c("alpha", "colour"),
+  default_aes = ggplot2::aes(
+    shape = NA, colour = "black", size = 1.5, fill = NA,
+    alpha = 1, stroke = 0.5
+  ),
+
+  draw_panel = function(data, pp, coord,
+                        pointsize = 0, interpolate = F,
+                        na.rm = FALSE, pixels=c(512,512)) {
+    coords <- coord$transform(data, pp)
+
+    ggname("geom_scattermore",
+      grid::rasterGrob(
+        scattermore(
+          cbind(coords$x, coords$y),
+          rgba=grDevices::col2rgb(alpha=T, alpha(coords$colour, coords$alpha)),
+          cex=pointsize,
+          xlim=c(0,1),
+          ylim=c(0,1),
+          size=pixels
+        ),
+        0,0,1,1,
+        default.units='native',
+        just=c('left','bottom'),
+        interpolate=interpolate
+      )
+    )
+  },
+
+  draw_key = ggplot2::draw_key_point
+)
+
+#' geom_scattermost
+#'
+#' Totally non-ggplotish version of `geom_scattermore`, but faster. It avoids
+#' most of the ggplot processing by bypassing the largest portion of data
+#' around any ggplot functionality, leaving only enough data to set up axes and
+#' limits correctly. If you need to break speed records, use this.
+#'
+#' @param xy 2-column object with data, as in `scattermore`.
+#' @param color Color vector (or a single color).
+#' @param interpolate Default FALSE, passed to `rasterGrob`.
+#' @param pointsize Radius of rasterized point. Use `0` for single pixels (fastest).
+#' @param pixels Vector with X and Y resolution of the raster, default `c(512,512)`.
+#' @examples
+#' library(ggplot2)
+#' library(scattermore)
+#' d <- data.frame(x=rnorm(1000000), y=rnorm(1000000))
+#' x_rng <- range(d$x)
+#' ggplot() +
+#'   geom_scattermost(cbind(d$x,d$y),
+#'                    color=heat.colors(100, alpha=.3)
+#'                          [1+99*(d$x-x_rng[1])/diff(x_rng)],
+#'                    pointsize=2.5,
+#'                    pixels=c(1000,1000),
+#'                    interpolate=T)
+#' @export
+geom_scattermost <- function(
+  xy,
+  color = "black",
+  interpolate = FALSE,
+  pointsize = 0,
+  pixels=c(512,512)) {
+
+  ggplot2::layer(
+    data =
+      data.frame(x=c(min(xy[,1]),max(xy[,1])),
+                 y=c(min(xy[,2]),max(xy[,2]))),
+    mapping = ggplot2::aes_string(x="x",y="y"),
+    stat = 'identity',
+    position = 'identity',
+    geom = GeomScattermost,
+    show.legend = NA,
+    params = list(
+      interpolate = interpolate,
+      pointsize = pointsize,
+      xy = xy,
+      co = color,
+      pixels=pixels
+    )
+  )
+}
+
+GeomScattermost <- ggplot2::ggproto("GeomScattermost", ggplot2::Geom,
+  required_aes = c("x", "y"),
+
+  draw_panel = function(data, pp, coord,
+                        pointsize = 0,
+                        interpolate = F,
+                        xy,
+                        co="black",
+                        pixels=c(512,512)) {
+    coords <- coord$transform(data.frame(x=xy[,1],y=xy[,2]),pp)
+
+    ggname("geom_scattermost",
+      grid::rasterGrob(
+        scattermore(cbind(coords$x, coords$y),
+          cex=pointsize,
+          rgba=grDevices::col2rgb(alpha=T, co),
+          xlim=c(0,1),
+          ylim=c(0,1),
+          size=pixels
+        ),
+        0,0,1,1,
+        default.units='native',
+        just=c('left','bottom'),
+        interpolate=interpolate
+      )
+    )
+  },
+
+  draw_key = ggplot2::draw_key_point
+)
