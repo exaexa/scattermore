@@ -94,6 +94,9 @@ Custom rasterization gives a bit of extra features. These are the two most obvio
 2. The rasterization is not required to work in limited memory as in usual plotting libraries, which we use to gain a bit of extra precision in color mixing. This is most visible when plotting a ton of low-alpha points where the usual blending methods produce ugly rounding artifacts.
 
 ```r
+library(ggplot2)
+library(scattermore)
+
 # data
 d <- cbind(rnorm(1e6),runif(1e6))
 
