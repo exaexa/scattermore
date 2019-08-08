@@ -39,7 +39,7 @@ void scattermore (
 	if(cex<0.000000001) { //epsilol
 		if(ncol==1) {
 #define get_color(ii) \
-			const unsigned sa=rgba[ii*4+3], sr=rgba[ii*4+0]*sa/255, sg=rgba[ii*4+1]*sa/255, sb=rgba[ii*4+2]*sa/255;
+			const unsigned sa=rgba[ii*4+3]*100, sr=rgba[ii*4+0]*sa/255, sg=rgba[ii*4+1]*sa/255, sb=rgba[ii*4+2]*sa/255;
 			get_color(0);
 
 			for(i=0;i<n;++i) {
@@ -56,10 +56,10 @@ void scattermore (
 					db=rd[off+offb], \
 					da=rd[off+offa]; \
 				\
-				rd[off]=sr+dr-((sa*dr)/255); \
-				rd[off+offg]=sg+dg-((sa*dg)/255); \
-				rd[off+offb]=sb+db-((sa*db)/255); \
-				rd[off+offa]=sa+da-((sa*da)/255); \
+				rd[off]=sr+dr-((sa*dr)/25500); \
+				rd[off+offg]=sg+dg-((sa*dg)/25500); \
+				rd[off+offb]=sb+db-((sa*db)/25500); \
+				rd[off+offa]=sa+da-((sa*da)/25500); \
 
 				paint_point;
 			}
@@ -106,6 +106,7 @@ void scattermore (
 		rd[i]=(rd[i]*255)/rd[i+offa];
 		rd[i+offg]=(rd[i+offg]*255)/rd[i+offa];
 		rd[i+offb]=(rd[i+offb]*255)/rd[i+offa];
+		rd[i+offa]/=100;
 	}
 }
 
