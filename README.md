@@ -85,3 +85,35 @@ points  .  average time (s)
 ```
 
 (Multicolor plotting is slightly slower (usually 2x), because the reading and transporting of the relatively large color matrix eats quite a lot of cache.)
+
+## How nice it is
+
+Custom rasterization gives a bit of extra features. These are the two most obvious:
+
+1. The gazillions of points are present as a raster, even in vector output. That might be a problem sometimes (remember to use sufficient raster size to get the desired DPI!), but makes vector output smaller and much more easily processed by other tools. (Remember the huge PDFs with scatterplots that take a minute to load?)
+2. The rasterization is not required to work in limited memory as in usual plotting libraries, which we use to gain a bit of extra precision in color mixing. This is most visible when plotting a ton of low-alpha points where the usual blending methods produce ugly rounding artifacts.
+
+```r
+# data
+d <- cbind(rnorm(1e6),runif(1e6))
+
+# first plot (geom_point)
+ggsave('point.png', units='in', width=3, height=3,
+  ggplot(data.frame(x=d[,1],y=d[,2])) +
+  geom_point(shape='.', alpha=.05, aes(x,y,color=y)) +
+  scale_color_viridis_c(guide=F) +
+  ggtitle("geom_point"))
+
+# second plot (geom_scattermost)
+ggsave('scattermore.png', units='in', width=3, height=3,
+  ggplot() +
+  geom_scattermost(
+    d,
+    col=viridisLite::viridis(100, alpha=0.05)[1+99*d[,2]],
+    pointsize=1,
+    pixels=c(700,700)) +
+  ggtitle("geom_scattermost"))
+```
+
+![Plot with points geom](media/point.png "usual points geom")
+![Plot with scattermore](media/scattermore.png "scattermost geom")
