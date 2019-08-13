@@ -1,7 +1,8 @@
 
 /*
  * format with:
- * :%!clang-format-7 -style="{BasedOnStyle: Mozilla, UseTab: ForIndentation, IndentWidth: 8, TabWidth: 8}"
+ * :%!clang-format-7 -style="{BasedOnStyle: Mozilla, UseTab: ForIndentation,
+ * IndentWidth: 8, TabWidth: 8}"
  */
 
 #include <R.h>
@@ -34,10 +35,10 @@ scattermore(const int* pn,
 	if (cex < 0.000000001) { // epsilol
 		if (ncol == 1) {
 #define get_color(ii)                                                          \
-	const unsigned sa = rgba[ii * 4 + 3] * 100,                            \
-	               sr = rgba[ii * 4 + 0] * sa / 255,                       \
-	               sg = rgba[ii * 4 + 1] * sa / 255,                       \
-	               sb = rgba[ii * 4 + 2] * sa / 255;
+	unsigned sa = rgba[ii * 4 + 3] * 128,                                  \
+	         sr = rgba[ii * 4 + 0] * sa / 255,                             \
+	         sg = rgba[ii * 4 + 1] * sa / 255,                             \
+	         sb = rgba[ii * 4 + 2] * sa / 255;
 			get_color(0);
 
 			for (i = 0; i < n; ++i) {
@@ -46,15 +47,24 @@ scattermore(const int* pn,
 	if (x >= sizex || y >= sizey)                                          \
 		continue;
 				get_xy;
-#define paint_point                                                            \
+#define paint_point \
 	const size_t off = y + sizey * x;                                      \
 	const unsigned dr = rd[off], dg = rd[off + offg], db = rd[off + offb], \
 	               da = rd[off + offa];                                    \
                                                                                \
-	rd[off] = sr + dr - ((sa * dr) / 25500);                               \
-	rd[off + offg] = sg + dg - ((sa * dg) / 25500);                        \
-	rd[off + offb] = sb + db - ((sa * db) / 25500);                        \
-	rd[off + offa] = sa + da - ((sa * da) / 25500);
+	rd[off] = sr + dr - ((sa * dr) / 32640);                               \
+	rd[off + offg] = sg + dg - ((sa * dg) / 32640);                        \
+	rd[off + offb] = sb + db - ((sa * db) / 32640);                        \
+	rd[off + offa] = sa + da - ((sa * da) / 32640);
+#define paint_point_vars(sr, sg, sb, sa)                                            \
+	const size_t off = y + sizey * x;                                      \
+	const unsigned dr = rd[off], dg = rd[off + offg], db = rd[off + offb], \
+	               da = rd[off + offa];                                    \
+                                                                               \
+	rd[off] = sr + dr - ((sa * dr) / 32640);                               \
+	rd[off + offg] = sg + dg - ((sa * dg) / 32640);                        \
+	rd[off + offb] = sb + db - ((sa * db) / 32640);                        \
+	rd[off + offa] = sa + da - ((sa * da) / 32640);
 
 				paint_point;
 			}
@@ -67,7 +77,8 @@ scattermore(const int* pn,
 			}
 		}
 	} else {
-		const int cr = ceilf(cex), crsq = cex * cex;
+		const int cr = ceilf(cex) + 1, crsq = cex * cex,
+		          crsq1 = (cex + 1) * (cex + 1), crsqd = crsq1 - crsq;
 		if (ncol == 1) {
 			get_color(0);
 			for (i = 0; i < n; ++i) {
@@ -80,16 +91,26 @@ scattermore(const int* pn,
                                                                                \
 	for (size_t x = pxb; x < pxe; ++x)                                     \
 		for (size_t y = pyb; y < pye; ++y) {                           \
-			if ((x - cx) * (x - cx) + (y - cy) * (y - cy) > crsq)  \
+			int tmp =                                        \
+			  (x - cx) * (x - cx) + (y - cy) * (y - cy);           \
+			if (tmp > crsq1)                                       \
 				continue;                                      \
-			paint_point;                                           \
+			if (tmp < crsq)                                        \
+				{paint_point; continue;}                                   \
+			tmp = crsq1 - tmp;                                     \
+			const unsigned nsa = sa * tmp / crsqd;                 \
+			paint_point_vars((sr * tmp / crsqd),                        \
+			            (sg * tmp / crsqd),                        \
+			            (sb * tmp / crsqd),                        \
+			            nsa);                                      \
 		}
 
 				paint_circle;
 			}
 		} else {
 			for (i = 0; i < n; ++i) {
-				get_color(i) paint_circle;
+				get_color(i);
+				paint_circle;
 			}
 		}
 	}
@@ -101,7 +122,7 @@ scattermore(const int* pn,
 		rd[i] = (rd[i] * 255) / rd[i + offa];
 		rd[i + offg] = (rd[i + offg] * 255) / rd[i + offa];
 		rd[i + offb] = (rd[i + offb] * 255) / rd[i + offa];
-		rd[i + offa] /= 100;
+		rd[i + offa] /= 128;
 	}
 }
 
