@@ -29,7 +29,7 @@ library(ggplot2)
 library(scattermore)
 d <- data.frame(x=rnorm(1000000), y=rnorm(1000000))
 x_rng <- range(d$x)
-ggplot() + 
+ggplot() +
   geom_scattermost(cbind(d$x,d$y),
                    color=heat.colors(100, alpha=.3)
                          [1+99*(d$x-x_rng[1])/diff(x_rng)],

@@ -72,7 +72,7 @@ non-integer point sizes, e.g. `3.2` looks much better than `3`.
 \examples{
 library(ggplot2)
 library(scattermore)
-ggplot(data.frame(x=rnorm(100000), y=rexp(100000))) + 
+ggplot(data.frame(x=rnorm(100000), y=rexp(100000))) +
   geom_scattermore(aes(x,y,color=x),
                    pointsize=2.5,
                    alpha=0.3,

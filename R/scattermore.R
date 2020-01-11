@@ -16,7 +16,7 @@
 #'                  system by flipping the ylim vector.
 #' @param rgba 4-row matrix with color values of 0-255, or just a single 4-item
 #'             vector for c(r,g,b,a). Best created with col2rgb(..., alpha=T).
-#' @param cex Point radius in pixels, 0=single-pixel dots.
+#' @param cex Additional point radius in pixels, 0=single-pixel dots (fastest)
 #' @param output.raster Output R-style raster (as.raster)? Default TRUE. Raw
 #'                      array output can be used much faster,
 #'                      e.g. in png::writePNG.
