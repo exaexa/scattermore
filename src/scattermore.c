@@ -1,8 +1,7 @@
 
 /*
  * format with:
- * :%!clang-format-7 -style="{BasedOnStyle: Mozilla, UseTab: ForIndentation,
- * IndentWidth: 8, TabWidth: 8}"
+ * :%!clang-format-7 -style="{BasedOnStyle: Mozilla, UseTab: ForIndentation, IndentWidth: 8, TabWidth: 8}"
  */
 
 #include <R.h>
@@ -10,16 +9,16 @@
 
 #include <stdio.h>
 
-extern "C" void
-scattermore(const int* pn,
-            const int* pncol,
-            const int* size,
-            const float* xlim,
-            const float* ylim,
-            const float* pcex,
-            const float* xy,
-            const unsigned* rgba,
-            unsigned* rd)
+void
+scattermore(const int *pn,
+            const int *pncol,
+            const int *size,
+            const float *xlim,
+            const float *ylim,
+            const float *pcex,
+            const float *xy,
+            const unsigned *rgba,
+            unsigned *rd)
 {
 	const size_t n = *pn, ncol = *pncol, sizex = size[0], sizey = size[1],
 	             sizexy = sizex * sizey, offg = sizexy, offb = offg * 2,
@@ -47,7 +46,7 @@ scattermore(const int* pn,
 	if (x >= sizex || y >= sizey)                                          \
 		continue;
 				get_xy;
-#define paint_point \
+#define paint_point                                                            \
 	const size_t off = y + sizey * x;                                      \
 	const unsigned dr = rd[off], dg = rd[off + offg], db = rd[off + offb], \
 	               da = rd[off + offa];                                    \
@@ -56,7 +55,7 @@ scattermore(const int* pn,
 	rd[off + offg] = sg + dg - ((sa * dg) / 32640);                        \
 	rd[off + offb] = sb + db - ((sa * db) / 32640);                        \
 	rd[off + offa] = sa + da - ((sa * da) / 32640);
-#define paint_point_vars(sr, sg, sb, sa)                                            \
+#define paint_point_vars(sr, sg, sb, sa)                                       \
 	const size_t off = y + sizey * x;                                      \
 	const unsigned dr = rd[off], dg = rd[off + offg], db = rd[off + offb], \
 	               da = rd[off + offa];                                    \
@@ -91,18 +90,19 @@ scattermore(const int* pn,
                                                                                \
 	for (size_t x = pxb; x < pxe; ++x)                                     \
 		for (size_t y = pyb; y < pye; ++y) {                           \
-			int tmp =                                        \
-			  (x - cx) * (x - cx) + (y - cy) * (y - cy);           \
+			int tmp = (x - cx) * (x - cx) + (y - cy) * (y - cy);   \
 			if (tmp > crsq1)                                       \
 				continue;                                      \
-			if (tmp < crsq)                                        \
-				{paint_point; continue;}                                   \
+			if (tmp < crsq) {                                      \
+				paint_point;                                   \
+				continue;                                      \
+			}                                                      \
 			tmp = crsq1 - tmp;                                     \
 			const unsigned nsa = sa * tmp / crsqd;                 \
-			paint_point_vars((sr * tmp / crsqd),                        \
-			            (sg * tmp / crsqd),                        \
-			            (sb * tmp / crsqd),                        \
-			            nsa);                                      \
+			paint_point_vars((sr * tmp / crsqd),                   \
+			                 (sg * tmp / crsqd),                   \
+			                 (sb * tmp / crsqd),                   \
+			                 nsa);                                 \
 		}
 
 				paint_circle;
@@ -132,7 +132,7 @@ static const R_CMethodDef cMethods[] = {
 };
 
 void
-R_init_EmbedSOM(DllInfo* info)
+R_init_Scattermore(DllInfo *info)
 {
 	R_registerRoutines(info, cMethods, NULL, NULL, NULL);
 }
