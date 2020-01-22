@@ -179,7 +179,7 @@ GeomScattermore <- ggplot2::ggproto("GeomScattermore", ggplot2::Geom,
   required_aes = c("x", "y"),
   non_missing_aes = c("alpha", "colour"),
   default_aes = ggplot2::aes(
-    shape = NA, colour = "black", size = 1.5, fill = NA,
+    shape = 19, colour = "black", size = 1.5, fill = NA,
     alpha = 1, stroke = 0.5
   ),
 
