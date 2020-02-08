@@ -19,7 +19,7 @@
 #' @param cex Additional point radius in pixels, 0=single-pixel dots (fastest)
 #' @param output.raster Output R-style raster (as.raster)? Default TRUE. Raw
 #'                      array output can be used much faster,
-#'                      e.g. in png::writePNG.
+#'                      e.g. for use with png::writePNG.
 #' @return Raster with the result.
 #'
 #' @useDynLib scattermore, .registration = TRUE
@@ -56,7 +56,7 @@ scattermore <- function(
     rgba=as.integer(rgba),
     rd=as.integer(rd))
 
-  if(output.raster) as.raster(array(res$rd,c(size[2],size[1],4)), max=255L)
+  if(output.raster) grDevices::as.raster(array(res$rd,c(size[2],size[1],4)), max=255L)
   else array(res$rd,c(size[2],size[1],4))
 }
 
@@ -72,24 +72,21 @@ scattermore <- function(
 #' library(scattermore)
 #' scattermoreplot(
 #'   rnorm(1e7),
-#'   rnorm(1e7),
-#'   col=heat.colors(1e7, alpha=.1),
+#'   scale(1:1e7),
+#'   col=rainbow(1e7, alpha=.01),
 #'   main="scattermore demo")
 #' @export
 scattermoreplot <- function(
-  x,
-  y,
-  xlim,
-  ylim,
+  x, y,
+  xlim, ylim,
   size,
   col=rgb(0,0,0,1),
   cex=0,
-  xlab,
-  ylab,
+  xlab, ylab,
   ...)
 {
-  if(missing(x)) stop("Supply at least one vector")
-  if(!missing(y)) x <- matrix(ncol=2,c(x,y))
+  if(missing(x)) stop("Supply at least one vector for plotting")
+  if(!missing(y)) x <- cbind(x,y)
 
   if(missing(xlim)) xlim <- c(min(x[,1]),max(x[,1]))
   if(missing(ylim)) ylim <- c(min(x[,2]),max(x[,2]))
@@ -97,17 +94,18 @@ scattermoreplot <- function(
   xlab <- if(!missing(xlab)) xlab else if(!is.null(colnames(x))) colnames(x)[1] else "X"
   ylab <- if(!missing(ylab)) ylab else if(!is.null(colnames(x))) colnames(x)[2] else "Y"
 
-  plot(x[1,], pch='', xlim=xlim, ylim=ylim, xlab=xlab, ylab=ylab, ...)
-  usr <- par('usr')
-  if(missing(size)) size <- as.integer(dev.size('px')/dev.size('in')*par('pin'))
-  rasterImage(
+  graphics::plot(x[1,], pch='', xlim=xlim, ylim=ylim, xlab=xlab, ylab=ylab, ...)
+  usr <- graphics::par('usr')
+  if(missing(size)) size <- as.integer(
+    grDevices::dev.size('px') / grDevices::dev.size('in') * graphics::par('pin'))
+  graphics::rasterImage(
     scattermore(
       x,
       size=size,
       xlim=usr[1:2],
       ylim=usr[3:4],
       cex=cex,
-      rgba=col2rgb(col, alpha=T),
+      rgba=grDevices::col2rgb(col, alpha=T),
       output.raster=T),
     xleft=usr[1],
     xright=usr[2],
@@ -116,7 +114,7 @@ scattermoreplot <- function(
   )
 }
 
-# Internally used utility for naming grobs
+# Internally used ggplot2 utility for naming grobs
 ggname <- function(p, g) {
   g$name <- grid::grobName(g, p)
   g
