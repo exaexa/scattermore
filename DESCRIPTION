@@ -1,5 +1,5 @@
 Package: scattermore
-Title: Scatterplots With More Points
+Title: Scatterplots with More Points
 Version: 0.5
 Authors@R: 
     person(given = "Mirek",
