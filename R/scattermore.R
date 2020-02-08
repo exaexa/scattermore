@@ -82,7 +82,7 @@ scattermoreplot <- function(
   x, y,
   xlim, ylim,
   size,
-  col=rgb(0,0,0,1),
+  col=grDevices::rgb(0,0,0,1),
   cex=0,
   xlab, ylab,
   ...)

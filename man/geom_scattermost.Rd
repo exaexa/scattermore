@@ -31,7 +31,7 @@ d <- data.frame(x=rnorm(1000000), y=rnorm(1000000))
 x_rng <- range(d$x)
 ggplot() +
   geom_scattermost(cbind(d$x,d$y),
-                   color=heat.colors(100, alpha=.3)
+                   color=heat.colors(100, alpha=.01)
                          [1+99*(d$x-x_rng[1])/diff(x_rng)],
                    pointsize=2.5,
                    pixels=c(1000,1000),

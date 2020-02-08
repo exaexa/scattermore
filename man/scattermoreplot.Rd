@@ -4,8 +4,8 @@
 \alias{scattermoreplot}
 \title{scattermoreplot}
 \usage{
-scattermoreplot(x, y, xlim, ylim, size, col = rgb(0, 0, 0, 1), cex = 0,
-  xlab, ylab, ...)
+scattermoreplot(x, y, xlim, ylim, size, col = grDevices::rgb(0, 0, 0, 1),
+  cex = 0, xlab, ylab, ...)
 }
 \arguments{
 \item{x, y, xlim, ylim, xlab, ylab, ...}{used as in plot() or forwarded to plot()}
@@ -20,10 +20,12 @@ scattermoreplot(x, y, xlim, ylim, size, col = rgb(0, 0, 0, 1), cex = 0,
 Convenience base-graphics-like layer around scattermore. Currently only works with linear axes!
 }
 \examples{
+# plot an actual rainbow
 library(scattermore)
+d <- data.frame(s=qlogis(1:1e7/(1e7+1), 6, 0.5), t=rnorm(1e7, pi/2, 0.5))
 scattermoreplot(
-  rnorm(1e7),
-  rnorm(1e7),
-  col=heat.colors(1e7, alpha=.1),
+  d$s*cos(d$t),
+  d$s*sin(d$t),
+  col=rainbow(1e7, alpha=.01)[c((9e6+1):1e7, 1:9e6)],
   main="scattermore demo")
 }

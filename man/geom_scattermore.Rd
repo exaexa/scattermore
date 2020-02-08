@@ -74,9 +74,9 @@ library(ggplot2)
 library(scattermore)
 ggplot(data.frame(x=rnorm(100000), y=rexp(100000))) +
   geom_scattermore(aes(x,y,color=x),
-                   pointsize=2.5,
-                   alpha=0.3,
+                   pointsize=3,
+                   alpha=0.1,
                    pixels=c(1000,1000),
                    interpolate=T) +
-  scale_color_viridis_d()
+  scale_color_viridis_c()
 }

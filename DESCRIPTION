@@ -1,6 +1,6 @@
 Package: scattermore
 Title: Scatterplots with More Points
-Version: 0.5
+Version: 0.6
 Authors@R: 
     person(given = "Mirek",
            family = "Kratochvil",

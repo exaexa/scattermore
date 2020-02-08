@@ -28,7 +28,7 @@ vector for c(r,g,b,a). Best created with col2rgb(..., alpha=T).}
 
 \item{output.raster}{Output R-style raster (as.raster)? Default TRUE. Raw
 array output can be used much faster,
-e.g. in png::writePNG.}
+e.g. for use with png::writePNG.}
 }
 \value{
 Raster with the result.
