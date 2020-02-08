@@ -16,6 +16,7 @@ git archive --format=tar --prefix="${N}/" "${HEAD}" \
 | tar f - \
 	--delete "${N}/pack_cran.sh" \
 	--delete "${N}/media" \
+	--delete "${N}/README.md" \
 | tar xf - -C ${TMPDIR}
 
 R CMD build ./${TMPDIR}/${N}/ --compact-vignettes

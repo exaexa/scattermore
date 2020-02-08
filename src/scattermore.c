@@ -135,4 +135,5 @@ void
 R_init_Scattermore(DllInfo *info)
 {
 	R_registerRoutines(info, cMethods, NULL, NULL, NULL);
+	R_useDynamicSymbols(info, FALSE);
 }
