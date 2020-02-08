@@ -35,5 +35,5 @@ ggplot() +
                          [1+99*(d$x-x_rng[1])/diff(x_rng)],
                    pointsize=2.5,
                    pixels=c(1000,1000),
-                   interpolate=T)
+                   interpolate=TRUE)
 }

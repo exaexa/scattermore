@@ -15,7 +15,7 @@
 #'                  easily flip the top/bottom to the "usual" mathematical
 #'                  system by flipping the ylim vector.
 #' @param rgba 4-row matrix with color values of 0-255, or just a single 4-item
-#'             vector for c(r,g,b,a). Best created with col2rgb(..., alpha=T).
+#'             vector for c(r,g,b,a). Best created with col2rgb(..., alpha=TRUE).
 #' @param cex Additional point radius in pixels, 0=single-pixel dots (fastest)
 #' @param output.raster Output R-style raster (as.raster)? Default TRUE. Raw
 #'                      array output can be used much faster,
@@ -34,7 +34,7 @@ scattermore <- function(
   ylim=c(min(xy[,2]),max(xy[,2])),
   rgba=c(0L,0L,0L,255L),
   cex=0,
-  output.raster=T)
+  output.raster=TRUE)
 {
   n <- dim(xy)[1]
   if(dim(xy)[2] != 2) stop('2-column xy input expected')
@@ -107,8 +107,8 @@ scattermoreplot <- function(
       xlim=usr[1:2],
       ylim=usr[3:4],
       cex=cex,
-      rgba=grDevices::col2rgb(col, alpha=T),
-      output.raster=T),
+      rgba=grDevices::col2rgb(col, alpha=TRUE),
+      output.raster=TRUE),
     xleft=usr[1],
     xright=usr[2],
     ybottom=usr[3],
@@ -149,7 +149,7 @@ ggname <- function(p, g) {
 #'                    pointsize=3,
 #'                    alpha=0.1,
 #'                    pixels=c(1000,1000),
-#'                    interpolate=T) +
+#'                    interpolate=TRUE) +
 #'   scale_color_viridis_c()
 #' @export
 geom_scattermore <- function(
@@ -192,7 +192,7 @@ GeomScattermore <- ggplot2::ggproto("GeomScattermore", ggplot2::Geom,
       grid::rasterGrob(
         scattermore(
           cbind(coords$x, coords$y),
-          rgba=grDevices::col2rgb(alpha=T, alpha(coords$colour, coords$alpha)),
+          rgba=grDevices::col2rgb(alpha=TRUE, alpha(coords$colour, coords$alpha)),
           cex=pointsize,
           xlim=c(0,1),
           ylim=c(0,1),
@@ -232,7 +232,7 @@ GeomScattermore <- ggplot2::ggproto("GeomScattermore", ggplot2::Geom,
 #'                          [1+99*(d$x-x_rng[1])/diff(x_rng)],
 #'                    pointsize=2.5,
 #'                    pixels=c(1000,1000),
-#'                    interpolate=T)
+#'                    interpolate=TRUE)
 #' @export
 geom_scattermost <- function(
   xy,
@@ -275,7 +275,7 @@ GeomScattermost <- ggplot2::ggproto("GeomScattermost", ggplot2::Geom,
       grid::rasterGrob(
         scattermore(cbind(coords$x, coords$y),
           cex=pointsize,
-          rgba=grDevices::col2rgb(alpha=T, co),
+          rgba=grDevices::col2rgb(alpha=TRUE, co),
           xlim=c(0,1),
           ylim=c(0,1),
           size=pixels

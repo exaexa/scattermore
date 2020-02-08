@@ -77,6 +77,6 @@ ggplot(data.frame(x=rnorm(100000), y=rexp(100000))) +
                    pointsize=3,
                    alpha=0.1,
                    pixels=c(1000,1000),
-                   interpolate=T) +
+                   interpolate=TRUE) +
   scale_color_viridis_c()
 }

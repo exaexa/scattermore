@@ -6,7 +6,7 @@
 \usage{
 scattermore(xy, size = c(512, 512), xlim = c(min(xy[, 1]), max(xy[,
   1])), ylim = c(min(xy[, 2]), max(xy[, 2])), rgba = c(0L, 0L, 0L,
-  255L), cex = 0, output.raster = T)
+  255L), cex = 0, output.raster = TRUE)
 }
 \arguments{
 \item{xy}{2-column float matrix with point coordinates. As usual with
@@ -22,7 +22,7 @@ easily flip the top/bottom to the "usual" mathematical
 system by flipping the ylim vector.}
 
 \item{rgba}{4-row matrix with color values of 0-255, or just a single 4-item
-vector for c(r,g,b,a). Best created with col2rgb(..., alpha=T).}
+vector for c(r,g,b,a). Best created with col2rgb(..., alpha=TRUE).}
 
 \item{cex}{Additional point radius in pixels, 0=single-pixel dots (fastest)}
 
