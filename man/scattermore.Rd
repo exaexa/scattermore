@@ -10,19 +10,19 @@ scattermore(xy, size = c(512, 512), xlim = c(min(xy[, 1]), max(xy[,
 }
 \arguments{
 \item{xy}{2-column float matrix with point coordinates. As usual with
-rasters in R, 'x' axis grows right, and 'y' axis grows DOWN.
-Flipping `ylim` causes the usual mathematical behavior.}
+rasters in R, X axis grows right, and Y axis grows DOWN.
+Flipping \code{ylim} causes the usual mathematical behavior.}
 
 \item{size}{2-element vector integer size of the result raster,
-defaults to 512x512.}
+defaults to \code{c(512,512)}.}
 
 \item{xlim, ylim}{Float limits as usual (position of the first pixel on the
 left/top, and the last pixel on the right/bottom). You can
 easily flip the top/bottom to the "usual" mathematical
-system by flipping the ylim vector.}
+system by flipping the \code{ylim} vector.}
 
 \item{rgba}{4-row matrix with color values of 0-255, or just a single 4-item
-vector for c(r,g,b,a). Best created with col2rgb(..., alpha=TRUE).}
+vector for \code{c(r,g,b,a)}. Best created with \code{col2rgb(..., alpha=TRUE)}.}
 
 \item{cex}{Additional point radius in pixels, 0=single-pixel dots (fastest)}
 
@@ -35,9 +35,6 @@ Raster with the result.
 }
 \description{
 Convert points to raster scatterplot rather quickly.
-}
-\details{
-scattermore::scattermore(cbind(rnorm(1000),rnorm(1000)))
 }
 \examples{
 library(scattermore)

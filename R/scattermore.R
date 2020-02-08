@@ -3,19 +3,17 @@
 #'
 #' Convert points to raster scatterplot rather quickly.
 #'
-#' scattermore::scattermore(cbind(rnorm(1000),rnorm(1000)))
-#'
 #' @param xy 2-column float matrix with point coordinates. As usual with
-#'           rasters in R, 'x' axis grows right, and 'y' axis grows DOWN.
+#'           rasters in R, X axis grows right, and Y axis grows DOWN.
 #'           Flipping `ylim` causes the usual mathematical behavior.
 #' @param size 2-element vector integer size of the result raster,
-#'             defaults to 512x512.
+#'             defaults to `c(512,512)`.
 #' @param xlim,ylim Float limits as usual (position of the first pixel on the
 #'                  left/top, and the last pixel on the right/bottom). You can
 #'                  easily flip the top/bottom to the "usual" mathematical
-#'                  system by flipping the ylim vector.
+#'                  system by flipping the `ylim` vector.
 #' @param rgba 4-row matrix with color values of 0-255, or just a single 4-item
-#'             vector for c(r,g,b,a). Best created with col2rgb(..., alpha=TRUE).
+#'             vector for `c(r,g,b,a)`. Best created with `col2rgb(..., alpha=TRUE)`.
 #' @param cex Additional point radius in pixels, 0=single-pixel dots (fastest)
 #' @param output.raster Output R-style raster (as.raster)? Default TRUE. Raw
 #'                      array output can be used much faster,
@@ -64,10 +62,10 @@ scattermore <- function(
 #'
 #' Convenience base-graphics-like layer around scattermore. Currently only works with linear axes!
 #'
-#' @param x,y,xlim,ylim,xlab,ylab,... used as in plot() or forwarded to plot()
+#' @param x,y,xlim,ylim,xlab,ylab,... used as in [graphics::plot()] or forwarded to [graphics::plot()]
 #' @param col point color(s)
-#' @param cex forwarded to scattermore()
-#' @param size forwarded to scattermore(), or auto-derived from device and plot size if missing (the estimate is not pixel-perfect, but pretty close)
+#' @param cex forwarded to [scattermore()]
+#' @param size forwarded to [scattermore()], or auto-derived from device and plot size if missing (the estimate is not pixel-perfect on most devices, but gets pretty close)
 #' @examples
 #' # plot an actual rainbow
 #' library(scattermore)
@@ -124,23 +122,21 @@ ggname <- function(p, g) {
 
 #' geom_scattermore
 #' 
-#' `ggplot2` integration. This is nice and cooperates with the rest of ggplot (so
-#' you can use it to e.g. add rasterized scatterplots to vector output in order
-#' to reduce PDF size), but the ggplot processing overhead still dominates the
-#' whole processing time. Use `geom_scattermost` to tradeoff some niceness and
+#' [ggplot2::ggplot()] integration. This cooperates with the rest of ggplot
+#' (so you can use it to e.g. add rasterized scatterplots to vector output in
+#' order to reduce PDF size). Note that the ggplot processing overhead still dominates
+#' the plotting time. Use [geom_scattermost()] to tradeoff some niceness and
 #' circumvent ggplot logic to gain speed.
 #'
 #' Accepts aesthetics `x`, `y`, `colour` and `alpha`. Point size is fixed for
 #' all points. Due to rasterization properties it is often beneficial to try
 #' non-integer point sizes, e.g. `3.2` looks much better than `3`.
 #'
-#' @inheritParams ggplot2::layer
-#'
-#' @param na.rm Remove NA values, just as with `geom_point`.
-#' @param ... Passed to `layer`.
-#' @param interpolate Default FALSE, passed to `rasterGrob`.
+#' @param na.rm Remove NA values, just as with [ggplot2::geom_point()].
+#' @param interpolate Default FALSE, passed to [grid::rasterGrob()].
 #' @param pointsize Radius of rasterized point. Use `0` for single pixels (fastest).
 #' @param pixels Vector with X and Y resolution of the raster, default `c(512,512)`.
+#' @param mapping,data,stat,position,inherit.aes,show.legend,... passed to [ggplot2::layer()]
 #' @examples
 #' library(ggplot2)
 #' library(scattermore)
@@ -211,14 +207,14 @@ GeomScattermore <- ggplot2::ggproto("GeomScattermore", ggplot2::Geom,
 
 #' geom_scattermost
 #'
-#' Totally non-ggplotish version of `geom_scattermore`, but faster. It avoids
+#' Totally non-ggplotish version of [geom_scattermore()], but faster. It avoids
 #' most of the ggplot processing by bypassing the largest portion of data
 #' around any ggplot functionality, leaving only enough data to set up axes and
 #' limits correctly. If you need to break speed records, use this.
 #'
-#' @param xy 2-column object with data, as in `scattermore`.
+#' @param xy 2-column object with data, as in [scattermore()].
 #' @param color Color vector (or a single color).
-#' @param interpolate Default FALSE, passed to `rasterGrob`.
+#' @param interpolate Default FALSE, passed to [grid::rasterGrob()].
 #' @param pointsize Radius of rasterized point. Use `0` for single pixels (fastest).
 #' @param pixels Vector with X and Y resolution of the raster, default `c(512,512)`.
 #' @examples

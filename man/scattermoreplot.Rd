@@ -8,13 +8,13 @@ scattermoreplot(x, y, xlim, ylim, size, col = grDevices::rgb(0, 0, 0, 1),
   cex = 0, xlab, ylab, ...)
 }
 \arguments{
-\item{x, y, xlim, ylim, xlab, ylab, ...}{used as in plot() or forwarded to plot()}
+\item{x, y, xlim, ylim, xlab, ylab, ...}{used as in \code{\link[graphics:plot]{graphics::plot()}} or forwarded to \code{\link[graphics:plot]{graphics::plot()}}}
 
-\item{size}{forwarded to scattermore(), or auto-derived from device and plot size if missing (the estimate is not pixel-perfect, but pretty close)}
+\item{size}{forwarded to \code{\link[=scattermore]{scattermore()}}, or auto-derived from device and plot size if missing (the estimate is not pixel-perfect on most devices, but gets pretty close)}
 
 \item{col}{point color(s)}
 
-\item{cex}{forwarded to scattermore()}
+\item{cex}{forwarded to \code{\link[=scattermore]{scattermore()}}}
 }
 \description{
 Convenience base-graphics-like layer around scattermore. Currently only works with linear axes!

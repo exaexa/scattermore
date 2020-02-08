@@ -8,18 +8,18 @@ geom_scattermost(xy, color = "black", interpolate = FALSE,
   pointsize = 0, pixels = c(512, 512))
 }
 \arguments{
-\item{xy}{2-column object with data, as in `scattermore`.}
+\item{xy}{2-column object with data, as in \code{\link[=scattermore]{scattermore()}}.}
 
 \item{color}{Color vector (or a single color).}
 
-\item{interpolate}{Default FALSE, passed to `rasterGrob`.}
+\item{interpolate}{Default FALSE, passed to \code{\link[grid:rasterGrob]{grid::rasterGrob()}}.}
 
-\item{pointsize}{Radius of rasterized point. Use `0` for single pixels (fastest).}
+\item{pointsize}{Radius of rasterized point. Use \code{0} for single pixels (fastest).}
 
-\item{pixels}{Vector with X and Y resolution of the raster, default `c(512,512)`.}
+\item{pixels}{Vector with X and Y resolution of the raster, default \code{c(512,512)}.}
 }
 \description{
-Totally non-ggplotish version of `geom_scattermore`, but faster. It avoids
+Totally non-ggplotish version of \code{\link[=geom_scattermore]{geom_scattermore()}}, but faster. It avoids
 most of the ggplot processing by bypassing the largest portion of data
 around any ggplot functionality, leaving only enough data to set up axes and
 limits correctly. If you need to break speed records, use this.

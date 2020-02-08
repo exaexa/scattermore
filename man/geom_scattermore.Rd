@@ -10,64 +10,27 @@ geom_scattermore(mapping = NULL, data = NULL, stat = "identity",
   pixels = c(512, 512))
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
-\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply \code{mapping} if there is no plot mapping.}
+\item{mapping, data, stat, position, inherit.aes, show.legend, ...}{passed to \code{\link[ggplot2:layer]{ggplot2::layer()}}}
 
-\item{data}{The data to be displayed in this layer. There are three
-options:
+\item{na.rm}{Remove NA values, just as with \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}.}
 
-If \code{NULL}, the default, the data is inherited from the plot
-data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
+\item{interpolate}{Default FALSE, passed to \code{\link[grid:rasterGrob]{grid::rasterGrob()}}.}
 
-A \code{data.frame}, or other object, will override the plot
-data. All objects will be fortified to produce a data frame. See
-\code{\link[=fortify]{fortify()}} for which variables will be created.
+\item{pointsize}{Radius of rasterized point. Use \code{0} for single pixels (fastest).}
 
-A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
-from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
-
-\item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
-
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
-
-\item{...}{Passed to `layer`.}
-
-\item{na.rm}{Remove NA values, just as with `geom_point`.}
-
-\item{show.legend}{logical. Should this layer be included in the legends?
-\code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.
-It can also be a named logical vector to finely select the aesthetics to
-display.}
-
-\item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
-rather than combining with them. This is most useful for helper functions
-that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
-
-\item{interpolate}{Default FALSE, passed to `rasterGrob`.}
-
-\item{pointsize}{Radius of rasterized point. Use `0` for single pixels (fastest).}
-
-\item{pixels}{Vector with X and Y resolution of the raster, default `c(512,512)`.}
+\item{pixels}{Vector with X and Y resolution of the raster, default \code{c(512,512)}.}
 }
 \description{
-`ggplot2` integration. This is nice and cooperates with the rest of ggplot (so
-you can use it to e.g. add rasterized scatterplots to vector output in order
-to reduce PDF size), but the ggplot processing overhead still dominates the
-whole processing time. Use `geom_scattermost` to tradeoff some niceness and
+\code{\link[ggplot2:ggplot]{ggplot2::ggplot()}} integration. This cooperates with the rest of ggplot
+(so you can use it to e.g. add rasterized scatterplots to vector output in
+order to reduce PDF size). Note that the ggplot processing overhead still dominates
+the plotting time. Use \code{\link[=geom_scattermost]{geom_scattermost()}} to tradeoff some niceness and
 circumvent ggplot logic to gain speed.
 }
 \details{
-Accepts aesthetics `x`, `y`, `colour` and `alpha`. Point size is fixed for
+Accepts aesthetics \code{x}, \code{y}, \code{colour} and \code{alpha}. Point size is fixed for
 all points. Due to rasterization properties it is often beneficial to try
-non-integer point sizes, e.g. `3.2` looks much better than `3`.
+non-integer point sizes, e.g. \code{3.2} looks much better than \code{3}.
 }
 \examples{
 library(ggplot2)
