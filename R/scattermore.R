@@ -69,11 +69,13 @@ scattermore <- function(
 #' @param cex forwarded to scattermore()
 #' @param size forwarded to scattermore(), or auto-derived from device and plot size if missing (the estimate is not pixel-perfect, but pretty close)
 #' @examples
+#' # plot an actual rainbow
 #' library(scattermore)
+#' d <- data.frame(s=qlogis(1:1e7/(1e7+1), 6, 0.5), t=rnorm(1e7, pi/2, 0.5))
 #' scattermoreplot(
-#'   rnorm(1e7),
-#'   scale(1:1e7),
-#'   col=rainbow(1e7, alpha=.01),
+#'   d$s*cos(d$t),
+#'   d$s*sin(d$t),
+#'   col=rainbow(1e7, alpha=.01)[c((9e6+1):1e7, 1:9e6)],
 #'   main="scattermore demo")
 #' @export
 scattermoreplot <- function(
@@ -144,11 +146,11 @@ ggname <- function(p, g) {
 #' library(scattermore)
 #' ggplot(data.frame(x=rnorm(100000), y=rexp(100000))) +
 #'   geom_scattermore(aes(x,y,color=x),
-#'                    pointsize=2.5,
-#'                    alpha=0.3,
+#'                    pointsize=3,
+#'                    alpha=0.1,
 #'                    pixels=c(1000,1000),
 #'                    interpolate=T) +
-#'   scale_color_viridis_d()
+#'   scale_color_viridis_c()
 #' @export
 geom_scattermore <- function(
   mapping=NULL, data=NULL, stat="identity", position="identity", ...,
@@ -226,7 +228,7 @@ GeomScattermore <- ggplot2::ggproto("GeomScattermore", ggplot2::Geom,
 #' x_rng <- range(d$x)
 #' ggplot() +
 #'   geom_scattermost(cbind(d$x,d$y),
-#'                    color=heat.colors(100, alpha=.3)
+#'                    color=heat.colors(100, alpha=.01)
 #'                          [1+99*(d$x-x_rng[1])/diff(x_rng)],
 #'                    pointsize=2.5,
 #'                    pixels=c(1000,1000),
