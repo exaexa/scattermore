@@ -10,7 +10,7 @@ Authors@R:
 Description: C-based conversion of large scatterplot data to rasters. Speeds up
              plotting of data with millions of points.
 URL: https://github.com/exaexa/scattermore
-Suggests: ggplot2
+Imports: ggplot2
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
