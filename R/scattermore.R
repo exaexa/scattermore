@@ -81,6 +81,7 @@ scattermore <- function(
 #' @param x,y,xlim,ylim,xlab,ylab,... used as in [graphics::plot()] or forwarded to [graphics::plot()]
 #' @param col point color(s)
 #' @param cex forwarded to [scattermore()]
+#' @param pch ignored (to improve compatibility with [graphics::plot()]
 #' @param size forwarded to [scattermore()], or auto-derived from device and plot size if missing (the estimate is not pixel-perfect on most devices, but gets pretty close)
 #' @examples
 #' # plot an actual rainbow
@@ -98,6 +99,7 @@ scattermoreplot <- function(
   size,
   col=grDevices::rgb(0,0,0,1),
   cex=0,
+  pch=NULL,
   xlab, ylab,
   ...)
 {
