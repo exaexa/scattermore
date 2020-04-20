@@ -102,12 +102,12 @@ scattermore(const int *pn,
 #define paint_circle                                                           \
 	const int cx = (xy[i] - xb) * xips, cy = (xy[i + n] - yb) * yips,      \
 	          pxb = cx <= cr ? 0 : cx - cr,                                \
-	          pxe = cx + cr + 1 >= sizex ? sizex : cx + cr + 1,            \
+	          pxe = cx + cr + 1 >= (int)sizex ? (int)sizex : cx + cr + 1,  \
 	          pyb = cy <= cr ? 0 : cy - cr,                                \
-	          pye = cy + cr + 1 >= sizey ? sizey : cy + cr + 1;            \
+	          pye = cy + cr + 1 >= (int)sizey ? (int)sizey : cy + cr + 1;  \
                                                                                \
-	for (size_t x = pxb; x < pxe; ++x)                                     \
-		for (size_t y = pyb; y < pye; ++y) {                           \
+	for (int x = pxb; x < pxe; ++x)                                        \
+		for (int y = pyb; y < pye; ++y) {                              \
 			int tmp = (x - cx) * (x - cx) + (y - cy) * (y - cy);   \
 			if (tmp > crsq1)                                       \
 				continue;                                      \
