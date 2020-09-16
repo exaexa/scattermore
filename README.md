@@ -1,6 +1,9 @@
 
 # scattermore
 
+[![CRAN status](https://www.r-pkg.org/badges/version/scattermore)](https://cran.r-project.org/package=scattermore)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/scattermore)](https://cran.r-project.org/package=scattermore)
+
 Scatterplots with more datapoints. If you want to plot bazillions of points without much waiting, use this.
 
 ## Installation
