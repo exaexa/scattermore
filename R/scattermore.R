@@ -206,7 +206,7 @@ GeomScattermore <- ggplot2::ggproto("GeomScattermore", ggplot2::Geom,
       grid::rasterGrob(
         scattermore(
           cbind(coords$x, coords$y),
-          rgba=grDevices::col2rgb(alpha=TRUE, alpha(coords$colour, coords$alpha)),
+          rgba=grDevices::col2rgb(alpha=TRUE, scales::alpha(coords$colour, coords$alpha)),
           cex=pointsize,
           xlim=c(0,1),
           ylim=c(0,1),
