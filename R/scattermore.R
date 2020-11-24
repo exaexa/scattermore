@@ -39,7 +39,7 @@
 #' @useDynLib scattermore, .registration = TRUE
 #' @examples
 #' library(scattermore)
-#' plot(scattermore(cbind(rnorm(1e7),rnorm(1e7)), rgba=c(64,128,192,10)))
+#' plot(scattermore(cbind(rnorm(1e6),rnorm(1e6)), rgba=c(64,128,192,10)))
 #' @export
 #' @importFrom grDevices as.raster
 scattermore <- function(
@@ -87,11 +87,11 @@ scattermore <- function(
 #' @examples
 #' # plot an actual rainbow
 #' library(scattermore)
-#' d <- data.frame(s=qlogis(1:1e7/(1e7+1), 6, 0.5), t=rnorm(1e7, pi/2, 0.5))
+#' d <- data.frame(s=qlogis(1:1e6/(1e6+1), 6, 0.5), t=rnorm(1e6, pi/2, 0.5))
 #' scattermoreplot(
 #'   d$s*cos(d$t),
 #'   d$s*sin(d$t),
-#'   col=rainbow(1e7, alpha=.01)[c((9e6+1):1e7, 1:9e6)],
+#'   col=rainbow(1e6, alpha=.05)[c((9e5+1):1e6, 1:9e5)],
 #'   main="scattermore demo")
 #' @export
 #' @importFrom graphics par
@@ -158,7 +158,7 @@ scattermoreplot <- function(
 #' @examples
 #' library(ggplot2)
 #' library(scattermore)
-#' ggplot(data.frame(x=rnorm(100000), y=rexp(100000))) +
+#' ggplot(data.frame(x=rnorm(1e6), y=rexp(1e6))) +
 #'   geom_scattermore(aes(x,y,color=x),
 #'                    pointsize=3,
 #'                    alpha=0.1,
