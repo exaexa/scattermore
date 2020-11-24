@@ -1,6 +1,6 @@
 #!/bin/bash
 # packs the current git HEAD (or any other supplied git head) into a tarball
-# suitable for CRAN submission. Name comes from git describe as the latest tag.
+# suitable for CRAN submission. Version comes from git as the latest tag.
 
 N=scattermore
 HEAD="${1:-HEAD}"
@@ -19,12 +19,11 @@ git archive --format=tar --prefix="${N}/" "${HEAD}" \
 	--delete "${N}/README.md" \
 | tar xf - -C ${TMPDIR}
 
-R CMD build ./${TMPDIR}/${N}/ --compact-vignettes
+R --vanilla CMD build ./${TMPDIR}/${N}/ --compact-vignettes
 
 rm -fr ${TMPDIR}
 
-R CMD check --as-cran ${ARCHIVE}
-# do not forget:
+R --vanilla CMD check --as-cran ${ARCHIVE}
 #R CMD check --as-cran --use-valgrind ${ARCHIVE}
 
-echo "Did you run roxygen?"
+echo "Did you run roxygen? (and valgrind?)"

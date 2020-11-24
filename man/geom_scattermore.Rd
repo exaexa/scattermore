@@ -4,17 +4,26 @@
 \alias{geom_scattermore}
 \title{geom_scattermore}
 \usage{
-geom_scattermore(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, interpolate = FALSE, pointsize = 0,
-  pixels = c(512, 512))
+geom_scattermore(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  interpolate = FALSE,
+  pointsize = 0,
+  pixels = c(512, 512)
+)
 }
 \arguments{
 \item{mapping, data, stat, position, inherit.aes, show.legend, ...}{passed to \code{\link[ggplot2:layer]{ggplot2::layer()}}}
 
 \item{na.rm}{Remove NA values, just as with \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}.}
 
-\item{interpolate}{Default FALSE, passed to \code{\link[grid:rasterGrob]{grid::rasterGrob()}}.}
+\item{interpolate}{Default FALSE, passed to \code{\link[grid:grid.raster]{grid::rasterGrob()}}.}
 
 \item{pointsize}{Radius of rasterized point. Use \code{0} for single pixels (fastest).}
 

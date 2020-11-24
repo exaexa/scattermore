@@ -4,15 +4,20 @@
 \alias{geom_scattermost}
 \title{geom_scattermost}
 \usage{
-geom_scattermost(xy, color = "black", interpolate = FALSE,
-  pointsize = 0, pixels = c(512, 512))
+geom_scattermost(
+  xy,
+  color = "black",
+  interpolate = FALSE,
+  pointsize = 0,
+  pixels = c(512, 512)
+)
 }
 \arguments{
 \item{xy}{2-column object with data, as in \code{\link[=scattermore]{scattermore()}}.}
 
 \item{color}{Color vector (or a single color).}
 
-\item{interpolate}{Default FALSE, passed to \code{\link[grid:rasterGrob]{grid::rasterGrob()}}.}
+\item{interpolate}{Default FALSE, passed to \code{\link[grid:grid.raster]{grid::rasterGrob()}}.}
 
 \item{pointsize}{Radius of rasterized point. Use \code{0} for single pixels (fastest).}
 

@@ -41,6 +41,7 @@
 #' library(scattermore)
 #' plot(scattermore(cbind(rnorm(1e7),rnorm(1e7)), rgba=c(64,128,192,10)))
 #' @export
+#' @importFrom grDevices as.raster
 scattermore <- function(
   xy,
   size=c(512,512),
@@ -93,6 +94,11 @@ scattermore <- function(
 #'   col=rainbow(1e7, alpha=.01)[c((9e6+1):1e7, 1:9e6)],
 #'   main="scattermore demo")
 #' @export
+#' @importFrom graphics par
+#' @importFrom graphics plot
+#' @importFrom graphics rasterImage
+#' @importFrom grDevices dev.size
+#' @importFrom grDevices rgb
 scattermoreplot <- function(
   x, y,
   xlim, ylim,
@@ -132,12 +138,6 @@ scattermoreplot <- function(
   )
 }
 
-# Internally used ggplot2 utility for naming grobs
-ggname <- function(p, g) {
-  g$name <- grid::grobName(g, p)
-  g
-}
-
 #' geom_scattermore
 #' 
 #' [ggplot2::ggplot()] integration. This cooperates with the rest of ggplot
@@ -166,6 +166,7 @@ ggname <- function(p, g) {
 #'                    interpolate=TRUE) +
 #'   scale_color_viridis_c()
 #' @export
+#' @importFrom ggplot2 layer
 geom_scattermore <- function(
   mapping=NULL, data=NULL, stat="identity", position="identity", ...,
   na.rm=FALSE, show.legend = NA, inherit.aes = TRUE,
@@ -189,6 +190,15 @@ geom_scattermore <- function(
   )
 }
 
+#' The actual geom for scattermore
+#'
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 draw_key_point
+#' @importFrom ggplot2 Geom
+#' @importFrom ggplot2 ggproto
+#' @importFrom grDevices col2rgb
+#' @importFrom grid rasterGrob
+#' @importFrom scales alpha
 GeomScattermore <- ggplot2::ggproto("GeomScattermore", ggplot2::Geom,
   required_aes = c("x", "y"),
   non_missing_aes = c("alpha", "colour"),
@@ -202,7 +212,7 @@ GeomScattermore <- ggplot2::ggproto("GeomScattermore", ggplot2::Geom,
                         na.rm = FALSE, pixels=c(512,512)) {
     coords <- coord$transform(data, pp)
 
-    ggname("geom_scattermore",
+    ggplot2:::ggname("geom_scattermore",
       grid::rasterGrob(
         scattermore(
           cbind(coords$x, coords$y),
@@ -248,6 +258,8 @@ GeomScattermore <- ggplot2::ggproto("GeomScattermore", ggplot2::Geom,
 #'                    pixels=c(1000,1000),
 #'                    interpolate=TRUE)
 #' @export
+#' @importFrom ggplot2 aes_string
+#' @importFrom ggplot2 layer
 geom_scattermost <- function(
   xy,
   color = "black",
@@ -274,6 +286,13 @@ geom_scattermost <- function(
   )
 }
 
+#' The actual geom for scattermost
+#'
+#' @importFrom ggplot2 draw_key_point
+#' @importFrom ggplot2 Geom
+#' @importFrom ggplot2 ggproto
+#' @importFrom grDevices col2rgb
+#' @importFrom grid rasterGrob
 GeomScattermost <- ggplot2::ggproto("GeomScattermost", ggplot2::Geom,
   required_aes = c("x", "y"),
 
@@ -285,7 +304,7 @@ GeomScattermost <- ggplot2::ggproto("GeomScattermost", ggplot2::Geom,
                         pixels=c(512,512)) {
     coords <- coord$transform(data.frame(x=xy[,1],y=xy[,2]),pp)
 
-    ggname("geom_scattermost",
+    ggplot2:::ggname("geom_scattermost",
       grid::rasterGrob(
         scattermore(cbind(coords$x, coords$y),
           cex=pointsize,

@@ -14,5 +14,5 @@ Imports: ggplot2, scales, grid, grDevices, graphics
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)

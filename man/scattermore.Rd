@@ -4,9 +4,15 @@
 \alias{scattermore}
 \title{scattermore}
 \usage{
-scattermore(xy, size = c(512, 512), xlim = c(min(xy[, 1]), max(xy[,
-  1])), ylim = c(min(xy[, 2]), max(xy[, 2])), rgba = c(0L, 0L, 0L,
-  255L), cex = 0, output.raster = TRUE)
+scattermore(
+  xy,
+  size = c(512, 512),
+  xlim = c(min(xy[, 1]), max(xy[, 1])),
+  ylim = c(min(xy[, 2]), max(xy[, 2])),
+  rgba = c(0L, 0L, 0L, 255L),
+  cex = 0,
+  output.raster = TRUE
+)
 }
 \arguments{
 \item{xy}{2-column float matrix with point coordinates. As usual with
