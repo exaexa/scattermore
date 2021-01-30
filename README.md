@@ -4,7 +4,16 @@
 [![CRAN status](https://www.r-pkg.org/badges/version/scattermore)](https://cran.r-project.org/package=scattermore)
 [![CRAN downloads](https://cranlogs.r-pkg.org/badges/scattermore)](https://cran.r-project.org/package=scattermore)
 
-Scatterplots with more datapoints. If you want to plot bazillions of points without much waiting, use this.
+Scatterplots with more datapoints. If you want to plot bazillions of points
+without much waiting, use this.
+
+If you want to report the usage of scattermore within a scientific project, you
+may want to refer to it systematically -- scattermore has been peer-reviewed as
+a part of a larger package for interactive cytometry data analysis
+([ShinySOM](https://gitlab.com/exaexa/ShinySOM)). Links here:
+[PubMed 32049322](https://pubmed.ncbi.nlm.nih.gov/32049322/),
+[OUP](https://academic.oup.com/bioinformatics/article/36/10/3288/5734646?login=true),
+[doi:10.1093/bioinformatics/btaa091](https://doi.org/10.1093/bioinformatics/btaa091)
 
 ## Installation
 
@@ -23,17 +32,21 @@ scattermoreplot(rnorm(1e7),
 		main='Scattermore demo')
 ```
 
-If you use `ggplot2`, you can use `geom_scattermore` instead of `geom_point` to rasterize the graphics (e.g. to reduce PDF size):
+If you use `ggplot2`, you can use `geom_scattermore` instead of `geom_point` to
+rasterize the graphics (e.g. to reduce PDF size):
 
 ```r
 ggplot(....) + geom_scattermore()
 ```
 
-(Note that the processing of data in ggplot is usually too slow itself; use `geom_scattermost` to dodge that.)
+(Note that the processing of data in ggplot is usually too slow itself; use
+`geom_scattermost` to dodge that.)
 
 ## Advanced usage
 
-Function `scattermore` only creates the raster graphics for the plots; this can be plotted out afterwards (or processed in any other weird ways). Let's try a manual benchmark:
+Function `scattermore` only creates the raster graphics for the plots; this can
+be plotted out afterwards (or processed in any other weird ways). Let's try a
+manual benchmark:
 
 ```r
 # create 10 million 2D datapoints
@@ -49,7 +62,7 @@ system.time(plot(scattermore(data, rgba=c(64,128,192,10), xlim=c(-3,3), ylim=c(-
   0.413   0.044   0.461 
 ```
 
-You should immediately see _quite a bit_ of tiny points:
+You should immediately see _quite a heap_ of tiny points:
 
 ![Resulting scatterplot](media/result.png "Scatterplot")
 
@@ -63,17 +76,28 @@ system.time(plot(data, pch='.', xlim=c(-3,3), ylim=c(-3,3), col=rgb(0.25,0.5,0.7
   9.752   0.023   9.794 
 ```
 
-This way, 0.46 seconds of `scattermore` means a nice ~20x speedup over `plot` on my laptop. Moreover, if you use different plotting setups (basically any non-Cairo, say windows- or quartz-based `grDevices` backends), you will very possibly see much greater speedups. Cairo is itself sometimes more than 10x faster than the other backends. That's 200x faster in total.
+This way, 0.46 seconds of `scattermore` means a nice ~20x speedup over `plot`
+on my laptop. Moreover, if you use different plotting setups (basically any
+non-Cairo, say windows- or quartz-based `grDevices` backends), you will very
+possibly see much greater speedups. Cairo itself is sometimes more than 10x
+faster than the other backends. That means scattermore may be over 200x faster
+in total.
 
-## How does it work
+## How does it work?
 
 1. Points and colors get converted to vectors and passed to C
-2. C code rasterizes the whole thing to a prepared bitmap. This is already quite fast, but some low-level optimization can probably speed it up several more times. Volunteers/pull requests welcome. (Is there a way to push a raw `uint8_t` array into C from R?)
-3. The resulting array gets converted to R raster using `as.raster`, which can get plotted. (Fun fact: When plotting less than roughly 1 million points, most computational time is spent only by this conversion!)
+2. C code rasterizes the whole thing to a prepared bitmap. This is already
+   quite fast, but some low-level optimization can probably speed it up several
+   more times. Volunteers/pull requests welcome. (Is there a way to push a raw
+   `uint8_t` array into C from R?)
+3. The resulting array gets converted to R raster using `as.raster`, which can
+   get plotted. (Fun fact: When plotting less than roughly 1 million points,
+   most computational time is spent only by this conversion!)
 
-## How fast is it
+## How fast is it?
 
-Let us measure the same example as above, with points limited to different sizes (i.e. in the first case, scattermore receives `data[1:1e4,]`):
+Let us measure the same example as above, with points limited to different
+sizes (i.e. in the first case, scattermore receives `data[1:1e4,]`):
 
 ```
 points  .  average time (s)
@@ -87,14 +111,23 @@ points  .  average time (s)
 1e7     .  0.460
 ```
 
-(Multicolor plotting is slightly slower (usually 2x), because the reading and transporting of the relatively large color matrix eats quite a lot of cache.)
+(Multicolor plotting is slightly slower (usually 2x), because the reading and
+transporting of the relatively large color matrix eats quite a lot of cache.)
 
-## How nice it is
+## How nice is it?
 
-Custom rasterization gives a bit of extra features. These are the two most obvious:
+Custom rasterization gives a bit of extra features. These are the two most
+obvious:
 
-1. The gazillions of points are present as a raster, even in vector output. That might be a problem sometimes (remember to use sufficient raster size to get the desired DPI!), but makes vector output smaller and much more easily processed by other tools. (Remember the huge PDFs with scatterplots that take a minute to load?)
-2. The rasterization is not required to work in limited memory as in usual plotting libraries, which we use to gain a bit of extra precision in color mixing. This is most visible when plotting a ton of low-alpha points where the usual blending methods produce ugly rounding artifacts.
+1. The gazillions of points are present as a raster, even in vector output.
+   That might be a problem sometimes (remember to use sufficient raster size to
+   get the desired DPI!), but makes vector output smaller and much more easily
+   processed by other tools. (Remember the huge PDFs with scatterplots that
+   take a minute to load?)
+2. The rasterization is not required to work in limited memory as in usual
+   plotting libraries, which we use to gain a bit of extra precision in color
+   mixing. This is most visible when plotting a ton of low-alpha points where
+   the usual blending methods produce ugly rounding artifacts.
 
 ```r
 library(ggplot2)
