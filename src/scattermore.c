@@ -106,8 +106,9 @@ scattermore(const int *pn,
 	          pyb = cy <= cr ? 0 : cy - cr,                                \
 	          pye = cy + cr + 1 >= (int)sizey ? (int)sizey : cy + cr + 1;  \
                                                                                \
-	for (int x = pxb; x < pxe; ++x)                                        \
-		for (int y = pyb; y < pye; ++y) {                              \
+	int x, y;                                                              \
+	for (x = pxb; x < pxe; ++x)                                            \
+		for (y = pyb; y < pye; ++y) {                                  \
 			int tmp = (x - cx) * (x - cx) + (y - cy) * (y - cy);   \
 			if (tmp > crsq1)                                       \
 				continue;                                      \
