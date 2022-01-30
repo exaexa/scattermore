@@ -1,5 +1,6 @@
 #' library(scattermore)
 #' @export
+#' @useDynLib scattermore2, .registration=TRUE
 make_hist <- function(
   xy,
   size = c(512, 512))
