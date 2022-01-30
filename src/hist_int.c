@@ -8,4 +8,5 @@ const int *matrix,
 const float *xy)
 {
 //something
+
 }
