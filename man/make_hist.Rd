@@ -25,7 +25,7 @@ system by flipping the \code{ylim} vector.}
 defaults to \code{c(512,512)}.}
 }
 \value{
-integer matrix with the result.
+float matrix with the result.
 }
 \description{
 Create histogram from given point coordinates.

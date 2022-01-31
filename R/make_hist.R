@@ -11,7 +11,7 @@
 #'                   left/top, and the last pixel on the right/bottom). You can
 #'                   easily flip the top/bottom to the "usual" mathematical
 #'                   system by flipping the `ylim` vector.
-#' @return integer matrix with the result.
+#' @return float matrix with the result.
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
@@ -35,6 +35,6 @@ make_hist <- function(
      ylim = as.single(ylim),
      xy = as.single(xy))
      
-    
-    return(array(result$mat, c(size[2], size[1])))
+    hist = array(as.single(result$mat), c(size[2], size[1]))
+    return(hist)
 }

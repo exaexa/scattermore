@@ -2,3 +2,14 @@ Functions
 
 make_hist - flipping the axis (raster vs "usual" maths)
           - bins
+          - size_t vs unsigned (efficiency)
+          
+
+Description
+
+Fast Scatterplots with More Data Points
+
+C-based coversion of large scatterplot data to R
+    structure or raster. Speeds up plotting of large data with millions of
+    points.
+
