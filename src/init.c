@@ -1,9 +1,7 @@
 #include <R.h>
 #include <R_ext/Rdynload.h>
 
-#include <stdio.h>
-
-void hist_int(const int *pn, const int *size, const int *matrix, const float *xy);
+#include "header.h"
 
 static const R_CMethodDef cMethods[] = {
 	{ "hist_int", (DL_FUNC)&hist_int, 6 },
