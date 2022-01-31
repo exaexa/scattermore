@@ -2,10 +2,31 @@
 % Please edit documentation in R/make_hist.R
 \name{make_hist}
 \alias{make_hist}
-\title{library(scattermore)}
+\title{make_hist}
 \usage{
-make_hist(xy, size = c(512, 512))
+make_hist(
+  xy,
+  xlim = c(min(xy[, 1]), max(xy[, 1])),
+  ylim = c(min(xy[, 2]), max(xy[, 2])),
+  size = c(512, 512)
+)
+}
+\arguments{
+\item{xy}{2-column float matrix with point coordinates. As usual with
+rasters in R, X axis grows right, and Y axis grows DOWN.
+Flipping \code{ylim} causes the "usual" mathematical behavior.}
+
+\item{xlim, }{ylim Float limits as usual (position of the first pixel on the
+left/top, and the last pixel on the right/bottom). You can
+easily flip the top/bottom to the "usual" mathematical
+system by flipping the \code{ylim} vector.}
+
+\item{size}{2-element vector integer size of the result histogram,
+defaults to \code{c(512,512)}.}
+}
+\value{
+integer matrix with the result.
 }
 \description{
-library(scattermore)
+Create histogram from given point coordinates.
 }
