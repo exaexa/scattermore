@@ -18,5 +18,5 @@ kernel_hist_classic(const int *dim,
 	  {
 	  	matrix[i*cols + j] = blur(kernel, data, dim, j, i); //blurring of given point
 	  }
-	}    
+	}  
 }

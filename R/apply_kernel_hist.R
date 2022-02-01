@@ -34,7 +34,7 @@ apply_kernel_hist <- function(
    if(filter == "classic")
    {
       kernel <- rep(1, size * size)
-      kernel = kernel / sum(kernel)     #normalize kernel
+      kernel = kernel / sum(kernel)     #normalize kernel 
    
       result <- .C("kernel_hist_classic",
         dimen = as.integer(c(rows, cols, size)),
