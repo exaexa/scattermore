@@ -5,12 +5,15 @@
 #' @param xy 2-column float matrix with point coordinates. As usual with
 #'           rasters in R, X axis grows right, and Y axis grows DOWN.
 #'           Flipping `ylim` causes the "usual" mathematical behavior.
+#'
 #' @param size 2-element vector integer size of the result histogram,
 #'             defaults to `c(512,512)`.
+#'
 #' @param xlim, ylim Float limits as usual (position of the first pixel on the
 #'                   left/top, and the last pixel on the right/bottom). You can
 #'                   easily flip the top/bottom to the "usual" mathematical
 #'                   system by flipping the `ylim` vector.
+#'
 #' @return float matrix with the result.
 #'
 #' @export
@@ -24,8 +27,9 @@ make_hist <- function(
    n <- dim(xy)[1]
    if(dim(xy)[2] != 2) stop('2-column xy input expected')
    
-   
-   mat <- rep(0, size[1] * size[2])
+   rows = size[2]
+   cols = size[1]
+   mat <- rep(0, rows * cols)
    
    result <- .C("hist_int",
      n = as.integer(n),
@@ -35,6 +39,6 @@ make_hist <- function(
      ylim = as.single(ylim),
      xy = as.single(xy))
      
-    hist = array(as.single(result$mat), c(size[2], size[1]))
+    hist = array(as.single(result$mat), c(rows, cols))
     return(hist)
 }
