@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "blur.h"
+#include "header.h"
 
 //blur histogram using kernel of ones
 void

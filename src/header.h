@@ -11,6 +11,6 @@ void kernel_hist_gauss(const int *dim, float *matrix, const float *data, const f
 
 //helper methods
 float blur(const float *kernel, const float *data, const int *dim, const size_t x, const size_t y);
-void create_gauss(float *kernel, const int *size, const float *sigma);
+void create_gauss(float *kernel, const size_t *size, const float *sigma);
 
 #endif
