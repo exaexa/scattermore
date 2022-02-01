@@ -22,7 +22,7 @@ blur(const float *kernel,
 	  	int data_index = (y+i)*cols + (x+j);
 	  	int kernel_index = (range+i)*size + (range+j);
 	  	
-	  	if(data_index >= 0 && data_index < rows*cols)
+	  	if(y+i >= 0 && y+i < rows && x+j >= 0 && x+j < cols)
 			sum = sum + data[data_index]*kernel[kernel_index];  //else add nothing (zero border padding)
 	  }
 	}

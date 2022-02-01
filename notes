@@ -4,6 +4,11 @@ make_hist - flipping the axis (raster vs "usual" maths)
           - bins
           - size_t vs unsigned (efficiency)
           
+apply_kernel_hist - article, time measure
+                  - two main filters -> "classic" vs gauss
+                  - always odd size kernel
+                  - convolution, symmetric filters
+
 
 Description
 

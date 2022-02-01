@@ -5,7 +5,7 @@
 
 //main methods
 void hist_int(const int *pn, const int *size_out, unsigned *matrix, const float *xlim, const float *ylim, const float *xy);
-void kernel_hist_classic(const int *dim, const float *kernel, float *matrix, const float *data);
+void kernel_hist_square(const int *dim, const float *kernel, float *matrix, const float *data);
 void kernel_hist_gauss(const int *dim, float *matrix, const float *data, const float *sigma);
 
 

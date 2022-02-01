@@ -4,21 +4,21 @@
 \alias{apply_kernel_hist}
 \title{apply_kernel_hist}
 \usage{
-apply_kernel_hist(hist, filter = "classic", size = 5, sigma = 1)
+apply_kernel_hist(hist, filter = "square", kernel_pixels = 2, sigma = 10)
 }
 \arguments{
-\item{hist}{float matrix or array R datatype interpreted as histogram}
+\item{hist}{matrix or array R datatype interpreted as histogram}
 
-\item{filter}{either \code{classic}(matrix of ones) or \code{gaussian} (symmetric)}
+\item{filter}{either \code{square}(matrix of ones) or \code{gaussian} (symmetric)}
 
-\item{size}{dimension of kernel that is used, changed to odd it not,
-defaults to \code{5}.}
+\item{kernel_pixels}{used for determining size of kernel,
+(\code{size = 2*kernel_pixels + 1}), defaults to \code{2}.}
 
-\item{sigma}{parameter for gaussian filtering, defaults to \code{1.0}}
+\item{sigma}{parameter for gaussian filtering, defaults to \code{10}}
 }
 \value{
 float matrix with the result.
 }
 \description{
-Blur given histogram using \code{classic} or \code{gauss} filtering.
+Blur given histogram using \code{square} or \code{gauss} filtering.
 }

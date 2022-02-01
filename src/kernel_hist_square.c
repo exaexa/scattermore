@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include "header.h"
 
-//blur histogram using kernel of ones
+//blur histogram using square kernel of ones
 void
-kernel_hist_classic(const int *dim,
+kernel_hist_square(const int *dim,
 	            const float *kernel,
 	            float *matrix,
 	            const float *data)

@@ -39,6 +39,6 @@ make_hist <- function(
      ylim = as.single(ylim),
      xy = as.single(xy))
      
-    hist = array(as.single(result$mat), c(rows, cols))
+    hist = array(result$mat, c(rows, cols))
     return(hist)
 }

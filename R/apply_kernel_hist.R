@@ -1,15 +1,15 @@
 #' apply_kernel_hist
 #'
-#' Blur given histogram using `classic` or `gauss` filtering.
+#' Blur given histogram using `square` or `gauss` filtering.
 #'
-#' @param hist float matrix or array R datatype interpreted as histogram
+#' @param hist matrix or array R datatype interpreted as histogram
 #'
-#' @param size dimension of kernel that is used, changed to odd it not,
-#'             defaults to `5`.
+#' @param kernel_pixels used for determining size of kernel,
+#'                      (`size = 2*kernel_pixels + 1`), defaults to `2`.
 #'
-#' @param filter either `classic`(matrix of ones) or `gaussian` (symmetric)
+#' @param filter either `square`(matrix of ones) or `gaussian` (symmetric)
 #'
-#' @param sigma parameter for gaussian filtering, defaults to `1.0`
+#' @param sigma parameter for gaussian filtering, defaults to `10`
 #'
 #' @return float matrix with the result.
 #'
@@ -17,26 +17,24 @@
 #' @useDynLib scattermore2, .registration=TRUE
 apply_kernel_hist <- function(
   hist,
-  filter = "classic",
-  size = 5,
-  sigma = 1.0)
+  filter = "square",
+  kernel_pixels = 2,
+  sigma = 10)
 {
    rows = dim(hist)[1]
    cols = dim(hist)[2]
    
    if(!is.integer(rows) || !is.integer(cols)) stop('input with rows and columns expected')
    
-   if(size %% 2 == 0) size = size + 1    #change even size of kernel to odd size
-
+   size = 2*kernel_pixels + 1
    mat <- rep(0, rows * cols)
    
-   
-   if(filter == "classic")
+   if(filter == "square")
    {
       kernel <- rep(1, size * size)
       kernel = kernel / sum(kernel)     #normalize kernel 
    
-      result <- .C("kernel_hist_classic",
+      result <- .C("kernel_hist_square",
         dimen = as.integer(c(rows, cols, size)),
         kernel = as.single(kernel),
         mat = as.single(mat),
