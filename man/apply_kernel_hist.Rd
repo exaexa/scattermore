@@ -9,7 +9,7 @@ apply_kernel_hist(hist, filter = "classic", size = 5, sigma = 1)
 \arguments{
 \item{hist}{float matrix or array R datatype interpreted as histogram}
 
-\item{filter}{either \code{classic}(matrix of ones) or \code{gaussian}}
+\item{filter}{either \code{classic}(matrix of ones) or \code{gaussian} (symmetric)}
 
 \item{size}{dimension of kernel that is used, changed to odd it not,
 defaults to \code{5}.}

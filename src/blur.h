@@ -1,3 +1,6 @@
+#ifndef BLUR_H_
+#define BLUR_H_
+
 #include <stdio.h>
 
 //apply blurring for current point, symmetric kernel
@@ -28,3 +31,16 @@ blur(const float *kernel,
 	  
 	return sum;
 }
+
+
+//create gaussian filter with given sigma and size
+void 
+create_gauss(float *kernel, 
+             const size_t size, 
+             const float sigma)
+{
+
+
+
+}
+#endif

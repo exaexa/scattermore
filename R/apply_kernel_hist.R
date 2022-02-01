@@ -44,12 +44,15 @@ apply_kernel_hist <- function(
    }
    else if(filter == "gauss")
    {
-   	#something
+      result <- .C("kernel_hist_gauss",
+        dimen = as.integer(c(rows, cols, size)),
+        mat = as.single(mat),
+        hist = as.single(hist),
+        sigma = as.single(sigma))
    }
    else
    	stop('"classic" or "gauss" kernel expected')
 
-     
     blurred_hist = array(as.single(result$mat), c(rows, cols))
     return(blurred_hist)
 }
