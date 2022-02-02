@@ -4,8 +4,8 @@
 //colorize histogram with given color palette
 void
 hist_colorize(const int *dim,
-	      float *matrix,         //change?
-	      const float *palette,  //change?
+	      unsigned *matrix,
+	      const unsigned *palette,
 	      const float *hist)
 {
 	const size_t rows = dim[0], cols = dim[1], size_palette = dim[2], size_hist = rows * cols,
@@ -23,10 +23,10 @@ hist_colorize(const int *dim,
 	  	
 	  	if(palette_index == size_palette) --palette_index;
 	  	
-	  	float R = palette[4 * palette_index + 0];
-	  	float G = palette[4 * palette_index + 1];
-	  	float B = palette[4 * palette_index + 2];
-	  	float A = palette[4 * palette_index + 3];
+	  	unsigned R = palette[4 * palette_index + 0];
+	  	unsigned G = palette[4 * palette_index + 1];
+	  	unsigned B = palette[4 * palette_index + 2];
+	  	unsigned A = palette[4 * palette_index + 3];
 	  	
 	  	size_t offset = j*rows + i;
 	  	matrix[offset] = R;

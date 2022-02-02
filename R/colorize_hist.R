@@ -24,17 +24,15 @@ colorize_hist <- function(
    if(dim(palette)[1] != 4) stop('palette with 4 columns expected')
    if(size < 2) stop('palette with at least 2 colors expected')
    
-   mat <- rep(0, rows * cols * 4)
+   matrix <- rep(0, rows * cols * 4)
    normalized_hist = (hist - min(hist)) / (max(hist) - min(hist))
-   float_palette = palette / 255
    
    result <- .C("hist_colorize",
      dimen = as.integer(c(rows, cols, size)),
-     mat = as.single(mat),
-     float_palette = as.single(float_palette),
+     matrix = as.integer(matrix),
+     palette = as.integer(palette),
      normalized_hist = as.single(normalized_hist))
 
-    mat_int = as.integer(result$mat * 255)
-    colorized_hist = array(mat_int, c(rows, cols, 4))
+    colorized_hist = array(result$matrix, c(rows, cols, 4))
     return(grDevices::as.raster(colorized_hist, max = 255))
 }

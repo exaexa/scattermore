@@ -13,7 +13,7 @@ colorize_hist(
 \item{hist}{matrix or array R datatype interpreted as histogram}
 
 \item{pallete}{matrix (4xn dim, n>= 2) with R, G, B and alpha channels
-in integers, defaults to \code{white} and \code{blue} with \code{alpha = 255}}
+in integers, defaults to \code{red}, \code{green} and \code{white} with \code{alpha = 255}}
 }
 \value{
 float matrix with the result.
