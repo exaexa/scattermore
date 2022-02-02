@@ -27,7 +27,7 @@ hist_int(const int *pn,
         	if(x >= size_out_x || y >= size_out_y)
         		continue;
         		
-        	++matrix[y*size_out_x + x];
+        	++matrix[x*size_out_y + y];
         }
 
 }

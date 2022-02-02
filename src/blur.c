@@ -19,8 +19,8 @@ blur(const float *kernel,
 	  int j;
 	  for(j = -range; j <= range; ++j)
 	  {
-	  	int data_index = (y+i)*cols + (x+j);
-	  	int kernel_index = (range+i)*size + (range+j);
+	  	int data_index = (x+j)*rows + (y+i);
+	  	int kernel_index = (range+j)*size + (range+i);
 	  	
 	  	if(y+i >= 0 && y+i < rows && x+j >= 0 && x+j < cols)
 			sum = sum + data[data_index]*kernel[kernel_index];  //else add nothing (zero border padding)
@@ -46,7 +46,7 @@ create_gauss(float *kernel,
 	  int j;
 	  for(j = -range; j <= range; ++j)
 	  {
-	  	int index = (range+i)*size + (range+j);
+	  	int index = (range+j)*size + (range+i);
 	  	float r = i*i + j*j;
 		kernel[index] = (exp(-r / s)) / (s * M_PI);
 	  }

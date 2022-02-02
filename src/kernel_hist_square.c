@@ -16,7 +16,7 @@ kernel_hist_square(const int *dim,
 	  size_t j;
 	  for(j = 0; j < cols; ++j)
 	  {
-	  	matrix[i*cols + j] = blur(kernel, hist, dim, j, i); //blurring of given point
+	  	matrix[j*rows + i] = blur(kernel, hist, dim, j, i); //blurring of given point
 	  }
 	}  
 }
