@@ -5,7 +5,7 @@
 #' @param hist matrix or array R datatype interpreted as histogram
 #'
 #' @param pallete matrix (4xn dim, n>= 2) with R, G, B and alpha channels 
-#'                in integers, defaults to `red`, `green` and `white` with `alpha = 255`
+#'                in integers, defaults to shades of `red`, `green` and `white` with `alpha = 255`
 #'
 #' @return float matrix with the result.
 #'
@@ -14,7 +14,7 @@
 #' @importFrom grDevices as.raster
 colorize_hist <- function(
   hist,
-  palette = array(c(255,0,0,255,0,255,0,255,0,0,255,255), c(4,3)))
+  palette = array(c(250,128,114,255,144,238,144,255,176,224,230,255), c(4,3)))
 {
    rows = dim(hist)[1]
    cols = dim(hist)[2]
