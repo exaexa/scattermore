@@ -24,7 +24,7 @@ apply_kernel_hist <- function(
    rows = dim(hist)[1]
    cols = dim(hist)[2]
    
-   if(!is.integer(rows) || !is.integer(cols)) stop('input with rows and columns expected')
+   if(!is.matrix(hist)) stop('histogram in matrix form expected')
    
    size = 2*kernel_pixels + 1
    mat <- rep(0, rows * cols)
