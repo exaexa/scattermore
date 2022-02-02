@@ -5,9 +5,13 @@ make_hist - flipping the axis (raster vs "usual" maths)
           - size_t vs unsigned (efficiency)
           
 apply_kernel_hist - article, time measure
-                  - two main filters -> "classic" vs gauss
+                  - two main filters -> square vs gauss
                   - always odd size kernel
                   - convolution, symmetric filters
+                  
+colorize_hist - make raster in R
+              - working with integers
+              - palette of colors according to hist values
 
 
 Description

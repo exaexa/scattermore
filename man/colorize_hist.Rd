@@ -6,15 +6,14 @@
 \usage{
 colorize_hist(
   hist,
-  palette = array(c(250, 128, 114, 255, 144, 238, 144, 255, 176, 224, 230, 255), c(4,
-    3))
+  rgba = array(c(250, 128, 114, 255, 144, 238, 144, 255, 176, 224, 230, 255), c(4, 3))
 )
 }
 \arguments{
 \item{hist}{matrix or array R datatype interpreted as histogram}
 
-\item{pallete}{matrix (4xn dim, n>= 2) with R, G, B and alpha channels
-in integers, defaults to shades of \code{red}, \code{green} and \code{white} with \code{alpha = 255}}
+\item{rgba}{matrix (4xn dim, n>= 2) with R, G, B and alpha channels
+in integers, defaults to shades of \code{red}, \code{green} and \code{blue} with \code{alpha = 255}}
 }
 \value{
 float matrix with the result.
