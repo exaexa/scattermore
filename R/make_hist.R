@@ -29,16 +29,16 @@ make_hist <- function(
    
    rows = size[2]
    cols = size[1]
-   mat <- rep(0, rows * cols)
+   matrix <- rep(0, rows * cols)
    
    result <- .C("hist_int",
      n = as.integer(n),
      size = as.integer(size),
-     mat = as.integer(mat),
+     matrix = as.integer(matrix),
      xlim = as.single(xlim),
      ylim = as.single(ylim),
      xy = as.single(xy))
      
-    hist = array(result$mat, c(rows, cols))
+    hist = array(result$matrix, c(rows, cols))
     return(hist)
 }
