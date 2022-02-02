@@ -7,6 +7,7 @@ static const R_CMethodDef cMethods[] = {
 	{ "hist_int", (DL_FUNC)&hist_int, 6 },
 	{ "kernel_hist_square", (DL_FUNC)&kernel_hist_square, 4 },
 	{ "kernel_hist_gauss", (DL_FUNC)&kernel_hist_gauss, 4 },
+	{ "hist_colorize", (DL_FUNC)&hist_colorize, 4 },
 	{ NULL, NULL, 0 }
 };
 
