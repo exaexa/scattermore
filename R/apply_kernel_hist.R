@@ -21,10 +21,13 @@ apply_kernel_hist <- function(
   kernel_pixels = 2,
   sigma = 10)
 {
-   rows = dim(hist)[1]
-   cols = dim(hist)[2]
-   
+
    if(!is.matrix(hist)) stop('histogram in matrix form expected')
+   if(!is.numeric(kernel_pixels) || !is.numeric(sigma) || length(kernel_pixels) != 1 || length(sigma) != 1) 
+   	stop('number expected')
+   	
+   rows = dim(hist)[1]
+   cols = dim(hist)[2]  
    
    size = 2*kernel_pixels + 1
    matrix <- rep(0, rows * cols)

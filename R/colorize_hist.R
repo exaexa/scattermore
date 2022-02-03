@@ -16,9 +16,9 @@ colorize_hist <- function(
   hist,
   rgba = array(c(250,128,114,255,144,238,144,255,176,224,230,255), c(4,3)))
 {
-   rows = dim(hist)[1]
-   cols = dim(hist)[2]
-   size = dim(rgba)[2]
+   rows <- dim(hist)[1]
+   cols <- dim(hist)[2]
+   size <- dim(rgba)[2]
    
    if(!is.matrix(hist)) stop('histogram in matrix form expected')
    if(dim(rgba)[1] != 4) stop('palette with 4 columns expected')

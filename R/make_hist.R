@@ -10,8 +10,8 @@
 #'             defaults to `c(512,512)`.
 #'
 #' @param xlim, ylim Float limits as usual (position of the first pixel on the
-#'                   left/top, and the last pixel on the right/bottom). You can
-#'                   easily flip the top/bottom to the "usual" mathematical
+#'                   left/top, and the last pixel on the right/bottom), 2-element vector.
+#'                   You can easily flip the top/bottom to the "usual" mathematical
 #'                   system by flipping the `ylim` vector.
 #'
 #' @return float matrix with the result.
@@ -26,6 +26,8 @@ make_hist <- function(
 {
    n <- dim(xy)[1]
    if(dim(xy)[2] != 2) stop('2-column xy input expected')
+   
+   if(!is.vector(xlim) || !is.vector(ylim) || !is.vector(size)) stop('vector input expected')
    
    rows = size[2]
    cols = size[1]
