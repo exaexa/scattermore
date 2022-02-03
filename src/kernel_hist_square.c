@@ -8,7 +8,7 @@ kernel_hist_square(const unsigned *dim,
 	            float *matrix,
 	            const float *hist)
 {
-	const size_t rows = dim[0], cols = dim[1], size = dim[2];
+	const size_t rows = dim[0], cols = dim[1];
 	
 	size_t i;
 	for(i = 0; i < rows; ++i)

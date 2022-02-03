@@ -12,7 +12,7 @@ kernel_hist_gauss(const unsigned *dim,
 	
 	
 	float kernel[size*size];
-	create_gauss(kernel, size, sigma);
+	create_gauss(kernel, size, *sigma);
 	
 	size_t i;
 	for(i = 0; i < rows; ++i)

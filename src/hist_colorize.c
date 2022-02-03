@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <math.h>
 
 //colorize histogram with given color palette
 void
