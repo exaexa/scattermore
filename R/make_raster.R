@@ -47,8 +47,8 @@ make_raster <- function(
    else stop('unsupported rgba input')
 
    
-   rows = size[2]
-   cols = size[1]
+   rows = size[1]
+   cols = size[2]
    
    matrix <- rep(0, rows * cols * 4)
    

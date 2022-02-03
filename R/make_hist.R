@@ -29,8 +29,8 @@ make_hist <- function(
    
    if(!is.vector(xlim) || !is.vector(ylim) || !is.vector(size)) stop('vector input expected')
    
-   rows = size[2]
-   cols = size[1]
+   rows = size[1]
+   cols = size[2]
    matrix <- rep(0, rows * cols)
    
    result <- .C("hist_int",
