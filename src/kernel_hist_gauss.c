@@ -3,7 +3,7 @@
 
 //blur histogram using kernel of ones
 void
-kernel_hist_gauss(const int *dim,
+kernel_hist_gauss(const unsigned *dim,
 	          float *matrix,
 	          const float *hist,
 	          const float *sigma)

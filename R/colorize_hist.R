@@ -25,7 +25,10 @@ colorize_hist <- function(
    if(size < 2) stop('palette with at least 2 colors expected')
    
    matrix <- rep(0, rows * cols * 4)
-   normalized_hist = (hist - min(hist)) / (max(hist) - min(hist))
+   
+   mini = min(hist)
+   maxi = max(hist)
+   normalized_hist = (hist - mini) / (maxi - mini)
    
    result <- .C("hist_colorize",
      dimen = as.integer(c(rows, cols, size)),

@@ -3,7 +3,7 @@
 
 //blur histogram using square kernel of ones
 void
-kernel_hist_square(const int *dim,
+kernel_hist_square(const unsigned *dim,
 	            const float *kernel,
 	            float *matrix,
 	            const float *hist)

@@ -5,7 +5,7 @@
 float 
 blur(const float *kernel, 
      const float *data, 
-     const int *dim, 
+     const unsigned *dim, 
      const size_t x, 
      const size_t y)
 {
@@ -38,7 +38,7 @@ create_gauss(float *kernel,
              const float sigma)
 {
 	int range = size/2;
-	float s = 2 * sigma * sigma;
+	const float s = 2 * sigma * sigma;
 	
 	int i;
 	for(i = -range; i <= range; ++i)
