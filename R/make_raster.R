@@ -15,7 +15,7 @@
 #'                   system by flipping the `ylim` vector.
 #'
 #' @param rgba vector with 4 elements or matrix (4xn dim, n>= 2) with R, G, B 
-#'             and alpha channels  in integers, defaults to `c(64,128,192,10)`
+#'             and alpha channels  in integers, defaults to `c(64,128,192,200)`
 #'
 #' @return float matrix with the result.
 #'
@@ -27,7 +27,7 @@ make_raster <- function(
   xlim =c(min(xy[,1]),max(xy[,1])),
   ylim =c(min(xy[,2]),max(xy[,2])),
   size = c(512, 512),
-  rgba = c(64,128,192,10))
+  rgba = c(64,128,192,200))
 {
    n <- dim(xy)[1]
    if(dim(xy)[2] != 2) stop('2-column xy input expected')
@@ -53,7 +53,9 @@ make_raster <- function(
    matrix <- rep(0, rows * cols * 4)
    
    result <- .C("raster",
-     dimen = as.integer(c(rows, cols, size, n_col)),
+     dimen = as.integer(c(rows, cols, n, n_col)),
+     xlim = as.single(xlim),
+     ylim = as.single(ylim),
      matrix = as.single(matrix),
      rgba = as.single(rgba) / 255,
      xy = as.single(xy))
