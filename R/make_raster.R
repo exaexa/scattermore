@@ -52,14 +52,22 @@ make_raster <- function(
    
    matrix <- rep(0, rows * cols * 4)
    
-   result <- .C("raster",
+   result <- .C("raster_one",
      dimen = as.integer(c(rows, cols, n, n_col)),
      xlim = as.single(xlim),
      ylim = as.single(ylim),
-     matrix = as.single(matrix),
-     rgba = as.single(rgba) / 255,
+     matrix = as.integer(matrix),
+     rgba = as.integer(rgba),
      xy = as.single(xy))
+     
+   #result <- .C("raster_more",
+     #dimen = as.integer(c(rows, cols, n, n_col)),
+     #xlim = as.single(xlim),
+     #ylim = as.single(ylim),
+     #matrix = as.single(matrix),
+     #rgba = as.single(rgba) / 255,
+     #xy = as.single(xy))
 
-    raster = array(as.integer(result$matrix * 255), c(rows, cols, 4))
+    raster = array(result$matrix, c(rows, cols, 4))
     return(grDevices::as.raster(raster, max = 255))
 }
