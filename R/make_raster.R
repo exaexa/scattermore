@@ -51,35 +51,33 @@ make_raster <- function(
    rows = size[1]
    cols = size[2]
    
-   matrix <- rep(0, rows * cols * 4)
+   matrix <- rep(0, rows * cols * 4)     
+   rgbwt <- rep(0, rows * cols * 5)
    
    if(n_col == 1)
    {
      result <- .C("raster_one",
-       dimen = as.integer(c(rows, cols, n, n_col)),
-       xlim = as.single(xlim),
-       ylim = as.single(ylim),
-       matrix = as.integer(matrix),
-       rgba = as.integer(rgba),
-       xy = as.single(xy))
-   }
-   else
-   {
-     rgba_t <- rep(0, rows * cols * 5)
-     
-     result <- .C("raster_more",
-       dimen = as.integer(c(rows, cols, n, n_col)),
+       dimen = as.integer(c(rows, cols, n)),
        xlim = as.single(xlim),
        ylim = as.single(ylim),
        matrix = as.single(matrix),
        rgba = as.single(rgba/255),
-       rgba_t = as.single(rgba_t),
+       rgbwt = as.single(rgbwt),
        xy = as.single(xy))
-       
-      
-      result$matrix = as.integer(result$matrix*255)
+   }
+   else
+   {
+     result <- .C("raster_more",
+       dimen = as.integer(c(rows, cols, n)),
+       xlim = as.single(xlim),
+       ylim = as.single(ylim),
+       matrix = as.single(matrix),
+       rgba = as.single(rgba/255),
+       rgbwt = as.single(rgbwt),
+       xy = as.single(xy))
    }
 
+    result$matrix = as.integer(result$matrix*255)
 
     raster = array(result$matrix, c(rows, cols, 4))
     return(grDevices::as.raster(raster, max = 255))

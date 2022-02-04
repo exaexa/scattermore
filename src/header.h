@@ -8,8 +8,8 @@ void hist_int(const unsigned *pn, const unsigned *size_out, unsigned *matrix, co
 void kernel_hist_square(const unsigned *dim, const float *kernel, float *matrix, const float *data);
 void kernel_hist_gauss(const unsigned *dim, float *matrix, const float *data, const float *sigma);
 void hist_colorize(const unsigned *dim, unsigned *matrix, const unsigned *pallete, const float *data);
-void raster_one(const unsigned *dim, const float *xlim, const float *ylim, unsigned *matrix, const unsigned *rgba, const float *xy);
-void raster_more(const unsigned *dim, const float *xlim, const float *ylim, float *matrix, const float *rgba, float *rgba_t, const float *xy);
+void raster_one(const unsigned *dim, const float *xlim, const float *ylim, float *matrix, const float *rgba, float *rgbaw, const float *xy);
+void raster_more(const unsigned *dim, const float *xlim, const float *ylim, float *matrix, const float *rgba, float *rgbaw, const float *xy);
 
 
 //helper methods
