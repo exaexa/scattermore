@@ -8,15 +8,15 @@ kernel_hist_square(const unsigned *dim,
 	            float *matrix,
 	            const float *hist)
 {
-	const size_t rows = dim[0], cols = dim[1];
+	const size_t size_out_y = dim[0], size_out_x = dim[1];
 	
 	size_t i;
-	for(i = 0; i < rows; ++i)
+	for(i = 0; i < size_out_y; ++i)
 	{
 	  size_t j;
-	  for(j = 0; j < cols; ++j)
+	  for(j = 0; j < size_out_x; ++j)
 	  {
-	  	matrix[j*rows + i] = blur(kernel, hist, dim, j, i); //blurring of given point
+	  	matrix[j*size_out_y + i] = blur(kernel, hist, dim, j, i); //blurring of given point
 	  }
 	}  
 }

@@ -7,17 +7,17 @@ hist_colorize(const unsigned *dim,
 	      const unsigned *palette,
 	      const float *hist)
 {
-	const size_t rows = dim[0], cols = dim[1], size_palette = dim[2], size_hist = rows * cols,
+	const size_t size_out_y = dim[0], size_out_x = dim[1], size_palette = dim[2], size_hist = size_out_y * size_out_x,
 	             offset_G = size_hist, offset_B = offset_G * 2, offset_A = offset_G * 3;
 	const float bin = 1.0/size_palette;
 	
 	size_t i;
-	for(i = 0; i < rows; ++i)
+	for(i = 0; i < size_out_y; ++i)
 	{
 	  size_t j;
-	  for(j = 0; j < cols; ++j)
+	  for(j = 0; j < size_out_x; ++j)
 	  {
-	  	float hist_value = hist[j*rows + i];
+	  	float hist_value = hist[j*size_out_y + i];
 	  	size_t palette_index = ((size_t)(hist_value / bin));  //determining column in palette
 	  	
 	  	if(palette_index == size_palette) --palette_index;
@@ -27,7 +27,7 @@ hist_colorize(const unsigned *dim,
 	  	size_t B = palette[4 * palette_index + 2];
 	  	size_t A = palette[4 * palette_index + 3];
 	  	
-	  	size_t offset = j*rows + i;
+	  	size_t offset = j*size_out_y + i;
 	  	matrix[offset] = R;
 	  	matrix[offset + offset_G] = G;
 	  	matrix[offset + offset_B] = B;
