@@ -10,7 +10,7 @@ raster_one(const unsigned *dim,
            const float *xy)
 {
 	const size_t size_out_y = dim[0], size_out_x = dim[1], n = dim[2], size_out = size_out_x * size_out_y,
-	             offset_G = size_out, offset_B = offset_G * 2, offset_A = offset_G * 3;
+	             offset_R = 0, offset_G = size_out, offset_B = offset_G * 2, offset_A = offset_G * 3;
 	             
 	const float x_begin = xlim[0], x_end = xlim[1], x_bin = (size_out_x - 1) / (x_end - x_begin),
                     y_begin = ylim[1], y_end = ylim[0], y_bin = (size_out_y - 1) / (y_end - y_begin);
@@ -31,7 +31,7 @@ raster_one(const unsigned *dim,
 			continue;		
 				
 		size_t offset = x*size_out_y + y;
-		matrix[offset] = R;
+		matrix[offset + offset_R] = R;
 		matrix[offset + offset_G] = G;  
 		matrix[offset + offset_B] = B;
 		matrix[offset + offset_A] = A;
