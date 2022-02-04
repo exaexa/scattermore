@@ -25,6 +25,7 @@ apply_kernel_hist <- function(
    if(!is.matrix(hist)) stop('histogram in matrix form expected')
    if(!is.numeric(kernel_pixels) || !is.numeric(sigma) || length(kernel_pixels) != 1 || length(sigma) != 1) 
    	stop('number expected')
+   if(filter != "square" && filter != "gauss") stop('"square" or "gauss" kernel expected')
    	
    rows = dim(hist)[1]
    cols = dim(hist)[2]  
@@ -43,7 +44,7 @@ apply_kernel_hist <- function(
         matrix = as.single(matrix),
         hist = as.single(hist))
    }
-   else if(filter == "gauss")
+   else
    {
       result <- .C("kernel_hist_gauss",
         dimen = as.integer(c(rows, cols, size)),
@@ -51,8 +52,6 @@ apply_kernel_hist <- function(
         hist = as.single(hist),
         sigma = as.single(sigma))
    }
-   else
-   	stop('"classic" or "gauss" kernel expected')
 
     blurred_hist = array(as.single(result$matrix), c(rows, cols))
     return(blurred_hist)
