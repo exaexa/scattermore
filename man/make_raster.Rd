@@ -25,7 +25,7 @@ system by flipping the \code{ylim} vector.}
 \item{size}{2-element vector integer size of the result histogram,
 defaults to \code{c(512,512)}.}
 
-\item{rgba}{vector with 4 elements or matrix (4xn dim, n>= 2) with R, G, B
+\item{rgba}{vector with 4 elements or matrix (4xn dim, n >= 2, n ~ xy rows) with R, G, B
 and alpha channels  in integers, defaults to \code{c(64,128,192,200)}}
 }
 \value{

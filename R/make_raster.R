@@ -14,7 +14,7 @@
 #'                   You can easily flip the top/bottom to the "usual" mathematical
 #'                   system by flipping the `ylim` vector.
 #'
-#' @param rgba vector with 4 elements or matrix (4xn dim, n>= 2) with R, G, B 
+#' @param rgba vector with 4 elements or matrix (4xn dim, n >= 2, n ~ xy rows) with R, G, B 
 #'             and alpha channels  in integers, defaults to `c(64,128,192,200)`
 #'
 #' @return float matrix with the result.
@@ -43,6 +43,7 @@ make_raster <- function(
    {
 	if(dim(rgba)[1] != 4) stop('rgba matrix with 4 columns expected')
 	n_col <- dim(rgba)[2]
+	if(n_col != n) stop('incorrect number of colors')
    }
    else stop('unsupported rgba input')
 
@@ -52,21 +53,33 @@ make_raster <- function(
    
    matrix <- rep(0, rows * cols * 4)
    
-   result <- .C("raster_one",
-     dimen = as.integer(c(rows, cols, n, n_col)),
-     xlim = as.single(xlim),
-     ylim = as.single(ylim),
-     matrix = as.integer(matrix),
-     rgba = as.integer(rgba),
-     xy = as.single(xy))
+   if(n_col == 1)
+   {
+     result <- .C("raster_one",
+       dimen = as.integer(c(rows, cols, n, n_col)),
+       xlim = as.single(xlim),
+       ylim = as.single(ylim),
+       matrix = as.integer(matrix),
+       rgba = as.integer(rgba),
+       xy = as.single(xy))
+   }
+   else
+   {
+     rgba_t <- rep(0, rows * cols * 5)
      
-   #result <- .C("raster_more",
-     #dimen = as.integer(c(rows, cols, n, n_col)),
-     #xlim = as.single(xlim),
-     #ylim = as.single(ylim),
-     #matrix = as.single(matrix),
-     #rgba = as.single(rgba) / 255,
-     #xy = as.single(xy))
+     result <- .C("raster_more",
+       dimen = as.integer(c(rows, cols, n, n_col)),
+       xlim = as.single(xlim),
+       ylim = as.single(ylim),
+       matrix = as.single(matrix),
+       rgba = as.single(rgba/255),
+       rgba_t = as.single(rgba_t),
+       xy = as.single(xy))
+       
+      
+      result$matrix = as.integer(result$matrix*255)
+   }
+
 
     raster = array(result$matrix, c(rows, cols, 4))
     return(grDevices::as.raster(raster, max = 255))
