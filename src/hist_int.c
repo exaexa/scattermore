@@ -15,12 +15,12 @@ hist_int(const unsigned *pn,
                     y_begin = ylim[1], y_end = ylim[0], y_bin = (size_out_y - 1) / (y_end - y_begin);
         
         
-        size_t i; size_t x; size_t y;
+        size_t i;
                  
         for(i = 0; i < n; ++i)
         {
-        	x = (xy[i] - x_begin) * x_bin;  //get new point coordinates for histogram
-        	y = (xy[i+n] - y_begin) * y_bin;
+        	size_t x = (xy[i] - x_begin) * x_bin;  //get new point coordinates for histogram
+        	size_t y = (xy[i+n] - y_begin) * y_bin;
         	
         	if(x >= size_out_x || y >= size_out_y)
         		continue;

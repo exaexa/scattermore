@@ -21,11 +21,11 @@ raster_one(const unsigned *dim,
 	size_t B = rgba[2];
 	size_t A = rgba[3];
 		  	
-	size_t i; size_t x; size_t y;
+	size_t i;
 	for(i = 0; i < n; ++i)
 	{
-		x = (xy[i] - x_begin) * x_bin;  //get new point coordinates for result raster
-		y = (xy[i+n] - y_begin) * y_bin;
+		size_t x = (xy[i] - x_begin) * x_bin;  //get new point coordinates for result raster
+		size_t y = (xy[i+n] - y_begin) * y_bin;
 			
 		if(x >= size_out_x || y >= size_out_y)
 			continue;		
