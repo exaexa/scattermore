@@ -10,7 +10,8 @@ blur(const float *kernel,
      const size_t y)
 {
 	float sum = 0;
-	const int rows = dim[0], cols = dim[1], size = dim[2], range = size/2;
+	const size_t rows = dim[0], cols = dim[1], size = dim[2];
+	const int range = size/2;
 	
 		  
 	int i;
