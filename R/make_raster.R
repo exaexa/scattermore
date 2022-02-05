@@ -17,7 +17,10 @@
 #' @param rgba vector with 4 elements or matrix (4xn dim, n >= 2, n ~ xy rows) with R, G, B 
 #'             and alpha channels  in integers, defaults to `c(0,0,0,255)`
 #'
-#' @return float matrix with the result.
+#' @param output_raster If the returned result is in raster form, defaults to `TRUE`. `FALSE`
+#'                      for performing other operations.
+#'
+#' @return float Raster or matrix with the result.
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
@@ -27,7 +30,8 @@ make_raster <- function(
   xlim =c(min(xy[,1]),max(xy[,1])),
   ylim =c(min(xy[,2]),max(xy[,2])),
   size = c(512, 512),
-  rgba = c(0,0,0,255))
+  rgba = c(0,0,0,255),
+  output_raster = TRUE)
 {
    n <- dim(xy)[1]
    if(dim(xy)[2] != 2) stop('2-column xy input expected')
@@ -94,5 +98,5 @@ make_raster <- function(
     matrix = array(as.integer(matrix * 255), c(rows, cols, dim_matrix))
     
     
-    return(grDevices::as.raster(matrix, max = 255))
+    if(output_raster) return(grDevices::as.raster(matrix, max = 255)) else return(matrix)
 }

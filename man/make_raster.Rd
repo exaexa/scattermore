@@ -9,7 +9,8 @@ make_raster(
   xlim = c(min(xy[, 1]), max(xy[, 1])),
   ylim = c(min(xy[, 2]), max(xy[, 2])),
   size = c(512, 512),
-  rgba = c(0, 0, 0, 255)
+  rgba = c(0, 0, 0, 255),
+  output_raster = TRUE
 )
 }
 \arguments{
