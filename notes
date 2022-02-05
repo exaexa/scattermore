@@ -9,9 +9,19 @@ apply_kernel_hist - article, time measure
                   - always odd size kernel
                   - convolution, symmetric filters
                   
-colorize_hist - make raster in R
+colorize_hist - internally rasterization
               - working with integers
               - palette of colors according to hist values
+              
+make_raster - make_raster rgba matrix
+            - using rgbwt matrix
+            - internally in floats
+            - easy/matrix operations in R (optimal)
+            - one color or each point has own color
+            
+            
+
+.C vs .Call?????
 
 
 Description
