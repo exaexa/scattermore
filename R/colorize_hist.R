@@ -19,12 +19,13 @@ colorize_hist <- function(
    rows <- dim(hist)[1]
    cols <- dim(hist)[2]
    size <- dim(rgba)[2]
+   dim_matrix = 4
    
    if(!is.matrix(hist)) stop('histogram in matrix form expected')
    if(dim(rgba)[1] != 4) stop('palette with 4 columns expected')
    if(size < 2) stop('palette with at least 2 colors expected')
    
-   matrix <- rep(0, rows * cols * 4)
+   matrix <- rep(0, rows * cols * dim_matrix)
    
    mini = min(hist)
    maxi = max(hist)
@@ -36,6 +37,6 @@ colorize_hist <- function(
      rgba = as.integer(rgba),
      normalized_hist = as.single(normalized_hist))
 
-    colorized_hist = array(result$matrix, c(rows, cols, 4))
+    colorized_hist = array(result$matrix, c(rows, cols, dim_matrix))
     return(grDevices::as.raster(colorized_hist, max = 255))
 }

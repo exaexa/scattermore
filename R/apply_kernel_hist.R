@@ -27,8 +27,8 @@ apply_kernel_hist <- function(
    	stop('number expected')
    if(filter != "square" && filter != "gauss") stop('"square" or "gauss" kernel expected')
    	
-   rows = dim(hist)[1]
-   cols = dim(hist)[2]  
+   rows <- dim(hist)[1]
+   cols <- dim(hist)[2]  
    
    size = 2*kernel_pixels + 1
    matrix <- rep(0, rows * cols)
