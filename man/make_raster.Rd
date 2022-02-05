@@ -9,7 +9,7 @@ make_raster(
   xlim = c(min(xy[, 1]), max(xy[, 1])),
   ylim = c(min(xy[, 2]), max(xy[, 2])),
   size = c(512, 512),
-  rgba = c(64, 128, 192, 200)
+  rgba = c(0, 0, 0, 255)
 )
 }
 \arguments{
@@ -26,7 +26,7 @@ system by flipping the \code{ylim} vector.}
 defaults to \code{c(512,512)}.}
 
 \item{rgba}{vector with 4 elements or matrix (4xn dim, n >= 2, n ~ xy rows) with R, G, B
-and alpha channels  in integers, defaults to \code{c(64,128,192,200)}}
+and alpha channels  in integers, defaults to \code{c(0,0,0,255)}}
 }
 \value{
 float matrix with the result.

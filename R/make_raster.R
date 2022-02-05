@@ -15,7 +15,7 @@
 #'                   system by flipping the `ylim` vector.
 #'
 #' @param rgba vector with 4 elements or matrix (4xn dim, n >= 2, n ~ xy rows) with R, G, B 
-#'             and alpha channels  in integers, defaults to `c(64,128,192,200)`
+#'             and alpha channels  in integers, defaults to `c(0,0,0,255)`
 #'
 #' @return float matrix with the result.
 #'
@@ -27,7 +27,7 @@ make_raster <- function(
   xlim =c(min(xy[,1]),max(xy[,1])),
   ylim =c(min(xy[,2]),max(xy[,2])),
   size = c(512, 512),
-  rgba = c(64,128,192,200))
+  rgba = c(0,0,0,255))
 {
    n <- dim(xy)[1]
    if(dim(xy)[2] != 2) stop('2-column xy input expected')
@@ -50,9 +50,12 @@ make_raster <- function(
    
    rows = size[1]
    cols = size[2]
-   
-   matrix <- rep(0, rows * cols * 4)     
-   rgbwt <- rep(0, rows * cols * 5)
+   dim_rgbwt = 5
+   dim_matrix = 4
+      
+   rgbwt <- rep(0, rows * cols * dim_rgbwt)
+   rgbwt = array(rgbwt, c(rows, cols, dim_rgbwt))
+   rgbwt[,,5] = 1  #initialize transparency (multiplying)
    
    if(n_col == 1)
    {
@@ -60,8 +63,7 @@ make_raster <- function(
        dimen = as.integer(c(rows, cols, n)),
        xlim = as.single(xlim),
        ylim = as.single(ylim),
-       matrix = as.single(matrix),
-       rgba = as.single(rgba/255),
+       rgba = as.single(rgba / 255),
        rgbwt = as.single(rgbwt),
        xy = as.single(xy))
    }
@@ -71,14 +73,26 @@ make_raster <- function(
        dimen = as.integer(c(rows, cols, n)),
        xlim = as.single(xlim),
        ylim = as.single(ylim),
-       matrix = as.single(matrix),
-       rgba = as.single(rgba/255),
+       rgba = as.single(rgba / 255),
        rgbwt = as.single(rgbwt),
        xy = as.single(xy))
    }
-
-    result$matrix = as.integer(result$matrix*255)
-
-    raster = array(result$matrix, c(rows, cols, 4))
-    return(grDevices::as.raster(raster, max = 255))
+  
+    rgbwt = array(result$rgbwt, c(rows, cols, dim_rgbwt))
+    sum_alpha = rgbwt[,,4]
+    R = ifelse(sum_alpha == 0, 0, rgbwt[,,1] / sum_alpha)  #preventing zero division
+    G = ifelse(sum_alpha == 0, 0, rgbwt[,,2] / sum_alpha)
+    B = ifelse(sum_alpha == 0, 0, rgbwt[,,3] / sum_alpha)
+    A = 1 - rgbwt[,,5]
+    
+    matrix <- rep(0, rows * cols * dim_matrix)
+    matrix = array(matrix, c(rows, cols, dim_matrix))
+    matrix[,,1] = R
+    matrix[,,2] = G
+    matrix[,,3] = B
+    matrix[,,4] = A
+    matrix = array(as.integer(matrix * 255), c(rows, cols, dim_matrix))
+    
+    
+    return(grDevices::as.raster(matrix, max = 255))
 }

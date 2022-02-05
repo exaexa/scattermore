@@ -8,8 +8,8 @@ static const R_CMethodDef cMethods[] = {
 	{ "kernel_hist_square", (DL_FUNC)&kernel_hist_square, 4 },
 	{ "kernel_hist_gauss", (DL_FUNC)&kernel_hist_gauss, 4 },
 	{ "hist_colorize", (DL_FUNC)&hist_colorize, 4 },
-	{ "raster_one", (DL_FUNC)&raster_one, 7 },
-	{ "raster_more", (DL_FUNC)&raster_more, 7 },
+	{ "raster_one", (DL_FUNC)&raster_one, 6 },
+	{ "raster_more", (DL_FUNC)&raster_more, 6 },
 	{ NULL, NULL, 0 }
 };
 
