@@ -14,7 +14,7 @@
 #'                   You can easily flip the top/bottom to the "usual" mathematical
 #'                   system by flipping the `ylim` vector.
 #'
-#' @return float matrix with the result.
+#' @return Float matrix with the result.
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE

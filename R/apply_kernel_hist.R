@@ -2,16 +2,16 @@
 #'
 #' Blur given histogram using `square` or `gauss` filtering.
 #'
-#' @param hist matrix or array R datatype interpreted as histogram
+#' @param hist Matrix or array R datatype interpreted as histogram.
 #'
-#' @param kernel_pixels used for determining size of kernel,
+#' @param kernel_pixels Used for determining size of kernel,
 #'                      (`size = 2*kernel_pixels + 1`), defaults to `2`.
 #'
-#' @param filter either `square`(matrix of ones) or `gaussian` (symmetric)
+#' @param filter Either `square`(matrix of ones) or `gaussian` (symmetric).
 #'
-#' @param sigma parameter for gaussian filtering, defaults to `10`
+#' @param sigma Parameter for gaussian filtering, defaults to `10`.
 #'
-#' @return float matrix with the result.
+#' @return float Matrix with the result.
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE

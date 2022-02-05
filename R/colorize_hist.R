@@ -2,12 +2,12 @@
 #'
 #' Colorize given histogram with input palette.
 #'
-#' @param hist matrix or array R datatype interpreted as histogram
+#' @param hist Matrix or array R datatype interpreted as histogram.
 #'
-#' @param rgba matrix (4xn dim, n>= 2) with R, G, B and alpha channels 
-#'                in integers, defaults to shades of `red`, `green` and `blue` with `alpha = 255`
+#' @param rgba Matrix (4xn dim, n>= 2) with R, G, B and alpha channels 
+#'             in integers, defaults to shades of `red`, `green` and `blue` with `alpha = 255`.
 #'
-#' @return float matrix with the result.
+#' @return Raster with the result.
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
