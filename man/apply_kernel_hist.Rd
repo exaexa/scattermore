@@ -7,17 +7,17 @@
 apply_kernel_hist(hist, filter = "square", kernel_pixels = 2, sigma = 10)
 }
 \arguments{
-\item{hist}{matrix or array R datatype interpreted as histogram}
+\item{hist}{Matrix or array R datatype interpreted as histogram.}
 
-\item{filter}{either \code{square}(matrix of ones) or \code{gaussian} (symmetric)}
+\item{filter}{Either \code{square}(matrix of ones) or \code{gaussian} (symmetric).}
 
-\item{kernel_pixels}{used for determining size of kernel,
+\item{kernel_pixels}{Used for determining size of kernel,
 (\code{size = 2*kernel_pixels + 1}), defaults to \code{2}.}
 
-\item{sigma}{parameter for gaussian filtering, defaults to \code{10}}
+\item{sigma}{Parameter for gaussian filtering, defaults to \code{10}.}
 }
 \value{
-float matrix with the result.
+Float matrix with the result.
 }
 \description{
 Blur given histogram using \code{square} or \code{gauss} filtering.

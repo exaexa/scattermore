@@ -7,14 +7,15 @@
 #' @param rgba Matrix (4xn dim, n>= 2) with R, G, B and alpha channels 
 #'             in integers, defaults to shades of `red`, `green` and `blue` with `alpha = 255`.
 #'
-#' @return Raster with the result.
+#' @return Raster or integer matrix with the result.
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
 #' @importFrom grDevices as.raster
 colorize_hist <- function(
   hist,
-  rgba = array(c(250,128,114,255,144,238,144,255,176,224,230,255), c(4,3)))
+  rgba = array(c(250,128,114,255,144,238,144,255,176,224,230,255), c(4,3)),
+  output_raster = TRUE)
 {
    rows <- dim(hist)[1]
    cols <- dim(hist)[2]
@@ -38,5 +39,5 @@ colorize_hist <- function(
      normalized_hist = as.single(normalized_hist))
 
     colorized_hist = array(result$matrix, c(rows, cols, dim_matrix))
-    return(grDevices::as.raster(colorized_hist, max = 255))
+   if(output_raster) return(grDevices::as.raster(colorized_hist, max = 255)) else return(colorized_hist)
 }

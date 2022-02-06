@@ -11,7 +11,7 @@
 #'
 #' @param sigma Parameter for gaussian filtering, defaults to `10`.
 #'
-#' @return float Matrix with the result.
+#' @return Float matrix with the result.
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
