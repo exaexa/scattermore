@@ -26,7 +26,7 @@ system by flipping the \code{ylim} vector.}
 \item{size}{2-element vector integer size of the result histogram,
 defaults to \code{c(512,512)}.}
 
-\item{rgba}{vector with 4 elements or matrix (4xn dim, n >= 2, n ~ xy rows) with R, G, B
+\item{rgba}{vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B
 and alpha channels  in integers, defaults to \code{c(0,0,0,255)}}
 
 \item{output_raster}{If the returned result is in raster form, defaults to \code{TRUE}. \code{FALSE}

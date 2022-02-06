@@ -14,7 +14,7 @@
 #'                   You can easily flip the top/bottom to the "usual" mathematical
 #'                   system by flipping the `ylim` vector.
 #'
-#' @param rgba vector with 4 elements or matrix (4xn dim, n >= 2, n ~ xy rows) with R, G, B 
+#' @param rgba vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B 
 #'             and alpha channels  in integers, defaults to `c(0,0,0,255)`
 #'
 #' @param output_raster If the returned result is in raster form, defaults to `TRUE`. `FALSE`
@@ -43,7 +43,7 @@ colorize_data <- function(
    	if(length(rgba) != 4) stop('rgba vector of length 4 expected')
    	n_col <- 1
    }
-   else if(is.matrix(rgba))
+   else if(is.matrix(rgba) || is.array(rgba))
    {
 	if(dim(rgba)[1] != 4) stop('rgba matrix with 4 columns expected')
 	n_col <- dim(rgba)[2]
@@ -83,10 +83,10 @@ colorize_data <- function(
    }
   
     rgbwt = array(result$rgbwt, c(rows, cols, dim_rgbwt))
-    sum_alpha = rgbwt[,,4]
-    R = ifelse(sum_alpha == 0, 0, rgbwt[,,1] / sum_alpha)  #preventing zero division
-    G = ifelse(sum_alpha == 0, 0, rgbwt[,,2] / sum_alpha)
-    B = ifelse(sum_alpha == 0, 0, rgbwt[,,3] / sum_alpha)
+    W = rgbwt[,,4]
+    R = ifelse(W == 0, 0, rgbwt[,,1] / W)  #preventing zero division
+    G = ifelse(W == 0, 0, rgbwt[,,2] / W)
+    B = ifelse(W == 0, 0, rgbwt[,,3] / W)
     A = 1 - rgbwt[,,5]
     
     matrix <- rep(0, rows * cols * dim_matrix)
