@@ -31,13 +31,13 @@ apply_kernel_hist <- function(
    rows <- dim(hist)[1]
    cols <- dim(hist)[2]  
    
-   size = 2*kernel_pixels + 1
+   size <- 2*kernel_pixels + 1
    matrix <- rep(0, rows * cols)
    
    if(filter == "square")
    {
       kernel <- rep(1, size * size)
-      kernel = kernel / sum(kernel)     #normalize kernel 
+      kernel <- kernel / sum(kernel)     #normalize kernel 
    
       result <- .C("kernel_hist_square",
         dimen = as.integer(c(rows, cols, size)),
@@ -54,6 +54,6 @@ apply_kernel_hist <- function(
         sigma = as.single(sigma))
    }
 
-    blurred_hist = array(as.single(result$matrix), c(rows, cols))
+    blurred_hist <- array(as.single(result$matrix), c(rows, cols))
     return(blurred_hist)
 }

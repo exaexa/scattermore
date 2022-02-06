@@ -20,7 +20,7 @@
 #' @param output_raster If the returned result is in raster form, defaults to `TRUE`. `FALSE`
 #'                      for performing other operations.
 #'
-#' @return Raster or integer matrix with the result.
+#' @return Raster result or integer rgbwt matrix.
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
@@ -52,14 +52,14 @@ colorize_data <- function(
    else stop('unsupported rgba input')
 
    
-   rows = size[1]
-   cols = size[2]
-   dim_rgbwt = 5
-   dim_matrix = 4
+   rows <- size[1]
+   cols <- size[2]
+   dim_rgbwt <- 5
+   dim_matrix <- 4
       
    rgbwt <- rep(0, rows * cols * dim_rgbwt)
-   rgbwt = array(rgbwt, c(rows, cols, dim_rgbwt))
-   rgbwt[,,5] = 1  #initialize transparency (multiplying)
+   rgbwt <- array(rgbwt, c(rows, cols, dim_rgbwt))
+   rgbwt[,,5] <- 1  #initialize transparency (multiplying)
    
    if(n_col == 1)
    {
@@ -82,20 +82,21 @@ colorize_data <- function(
        xy = as.single(xy))
    }
   
-    rgbwt = array(result$rgbwt, c(rows, cols, dim_rgbwt))
-    W = rgbwt[,,4]
-    R = ifelse(W == 0, 0, rgbwt[,,1] / W)  #preventing zero division
-    G = ifelse(W == 0, 0, rgbwt[,,2] / W)
-    B = ifelse(W == 0, 0, rgbwt[,,3] / W)
-    A = 1 - rgbwt[,,5]
+    rgbwt <- array(result$rgbwt, c(rows, cols, dim_rgbwt))
+    W <- rgbwt[,,4]
+    R <- ifelse(W == 0, 0, rgbwt[,,1] / W)  #preventing zero division
+    G <- ifelse(W == 0, 0, rgbwt[,,2] / W)
+    B <- ifelse(W == 0, 0, rgbwt[,,3] / W)
+    A <- 1 - rgbwt[,,5]
     
     matrix <- rep(0, rows * cols * dim_matrix)
-    matrix = array(matrix, c(rows, cols, dim_matrix))
-    matrix[,,1] = R
-    matrix[,,2] = G
-    matrix[,,3] = B
-    matrix[,,4] = A
+    matrix <- array(matrix, c(rows, cols, dim_matrix))
+    matrix[,,1] <- R
+    matrix[,,2] <- G
+    matrix[,,3] <- B
+    matrix[,,4] <- A
     
-    colorized_data = array(as.integer(matrix * 255), c(rows, cols, dim_matrix))
-    if(output_raster) return(grDevices::as.raster(colorized_data, max = 255)) else return(colorized_data)
+    colorized_data <- array(as.integer(matrix * 255), c(rows, cols, dim_matrix))
+    rgbwt <- array(as.integer(rgbwt*255), c(rows, cols, dim_rgbwt))
+    if(output_raster) return(grDevices::as.raster(colorized_data, max = 255)) else return(rgbwt)
 }

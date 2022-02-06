@@ -18,6 +18,7 @@ make_raster - make_raster rgba matrix
             - internally in floats
             - easy/matrix operations in R (optimal)
             - one color or each point has own color
+            - cache optimal in R, some operations
             
             
 

@@ -13,18 +13,18 @@ apply_kernel_data(
 )
 }
 \arguments{
+\item{rgbwt}{Integer rgbwt matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
+\code{transparency} ~ 1 - alpha).}
+
 \item{filter}{Either \code{circle} or \code{gaussian} (symmetric).}
 
 \item{kernel_pixels}{Used for determining size of kernel,
 (\code{size = 2*kernel_pixels + 1}), defaults to \code{2}.}
 
 \item{sigma}{Parameter for gaussian filtering, defaults to \code{10}.}
-
-\item{hist}{Integer rgbwt matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
-\code{transparency} ~ 1 - alpha).}
 }
 \value{
-Raster or integer matrix with the resul
+Raster result or integer rgbwt matrix.
 }
 \description{
 Blur given rgbwt matrix using \code{circle} or \code{gauss} filtering.

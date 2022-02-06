@@ -2,7 +2,7 @@
 #'
 #' Blur given rgbwt matrix using `circle` or `gauss` filtering.
 #'
-#' @param hist Integer rgbwt matrix (`red`, `green`, `blue` channels, `weight` ~ sum of alphas,
+#' @param rgbwt Integer rgbwt matrix (`red`, `green`, `blue` channels, `weight` ~ sum of alphas,
 #'                                   `transparency` ~ 1 - alpha).
 #'
 #' @param kernel_pixels Used for determining size of kernel,
@@ -12,7 +12,7 @@
 #'
 #' @param sigma Parameter for gaussian filtering, defaults to `10`.
 #'
-#' @return Raster or integer matrix with the resul
+#' @return Raster result or integer rgbwt matrix.
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
@@ -30,16 +30,16 @@ apply_kernel_data <- function(
    	
    rows <- dim(rgbwt)[1]
    cols <- dim(rgbwt)[2]
-   dim_blurred = 5
-   dim_data = 4
+   dim_rgbwt <- 5
+   dim_data <- 4
    
-   size = 2*kernel_pixels + 1
-   blurred <- rep(0, rows * cols * dim_blurred)
+   size <- 2*kernel_pixels + 1
+   blurred <- rep(0, rows * cols * dim_rgbwt)
    
    if(filter == "circle")
    {
       kernel <- rep(1, size * size)
-      kernel = kernel / sum(kernel)     #normalize kernel 
+      kernel <- kernel / sum(kernel)     #normalize kernel 
    
       result <- .C("kernel_data_circle",
         dimen = as.integer(c(rows, cols, size)),
@@ -56,20 +56,21 @@ apply_kernel_data <- function(
         sigma = as.single(sigma))
    }
    
-    blurred = array(result$blurred, c(rows, cols, dim_blurred))
-    W = blurred[,,4]
-    R = ifelse(W == 0, 0, blurred[,,1] / W)  #preventing zero division
-    G = ifelse(W == 0, 0, blurred[,,2] / W)
-    B = ifelse(W == 0, 0, blurred[,,3] / W)
-    A = 1 - blurred[,,5]
+    blurred = array(result$blurred, c(rows, cols, dim_rgbwt))
+    W <- blurred[,,4]
+    R <- ifelse(W == 0, 0, blurred[,,1] / W)  #preventing zero division
+    G <- ifelse(W == 0, 0, blurred[,,2] / W)
+    B <- ifelse(W == 0, 0, blurred[,,3] / W)
+    A <- 1 - blurred[,,5]
 
     matrix <- rep(0, rows * cols * dim_data)
-    matrix = array(matrix, c(rows, cols, dim_data))
-    matrix[,,1] = R
-    matrix[,,2] = G
-    matrix[,,3] = B
-    matrix[,,4] = A
+    matrix <- array(matrix, c(rows, cols, dim_data))
+    matrix[,,1] <- R
+    matrix[,,2] <- G
+    matrix[,,3] <- B
+    matrix[,,4] <- A
     
-    blurred_data = array(as.integer(matrix * 255), c(rows, cols, dim_data))
-    if(output_raster) return(grDevices::as.raster(blurred_data, max = 255)) else return(blurred_data)
+    blurred_data <- array(as.integer(matrix * 255), c(rows, cols, dim_data))
+    rgbwt <- array(as.integer(rgbwt*255), c(rows, cols, dim_rgbwt))
+    if(output_raster) return(grDevices::as.raster(blurred_data, max = 255)) else return(rgbwt)
 }

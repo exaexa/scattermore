@@ -29,9 +29,9 @@ colorize_hist <- function(
    
    matrix <- rep(0, rows * cols * dim_matrix)
    
-   mini = min(hist)
-   maxi = max(hist)
-   normalized_hist = (hist - mini) / (maxi - mini)
+   mini <- min(hist)
+   maxi <- max(hist)
+   normalized_hist <- (hist - mini) / (maxi - mini)
    
    result <- .C("hist_colorize",
      dimen = as.integer(c(rows, cols, size)),
@@ -39,6 +39,6 @@ colorize_hist <- function(
      rgba = as.integer(rgba),
      normalized_hist = as.single(normalized_hist))
 
-    colorized_hist = array(result$matrix, c(rows, cols, dim_matrix))
+    colorized_hist <- array(result$matrix, c(rows, cols, dim_matrix))
    if(output_raster) return(grDevices::as.raster(colorized_hist, max = 255)) else return(colorized_hist)
 }
