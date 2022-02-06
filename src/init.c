@@ -10,6 +10,8 @@ static const R_CMethodDef cMethods[] = {
 	{ "hist_colorize", (DL_FUNC)&hist_colorize, 4 },
 	{ "data_one", (DL_FUNC)&data_one, 6 },
 	{ "data_more", (DL_FUNC)&data_more, 6 },
+	{ "kernel_data_circle", (DL_FUNC)&kernel_data_circle, 4 },
+	{ "kernel_data_gauss", (DL_FUNC)&kernel_data_gauss, 4 },
 	{ NULL, NULL, 0 }
 };
 
