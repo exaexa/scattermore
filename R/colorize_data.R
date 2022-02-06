@@ -1,6 +1,6 @@
-#' make_raster
+#' colorize_data
 #'
-#' Create raster from given data.
+#' Colorize given data with one given color or each point has its corresponding given color.
 #'
 #' @param xy 2-column float matrix with point coordinates. As usual with
 #'           rasters in R, X axis grows right, and Y axis grows DOWN.
@@ -20,12 +20,12 @@
 #' @param output_raster If the returned result is in raster form, defaults to `TRUE`. `FALSE`
 #'                      for performing other operations.
 #'
-#' @return float Raster or matrix with the result.
+#' @return Raster or integer matrix with the result.
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
 #' @importFrom grDevices as.raster
-make_raster <- function(
+colorize_data <- function(
   xy,
   xlim =c(min(xy[,1]),max(xy[,1])),
   ylim =c(min(xy[,2]),max(xy[,2])),
@@ -63,7 +63,7 @@ make_raster <- function(
    
    if(n_col == 1)
    {
-     result <- .C("raster_one",
+     result <- .C("data_one",
        dimen = as.integer(c(rows, cols, n)),
        xlim = as.single(xlim),
        ylim = as.single(ylim),
@@ -73,7 +73,7 @@ make_raster <- function(
    }
    else
    {
-     result <- .C("raster_more",
+     result <- .C("data_more",
        dimen = as.integer(c(rows, cols, n)),
        xlim = as.single(xlim),
        ylim = as.single(ylim),
@@ -95,8 +95,7 @@ make_raster <- function(
     matrix[,,2] = G
     matrix[,,3] = B
     matrix[,,4] = A
-    matrix = array(as.integer(matrix * 255), c(rows, cols, dim_matrix))
     
-    
-    if(output_raster) return(grDevices::as.raster(matrix, max = 255)) else return(matrix)
+    colorized_data = array(as.integer(matrix * 255), c(rows, cols, dim_matrix))
+    if(output_raster) return(grDevices::as.raster(colorized_data, max = 255)) else return(colorized_data)
 }
