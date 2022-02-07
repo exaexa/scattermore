@@ -6,6 +6,7 @@
 \usage{
 apply_kernel_data(
   rgbwt,
+  rgba = NULL,
   filter = "circle",
   radius = 5,
   sigma = 10,
@@ -23,7 +24,7 @@ apply_kernel_data(
 \item{sigma}{Parameter for gaussian filtering, defaults to \code{10}.}
 }
 \value{
-Raster result or integer rgbwt matrix.
+Raster result or list with integer rgbwt and rgba matrices.
 }
 \description{
 Blur given rgbwt matrix using \code{circle} or \code{gauss} filtering.

@@ -13,12 +13,17 @@ colorize_hist - internally rasterization
               - working with integers
               - palette of colors according to hist values
               
-make_raster - make_raster rgba matrix
-            - using rgbwt matrix
-            - internally in floats
-            - easy/matrix operations in R (optimal)
-            - one color or each point has own color
-            - cache optimal in R, some operations
+colorize_data - make_raster rgba matrix
+              - using rgbwt matrix
+              - internally in floats
+              - easy/matrix operations in R (optimal)
+              - one color or each point has own color
+              - cache optimal in R, some operations
+            
+apply_kernel_data -rgbwt (circle) and rgba(gauss) matrices
+                  -return list or raster (colorize_data too) 
+                  - sigma and radius
+                  -inspiration GigaScatter.jl
             
             
 

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
-//blur histogram using square kernel of ones
+//blur data using its rgbwt matrix with circle kernel
 void
 kernel_data_circle(const unsigned *dim,
 		    float *radius,
@@ -12,7 +12,6 @@ kernel_data_circle(const unsigned *dim,
 	             offset_G = size_out, offset_B = offset_G * 2, offset_W = offset_G * 3, offset_T = offset_G * 4;
 	             
 	const int int_radius = ceil(*radius);
-		     
 	const float squared_radius = (*radius) * (*radius);
 	
 	size_t i;
@@ -21,14 +20,15 @@ kernel_data_circle(const unsigned *dim,
 	  size_t j;
 	  for(j = 0; j < size_out_x; ++j)
 	  {
+	  	size_t offset = j*size_out_y + i;	
 
 	  	int x;
 	  	for(x = -int_radius; x <= int_radius; ++x)
 	  	{
 	  	  int y;
-	  	  for(y = -int_radius; x <= int_radius; ++y)
+	  	  for(y = -int_radius; y <= int_radius; ++y)
 	  	  {
-	  	  	if(x*x + y*y > squared_radius)
+	  	  	if(x*x + y*y > squared_radius)   //out from the circle
 	  	  		continue;
 	  	  		
 	  	  	int x_shift = j + x;
@@ -36,13 +36,13 @@ kernel_data_circle(const unsigned *dim,
 	  	  	
 	  	  	if(x_shift < 0 || x_shift >= size_out_x || y_shift < 0 || y_shift >= size_out_y)
 	  	  		continue;
-	  	  			
-	  	  	size_t offset = x_shift*size_out_y + y_shift;	
-	  	  	matrix[offset + offset_R] += rgbwt[offset + offset_R];
-	  	  	matrix[offset + offset_G] += rgbwt[offset + offset_G];
-	  	  	matrix[offset + offset_B] += rgbwt[offset + offset_B];
-	  	  	matrix[offset + offset_W] += rgbwt[offset + offset_W];
-	  	  	matrix[offset + offset_T] *= rgbwt[offset + offset_T];
+	  	  		
+	  	  	size_t offset_shift = x_shift*size_out_y + y_shift;				
+	  	  	matrix[offset + offset_R] += rgbwt[offset_shift + offset_R];
+	  	  	matrix[offset + offset_G] += rgbwt[offset_shift + offset_G];
+	  	  	matrix[offset + offset_B] += rgbwt[offset_shift + offset_B];
+	  	  	matrix[offset + offset_W] += rgbwt[offset_shift + offset_W];
+	  	  	matrix[offset + offset_T] *= rgbwt[offset_shift + offset_T];
 	  	  }
 	  	}
 	  }
