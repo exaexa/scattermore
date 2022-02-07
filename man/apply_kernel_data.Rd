@@ -7,7 +7,7 @@
 apply_kernel_data(
   rgbwt,
   filter = "circle",
-  kernel_pixels = 2,
+  radius = 5,
   sigma = 10,
   output_raster = TRUE
 )
@@ -18,8 +18,7 @@ apply_kernel_data(
 
 \item{filter}{Either \code{circle} or \code{gaussian} (symmetric).}
 
-\item{kernel_pixels}{Used for determining size of kernel,
-(\code{size = 2*kernel_pixels + 1}), defaults to \code{2}.}
+\item{radius}{Size of circle kernel (float), defaults to \code{5}.}
 
 \item{sigma}{Parameter for gaussian filtering, defaults to \code{10}.}
 }
