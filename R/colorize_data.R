@@ -20,7 +20,7 @@
 #' @param output_raster If the returned result is in raster form, defaults to `TRUE`. `FALSE`
 #'                      for performing other operations.
 #'
-#' @return Raster result or integer rgbwt matrix.
+#' @return Raster result or list with integer rgbwt and rgba matrices.
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
@@ -98,5 +98,5 @@ colorize_data <- function(
     
     colorized_data <- array(as.integer(matrix * 255), c(rows, cols, dim_matrix))
     rgbwt <- array(as.integer(rgbwt*255), c(rows, cols, dim_rgbwt))
-    if(output_raster) return(grDevices::as.raster(colorized_data, max = 255)) else return(rgbwt)
+    if(output_raster) return(grDevices::as.raster(colorized_data, max = 255)) else return(list("rgbwt"=rgbwt, "rgba"=colorized_data))
 }

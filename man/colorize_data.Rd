@@ -33,7 +33,7 @@ and alpha channels  in integers, defaults to \code{c(0,0,0,255)}}
 for performing other operations.}
 }
 \value{
-Raster result or integer rgbwt matrix.
+Raster result or list with integer rgbwt and rgba matrices.
 }
 \description{
 Colorize given data with one given color or each point has its corresponding given color.

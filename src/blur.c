@@ -38,7 +38,7 @@ create_gauss(float *kernel,
              const size_t size, 
              const float sigma)
 {
-	int range = size/2;
+	const int range = size/2;
 	const float s = 2 * sigma * sigma;
 	
 	int i;
