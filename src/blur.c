@@ -4,7 +4,7 @@
 //apply blurring for current point, symmetric kernel
 float 
 blur(const float *kernel, 
-     const float *data, 
+     const float *histogram, 
      const unsigned *dim, 
      const size_t x, 
      const size_t y)
@@ -20,11 +20,11 @@ blur(const float *kernel,
 	  int j;
 	  for(j = -range; j <= range; ++j)
 	  {
-	  	int data_index = (x+j)*rows + (y+i);
+	  	int histogram_index = (x+j)*rows + (y+i);
 	  	int kernel_index = (range+j)*size + (range+i);
 	  	
 	  	if(y+i >= 0 && y+i < rows && x+j >= 0 && x+j < cols)
-			sum = sum + data[data_index]*kernel[kernel_index];  //else add nothing (zero border padding)
+			sum = sum + histogram[histogram_index]*kernel[kernel_index];  //else add nothing (zero border padding)
 	  }
 	}
 	  

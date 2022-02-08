@@ -1,12 +1,12 @@
 #include <stdio.h>
 #include <math.h>
 
-//blur data using its rgbwt matrix with circle kernel
+//blur data using its RGBWT matrix with circle kernel
 void
 kernel_data_circle(const unsigned *dim,
 		    float *radius,
-	            float *matrix,
-	            const float *rgbwt)
+	            float *blurred_RGBWT,
+	            const float *RGBWT)
 {
 	const size_t size_out_y = dim[0], size_out_x = dim[1], size_out = size_out_y * size_out_x, offset_R = 0, 
 	             offset_G = size_out, offset_B = offset_G * 2, offset_W = offset_G * 3, offset_T = offset_G * 4;
@@ -38,11 +38,11 @@ kernel_data_circle(const unsigned *dim,
 	  	  		continue;
 	  	  		
 	  	  	size_t offset_shift = x_shift*size_out_y + y_shift;				
-	  	  	matrix[offset + offset_R] += rgbwt[offset_shift + offset_R];
-	  	  	matrix[offset + offset_G] += rgbwt[offset_shift + offset_G];
-	  	  	matrix[offset + offset_B] += rgbwt[offset_shift + offset_B];
-	  	  	matrix[offset + offset_W] += rgbwt[offset_shift + offset_W];
-	  	  	matrix[offset + offset_T] *= rgbwt[offset_shift + offset_T];
+	  	  	blurred_RGBWT[offset + offset_R] += RGBWT[offset_shift + offset_R];
+	  	  	blurred_RGBWT[offset + offset_G] += RGBWT[offset_shift + offset_G];
+	  	  	blurred_RGBWT[offset + offset_B] += RGBWT[offset_shift + offset_B];
+	  	  	blurred_RGBWT[offset + offset_W] += RGBWT[offset_shift + offset_W];
+	  	  	blurred_RGBWT[offset + offset_T] *= RGBWT[offset_shift + offset_T];
 	  	  }
 	  	}
 	  }

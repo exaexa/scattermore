@@ -5,8 +5,8 @@ void
 data_one(const unsigned *dim,
          const float *xlim,
          const float *ylim,
-         const float *rgba,
-         float *rgbwt,
+         const float *RGBA,
+         float *RGBWT,
          const float *xy)
 {
 	const size_t size_out_y = dim[0], size_out_x = dim[1], n = dim[2], size_out = size_out_x * size_out_y,
@@ -16,10 +16,10 @@ data_one(const unsigned *dim,
                     y_begin = ylim[1], y_end = ylim[0], y_bin = (size_out_y - 1) / (y_end - y_begin);
 	             
 
-	float R = rgba[0];
-	float G = rgba[1];
-	float B = rgba[2];
-	float A = rgba[3];
+	float R = RGBA[0];
+	float G = RGBA[1];
+	float B = RGBA[2];
+	float A = RGBA[3];
 
 	size_t i;
 	for(i = 0; i < n; ++i)
@@ -31,10 +31,10 @@ data_one(const unsigned *dim,
 			continue;		
 				
 		size_t offset = x*size_out_y + y;
-		rgbwt[offset + offset_R] += R*A;
-		rgbwt[offset + offset_G] += G*A;  
-		rgbwt[offset + offset_B] += B*A;
-		rgbwt[offset + offset_W] += A;
-		rgbwt[offset + offset_T] *= 1-A;
+		RGBWT[offset + offset_R] += R*A;
+		RGBWT[offset + offset_G] += G*A;  
+		RGBWT[offset + offset_B] += B*A;
+		RGBWT[offset + offset_W] += A;
+		RGBWT[offset + offset_T] *= 1-A;
 	} 
 }

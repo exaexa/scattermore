@@ -4,8 +4,8 @@
 //blur histogram using kernel of ones
 void
 kernel_hist_gauss(const unsigned *dim,
-	          float *matrix,
-	          const float *hist,
+	          float *blurred_histogram,
+	          const float *histogram,
 	          const float *sigma)
 {
 	const size_t size_out_y = dim[0], size_out_x = dim[1], size = dim[2];
@@ -20,7 +20,7 @@ kernel_hist_gauss(const unsigned *dim,
 	  size_t j;
 	  for(j = 0; j < size_out_x; ++j)
 	  {
-	  	matrix[j*size_out_y + i] = blur(kernel, hist, dim, j, i); //blurring of given point
+	  	blurred_histogram[j*size_out_y + i] = blur(kernel, histogram, dim, j, i); //blurring of given point
 	  }
 	}    
 }

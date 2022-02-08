@@ -4,7 +4,7 @@
 void
 hist_int(const unsigned *pn,
 	 const unsigned *size_out,
-	 unsigned *matrix,
+	 unsigned *histogram,
 	 const float *xlim,
 	 const float *ylim,
 	 const float *xy)
@@ -25,7 +25,7 @@ hist_int(const unsigned *pn,
         	if(x >= size_out_x || y >= size_out_y)
         		continue;
         		
-        	++matrix[x*size_out_y + y];
+        	++histogram[x*size_out_y + y];
         }
 
 }
