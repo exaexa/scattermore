@@ -32,12 +32,12 @@ apply_kernel_hist <- function(
    cols <- dim(hist)[2]  
    
    size <- 2*kernel_pixels + 1
-   matrix <- rep(0, rows * cols)
+   matrix <- rep(0, rows * cols) #initialize matrix
    
    if(filter == "square")
    {
-      kernel <- rep(1, size * size)
-      kernel <- kernel / sum(kernel)     #normalize kernel 
+      kernel <- rep(1, size * size) #initialize and normalize kernel
+      kernel <- kernel / sum(kernel)
    
       result <- .C("kernel_hist_square",
         dimen = as.integer(c(rows, cols, size)),

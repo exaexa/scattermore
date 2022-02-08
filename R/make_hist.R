@@ -31,7 +31,7 @@ make_hist <- function(
    
    rows <- size[1]
    cols <- size[2]
-   matrix <- rep(0, rows * cols)
+   matrix <- rep(0, rows * cols)  #initialize matrix
    
    result <- .C("hist_int",
      n = as.integer(n),
