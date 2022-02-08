@@ -1,8 +1,8 @@
-#' apply_kernel_hist
+#' apply_kernel_histogram
 #'
 #' Blur given histogram using `square` or `gauss` filtering.
 #'
-#' @param hist Matrix or array R datatype interpreted as histogram.
+#' @param fhistogram Matrix or array R datatype interpreted as histogram.
 #'
 #' @param filter Either `square`(matrix of ones) or `gaussian` (symmetric).
 #'
@@ -11,28 +11,28 @@
 #'
 #' @param sigma Parameter for gaussian filtering, defaults to `10`.
 #'
-#' @return Float matrix with the result.
+#' @return Float blurred histogram with the result.
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
-apply_kernel_hist <- function(
-  hist,
+apply_kernel_histogram <- function(
+  fhistogram,
   filter = "square",
   kernel_pixels = 2,
   sigma = 10)
 {
 
-   if(!is.matrix(hist) && !is.array(hist)) stop('histogram in matrix form expected')
-   if(dim(hist)[2] < 2) stop('not supported matrix format')
+   if(!is.matrix(fhistogram) && !is.array(fhistogram)) stop('histogram in matrix form expected')
+   if(dim(fhistogram)[2] < 2) stop('not supported matrix format')
    if(!is.numeric(kernel_pixels) || !is.numeric(sigma) || length(kernel_pixels) != 1 || length(sigma) != 1) 
    	stop('number expected')
    if(filter != "square" && filter != "gauss") stop('"square" or "gauss" kernel expected')
    	
-   rows <- dim(hist)[1]
-   cols <- dim(hist)[2]  
+   rows <- dim(fhistogram)[1]
+   cols <- dim(fhistogram)[2]  
    
    size <- 2*kernel_pixels + 1
-   matrix <- rep(0, rows * cols) #initialize matrix
+   blurred_histogram <- rep(0, rows * cols) #initialize blurred histogram
    
    if(filter == "square")
    {
@@ -42,18 +42,18 @@ apply_kernel_hist <- function(
       result <- .C("kernel_hist_square",
         dimen = as.integer(c(rows, cols, size)),
         kernel = as.single(kernel),
-        matrix = as.single(matrix),
-        hist = as.single(hist))
+        blurred_histogram = as.single(blurred_histogram),
+        fhistogram = as.single(fhistogram))
    }
    else
    {
       result <- .C("kernel_hist_gauss",
         dimen = as.integer(c(rows, cols, size)),
-        matrix = as.single(matrix),
-        hist = as.single(hist),
+        blurred_histogram = as.single(blurred_histogram),
+        fhistogram = as.single(fhistogram),
         sigma = as.single(sigma))
    }
 
-    blurred_hist <- array(as.single(result$matrix), c(rows, cols))
-    return(blurred_hist)
+    blurred_histogram <- array(result$blurred_histogram, c(rows, cols))
+    return(blurred_histogram)
 }

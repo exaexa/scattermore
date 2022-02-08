@@ -4,15 +4,15 @@
 \alias{rgbwt_to_rgba_float}
 \title{rgbwt_to_rgba_float}
 \usage{
-rgbwt_to_rgba_float(rgbwt)
+rgbwt_to_rgba_float(fRGBWT)
 }
 \arguments{
-\item{rgbwt}{float rgbwt matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
+\item{rgbwt}{Float rgbwt matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
 \code{transparency} ~ 1 - alpha, dimension nxmx5).}
 }
 \value{
-Integer rgba matrix.
+Float RGBA matrix.
 }
 \description{
-Convert rgbwt matrix to float rgba matrix.
+Convert rgbwt matrix to float RGBA matrix.
 }

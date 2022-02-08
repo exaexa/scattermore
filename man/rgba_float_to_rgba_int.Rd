@@ -4,14 +4,14 @@
 \alias{rgba_float_to_rgba_int}
 \title{rgba_float_to_rgba_int}
 \usage{
-rgba_float_to_rgba_int(rgba)
+rgba_float_to_rgba_int(fRGBA)
 }
 \arguments{
-\item{rgba}{Float rgba matrix (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4, values ~ 0-1).}
+\item{fRGBA}{Float RGBA matrix (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4, values ~ 0-1).}
 }
 \value{
-Integer rgba matrix (values ~ 0-255).
+Integer RGBA matrix (values ~ 0-255).
 }
 \description{
-Convert rgba float matrix to rgba integer matrix.
+Convert RGBA float matrix to RGBA integer matrix.
 }

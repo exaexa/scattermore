@@ -4,14 +4,14 @@
 \alias{rgba_int_to_raster}
 \title{rgba_int_to_raster}
 \usage{
-rgba_int_to_raster(rgba)
+rgba_int_to_raster(i32RGBA)
 }
 \arguments{
-\item{rgba}{Integer rgba matrix (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4, values ~ 0-255).}
+\item{i32RGBA}{Integer RGBA matrix (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4, values ~ 0-255).}
 }
 \value{
 Raster result.
 }
 \description{
-Create raster from given rgba matrix.
+Create raster from given RGBA matrix.
 }

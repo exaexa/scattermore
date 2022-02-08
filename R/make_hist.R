@@ -1,4 +1,4 @@
-#' make_hist
+#' make_histogram
 #'
 #' Create histogram from given point coordinates.
 #'
@@ -11,36 +11,36 @@
 #'                   You can easily flip the top/bottom to the "usual" mathematical
 #'                   system by flipping the `ylim` vector.
 #'
-#' @param size 2-element vector integer size of the result histogram,
+#' @param out_size 2-element vector integer size of the result histogram,
 #'             defaults to `c(512,512)`.
 #'
-#' @return Float matrix with the result.
+#' @return Float histogram with the result (values ~ 0-1).
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
-make_hist <- function(
+make_histogram <- function(
   xy,
   xlim =c(min(xy[,1]),max(xy[,1])),
   ylim =c(min(xy[,2]),max(xy[,2])),
-  size = c(512, 512))
+  out_size = c(512, 512))
 {
    n <- dim(xy)[1]
    if(dim(xy)[2] != 2) stop('2-column xy input expected')
    
-   if(!is.vector(xlim) || !is.vector(ylim) || !is.vector(size)) stop('vector input expected')
+   if(!is.vector(xlim) || !is.vector(ylim) || !is.vector(out_size)) stop('vector input expected')
    
-   rows <- size[1]
-   cols <- size[2]
-   matrix <- rep(0, rows * cols)  #initialize matrix
+   rows <- out_size[1]
+   cols <- out_size[2]
+   histogram <- rep(0, rows * cols)  #initialize histogram
    
    result <- .C("hist_int",
      n = as.integer(n),
-     size = as.integer(size),
-     matrix = as.integer(matrix),
+     out_size = as.integer(out_size),
+     i32histogram = as.integer(histogram),
      xlim = as.single(xlim),
      ylim = as.single(ylim),
      xy = as.single(xy))
      
-    hist <- array(as.single(result$matrix/255), c(rows, cols)) #normalize on values 0-1
-    return(hist)
+    fhistogram <- array(as.single(result$i32histogram/255), c(rows, cols)) #change to values 0-1
+    return(fhistogram)
 }

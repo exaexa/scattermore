@@ -1,21 +1,21 @@
 #' rgba_float_to_rgba_int
 #'
-#' Convert rgba float matrix to rgba integer matrix.
+#' Convert RGBA float matrix to RGBA integer matrix.
 #'
-#' @param rgba Float rgba matrix (`red`, `green`, `blue` and `alpha` channels, dimension nxmx4, values ~ 0-1).
+#' @param fRGBA Float RGBA matrix (`red`, `green`, `blue` and `alpha` channels, dimension nxmx4, values ~ 0-1).
 #'
-#' @return Integer rgba matrix (values ~ 0-255).
+#' @return Integer RGBA matrix (values ~ 0-255).
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
-rgba_float_to_rgba_int <- function(rgba)
+rgba_float_to_rgba_int <- function(fRGBA)
 {
-    dim_rgba <- 4
-    if((!is.matrix(rgba) && !is.array(rgba)) || dim(rgba)[3] != dim_rgba) stop('not supported matrix format')
+    dim_RGBA <- 4
+    if((!is.matrix(fRGBA) && !is.array(fRGBA)) || dim(fRGBA)[3] != dim_RGBA) stop('not supported matrix format')
     
-    rows <- dim(rgba)[1]
-    cols <- dim(rgba)[2]
+    rows <- dim(fRGBA)[1]
+    cols <- dim(fRGBA)[2]
     
-    rgba <- array(as.integer(rgba*255), c(rows, cols, dim_rgba))
-    return(rgba)
+    i32RGBA <- array(as.integer(fRGBA*255), c(rows, cols, dim_RGBA))
+    return(i32RGBA)
 }

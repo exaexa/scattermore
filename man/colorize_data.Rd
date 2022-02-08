@@ -9,7 +9,7 @@ colorize_data(
   xlim = c(min(xy[, 1]), max(xy[, 1])),
   ylim = c(min(xy[, 2]), max(xy[, 2])),
   size = c(512, 512),
-  rgba = c(0, 0, 0, 255)
+  RGBA = c(0, 0, 0, 255)
 )
 }
 \arguments{
@@ -25,11 +25,11 @@ system by flipping the \code{ylim} vector.}
 \item{size}{2-element vector integer size of the result histogram,
 defaults to \code{c(512,512)}.}
 
-\item{rgba}{vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B
-and alpha channels  in integers, defaults to \code{c(0,0,0,255)}}
+\item{RGBA}{Integer vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B
+and alpha channels  in integers, defaults to \code{c(0,0,0,255)}.}
 }
 \value{
-Float rgbwt matrix.
+Float RGBWT matrix.
 }
 \description{
 Colorize given data with one given color or each point has its corresponding given color.
