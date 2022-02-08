@@ -7,6 +7,9 @@
 #' @param rgba Matrix (4xn dim, n>= 2) with R, G, B and alpha channels 
 #'             in integers, defaults to shades of `red`, `green` and `blue` with `alpha = 255`.
 #'
+#' @param output_raster If the returned result is in raster form, defaults to `TRUE`. `FALSE`
+#'                      for performing other operations.
+#'
 #' @return Raster or integer matrix with the result.
 #'
 #' @export

@@ -4,10 +4,10 @@
 #'
 #' @param hist Matrix or array R datatype interpreted as histogram.
 #'
+#' @param filter Either `square`(matrix of ones) or `gaussian` (symmetric).
+#'
 #' @param kernel_pixels Used for determining size of kernel,
 #'                      (`size = 2*kernel_pixels + 1`), defaults to `2`.
-#'
-#' @param filter Either `square`(matrix of ones) or `gaussian` (symmetric).
 #'
 #' @param sigma Parameter for gaussian filtering, defaults to `10`.
 #'

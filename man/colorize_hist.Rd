@@ -15,6 +15,9 @@ colorize_hist(
 
 \item{rgba}{Matrix (4xn dim, n>= 2) with R, G, B and alpha channels
 in integers, defaults to shades of \code{red}, \code{green} and \code{blue} with \code{alpha = 255}.}
+
+\item{output_raster}{If the returned result is in raster form, defaults to \code{TRUE}. \code{FALSE}
+for performing other operations.}
 }
 \value{
 Raster or integer matrix with the result.
