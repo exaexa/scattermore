@@ -11,7 +11,7 @@ void hist_colorize(const unsigned *dim, unsigned *matrix, const unsigned *pallet
 void data_one(const unsigned *dim, const float *xlim, const float *ylim, const float *rgba, float *rgbwt, const float *xy);
 void data_more(const unsigned *dim, const float *xlim, const float *ylim, const float *rgba, float *rgbwt, const float *xy);
 void kernel_data_circle(const unsigned *dim, const float *radius, float *matrix, const float *rgbwt);
-void kernel_data_gauss(const unsigned *dim, float *matrix, const float *rgba, const float *sigma);
+void kernel_data_gauss(const unsigned *dim, float *matrix, const float *rgba, const float *approx_limit, const float *sigma);
 
 
 //helper methods

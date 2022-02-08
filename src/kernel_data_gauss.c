@@ -1,18 +1,18 @@
 #include <stdio.h>
 #include <math.h>
 
-//blur data using its rgba matrix with gaussian kernel
+//blur data using its rgba matrix with gaussian kernel, expands smooth gaussian neighborhoods
 void
 kernel_data_gauss(const unsigned *dim,
 	          float *matrix,
 	          const float *rgba,
+	          const float *approx_limit,
 	          const float *sigma)
 {
 	const size_t size_out_y = dim[0], size_out_x = dim[1], size_out = size_out_y * size_out_x, offset_R = 0, 
 	             offset_G = size_out, offset_B = offset_G * 2, offset_W = offset_G * 3, offset_A = offset_W, offset_T = offset_G * 4;
 	
-	const float app_limit = 3.5; //???????????
-	const float int_radius = ceil(*sigma * app_limit);
+	const float int_radius = ceil((*sigma) * (*approx_limit));  //size of the kernel square
 	const float s = 2 * (*sigma) * (*sigma);
 	
 	

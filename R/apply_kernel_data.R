@@ -3,13 +3,17 @@
 #' Blur given rgbwt matrix using `circle` or `gauss` filtering.
 #'
 #' @param rgbwt Integer rgbwt matrix (`red`, `green`, `blue` channels, `weight` ~ sum of alphas,
-#'                                   `transparency` ~ 1 - alpha).
+#'                                   `transparency` ~ 1 - alpha, dimension nxmx5).
 #'
-#' @param radius Size of circle kernel (float), defaults to `2`.
+#' @param rgba Integer rgba matrix (`red`, `green`, `blue` and `alpha` channels, dimension nxmx4).
 #'
 #' @param filter Either `circle` or `gaussian` (symmetric).
 #'
+#' @param radius Size of circle kernel (float), defaults to `2`.
+#'
 #' @param sigma Parameter for gaussian filtering, defaults to `1`.
+#'
+#' @param approx_limit Sets the size of the kernel square, multiplied with `sigma`, defaults to `3.5`.
 #'
 #' @return Raster result or list with integer rgbwt and rgba matrices.
 #'
@@ -21,6 +25,7 @@ apply_kernel_data <- function(
   filter = "circle",
   radius = 2,
   sigma = 1,
+  approx_limit = 3.5,
   output_raster = TRUE)
 {
    if(!is.numeric(radius) || !is.numeric(sigma) || length(radius) != 1 || length(sigma) != 1) 
@@ -63,6 +68,7 @@ apply_kernel_data <- function(
         dimen = as.integer(c(rows, cols)),
         blurred = as.single(blurred),
         rgba = as.single(rgba / 255),
+        approx_limit = as.single(approx_limit),
         sigma = as.single(sigma))
    }
    

@@ -23,7 +23,7 @@ kernel_data_circle(const unsigned *dim,
 	  	size_t offset = j*size_out_y + i;	
 
 	  	int x;
-	  	for(x = -int_radius; x <= int_radius; ++x)
+	  	for(x = -int_radius; x <= int_radius; ++x)   //use neighboring pixels inside of circle with given radius
 	  	{
 	  	  int y;
 	  	  for(y = -int_radius; y <= int_radius; ++y)

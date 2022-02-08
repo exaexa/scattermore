@@ -8,20 +8,25 @@ apply_kernel_data(
   rgbwt,
   rgba = NULL,
   filter = "circle",
-  radius = 5,
-  sigma = 10,
+  radius = 2,
+  sigma = 1,
+  approx_limit = 3.5,
   output_raster = TRUE
 )
 }
 \arguments{
 \item{rgbwt}{Integer rgbwt matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
-\code{transparency} ~ 1 - alpha).}
+\code{transparency} ~ 1 - alpha, dimension nxmx5).}
+
+\item{rgba}{Integer rgba matrix (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4).}
 
 \item{filter}{Either \code{circle} or \code{gaussian} (symmetric).}
 
-\item{radius}{Size of circle kernel (float), defaults to \code{5}.}
+\item{radius}{Size of circle kernel (float), defaults to \code{2}.}
 
-\item{sigma}{Parameter for gaussian filtering, defaults to \code{10}.}
+\item{sigma}{Parameter for gaussian filtering, defaults to \code{1}.}
+
+\item{approx_limit}{Sets the size of the kernel square, multiplied with \code{sigma}, defaults to \code{3.5}.}
 }
 \value{
 Raster result or list with integer rgbwt and rgba matrices.
