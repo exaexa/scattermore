@@ -9,8 +9,7 @@ colorize_data(
   xlim = c(min(xy[, 1]), max(xy[, 1])),
   ylim = c(min(xy[, 2]), max(xy[, 2])),
   size = c(512, 512),
-  rgba = c(0, 0, 0, 255),
-  output_raster = TRUE
+  rgba = c(0, 0, 0, 255)
 )
 }
 \arguments{
@@ -28,12 +27,9 @@ defaults to \code{c(512,512)}.}
 
 \item{rgba}{vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B
 and alpha channels  in integers, defaults to \code{c(0,0,0,255)}}
-
-\item{output_raster}{If the returned result is in raster form, defaults to \code{TRUE}. \code{FALSE}
-for performing other operations.}
 }
 \value{
-Raster result or list with integer rgbwt and rgba matrices.
+Float rgbwt matrix.
 }
 \description{
 Colorize given data with one given color or each point has its corresponding given color.

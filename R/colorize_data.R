@@ -17,21 +17,16 @@
 #' @param rgba vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B 
 #'             and alpha channels  in integers, defaults to `c(0,0,0,255)`
 #'
-#' @param output_raster If the returned result is in raster form, defaults to `TRUE`. `FALSE`
-#'                      for performing other operations.
-#'
-#' @return Raster result or list with integer rgbwt and rgba matrices.
+#' @return Float rgbwt matrix.
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
-#' @importFrom grDevices as.raster
 colorize_data <- function(
   xy,
   xlim =c(min(xy[,1]),max(xy[,1])),
   ylim =c(min(xy[,2]),max(xy[,2])),
   size = c(512, 512),
-  rgba = c(0,0,0,255),
-  output_raster = TRUE)
+  rgba = c(0,0,0,255))
 {
    n <- dim(xy)[1]
    if(dim(xy)[2] != 2) stop('2-column xy input expected')
@@ -55,9 +50,8 @@ colorize_data <- function(
    rows <- size[1]
    cols <- size[2]
    dim_rgbwt <- 5
-   dim_matrix <- 4
       
-   rgbwt <- rep(0, rows * cols * dim_rgbwt)
+   rgbwt <- rep(0, rows * cols * dim_rgbwt)  #initialize matrix
    rgbwt <- array(rgbwt, c(rows, cols, dim_rgbwt))
    rgbwt[,,5] <- 1  #initialize transparency (multiplying)
    
@@ -82,21 +76,6 @@ colorize_data <- function(
        xy = as.single(xy))
    }
   
-    rgbwt <- array(result$rgbwt, c(rows, cols, dim_rgbwt))
-    W <- rgbwt[,,4]
-    R <- ifelse(W == 0, 0, rgbwt[,,1] / W)  #preventing zero division
-    G <- ifelse(W == 0, 0, rgbwt[,,2] / W)
-    B <- ifelse(W == 0, 0, rgbwt[,,3] / W)
-    A <- 1 - rgbwt[,,5]
-    
-    matrix <- rep(0, rows * cols * dim_matrix)
-    matrix <- array(matrix, c(rows, cols, dim_matrix))
-    matrix[,,1] <- R
-    matrix[,,2] <- G
-    matrix[,,3] <- B
-    matrix[,,4] <- A
-    
-    colorized_data <- array(as.integer(matrix * 255), c(rows, cols, dim_matrix))
-    rgbwt <- array(as.integer(rgbwt*255), c(rows, cols, dim_rgbwt))
-    if(output_raster) return(grDevices::as.raster(colorized_data, max = 255)) else return(list("rgbwt"=rgbwt, "rgba"=colorized_data))
+    rgbwt <- array(as.single(result$rgbwt), c(rows, cols, dim_rgbwt))
+    return(rgbwt)
 }

@@ -41,6 +41,6 @@ make_hist <- function(
      ylim = as.single(ylim),
      xy = as.single(xy))
      
-    hist <- array(as.single(result$matrix), c(rows, cols))
+    hist <- array(as.single(result$matrix/255), c(rows, cols)) #normalize on values 0-1
     return(hist)
 }

@@ -7,41 +7,37 @@
 #' @param rgba Matrix (4xn dim, n>= 2) with R, G, B and alpha channels 
 #'             in integers, defaults to shades of `red`, `green` and `blue` with `alpha = 255`.
 #'
-#' @param output_raster If the returned result is in raster form, defaults to `TRUE`. `FALSE`
-#'                      for performing other operations.
-#'
-#' @return Raster or integer matrix with the result.
+#' @return Float rgbwt matrix.
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
-#' @importFrom grDevices as.raster
 colorize_hist <- function(
   hist,
-  rgba = array(c(250,128,114,255,144,238,144,255,176,224,230,255), c(4,3)),
-  output_raster = TRUE)
-{
-   rows <- dim(hist)[1]
-   cols <- dim(hist)[2]
-   size <- dim(rgba)[2]
-   dim_matrix = 4
-   
+  rgba = array(c(250,128,114,255,144,238,144,255,176,224,230,255), c(4,3)))
+{  
    if(!is.matrix(hist) && !is.array(hist)) stop('histogram in matrix form expected')
    if(dim(hist)[2] < 2) stop('not supported matrix format')
    if(dim(rgba)[1] != 4) stop('palette with 4 columns expected')
-   if(size < 2) stop('palette with at least 2 colors expected')
+   if(dim(rgba)[2] < 2) stop('palette with at least 2 colors expected')
    
-   matrix <- rep(0, rows * cols * dim_matrix)
+   rows <- dim(hist)[1]
+   cols <- dim(hist)[2]
+   size <- dim(rgba)[2]
+   dim_rgbwt <- 5
+   
+   rgbwt <- rep(0, rows * cols * dim_rgbwt)  #initialize matrix
    
    mini <- min(hist)
    maxi <- max(hist)
-   normalized_hist <- (hist - mini) / (maxi - mini)
+   normalized_hist <- (hist - mini) / (maxi - mini)  #normalize histogram on values 0-1
    
    result <- .C("hist_colorize",
      dimen = as.integer(c(rows, cols, size)),
-     matrix = as.integer(matrix),
-     rgba = as.integer(rgba),
+     rgbwt = as.single(rgbwt),
+     rgba = as.single(rgba / 255),
      normalized_hist = as.single(normalized_hist))
+     
 
-    colorized_hist <- array(result$matrix, c(rows, cols, dim_matrix))
-   if(output_raster) return(grDevices::as.raster(colorized_hist, max = 255)) else return(colorized_hist)
+   rgbwt <- array(as.single(result$rgbwt), c(rows, cols, dim_rgbwt))
+   return(rgbwt)
 }
