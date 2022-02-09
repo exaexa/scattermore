@@ -10,14 +10,14 @@
 #' @useDynLib scattermore2, .registration=TRUE
 rgbwt_to_rgba_int <- function(fRGBWT)
 {
-    dim_fRGBWT <- 5
-    if((!is.matrix(fRGBWT) && !is.array(fRGBWT)) || dim(fRGBWT)[3] != dim_fRGBWT) stop('not supported matrix format')
+    dim_RGBWT <- 5
+    if((!is.matrix(fRGBWT) && !is.array(fRGBWT)) || dim(fRGBWT)[3] != dim_RGBWT) stop('not supported fRGBWT format')
     
     rows <- dim(fRGBWT)[1]
     cols <- dim(fRGBWT)[2]
     dim_RGBA <- 4
     
-    fRGBWT <- array(as.single(fRGBWT), c(rows, cols, dim_fRGBWT))
+    fRGBWT <- array(as.single(fRGBWT), c(rows, cols, dim_RGBWT))
     W <- fRGBWT[,,4]
     R <- ifelse(W == 0, 0, fRGBWT[,,1] / W)  #preventing zero division
     G <- ifelse(W == 0, 0, fRGBWT[,,2] / W)

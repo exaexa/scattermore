@@ -4,7 +4,7 @@
 //blur data using its rgba matrix with gaussian kernel, expands smooth gaussian neighborhoods
 void
 kernel_data_gauss(const unsigned *dim,
-	          float *matrix,
+	          float *blurred_RGBWT,
 	          const float *rgba,
 	          const float *approx_limit,
 	          const float *sigma)
@@ -25,7 +25,7 @@ kernel_data_gauss(const unsigned *dim,
 	  	size_t offset = j*size_out_y + i;	
 
 	  	int x;
-	  	for(x = -int_radius; x <= int_radius; ++x)
+	  	for(x = -int_radius; x <= int_radius; ++x)  //use neighboring pixels inside of circle with generated radius
 	  	{
 	  	  int y;
 	  	  for(y = -int_radius; y <= int_radius; ++y)
@@ -40,11 +40,11 @@ kernel_data_gauss(const unsigned *dim,
 	  	  	float r = x*x + y*y;
 	  	  	float gauss_A = rgba[offset_shift + offset_A] * ((exp(-r / s)) / (s * M_PI));
 	  	  					
-	  	  	matrix[offset + offset_R] += rgba[offset_shift + offset_R] * gauss_A;
-	  	  	matrix[offset + offset_G] += rgba[offset_shift + offset_G] * gauss_A;
-	  	  	matrix[offset + offset_B] += rgba[offset_shift + offset_B] * gauss_A;
-	  	  	matrix[offset + offset_W] += gauss_A;
-	  	  	matrix[offset + offset_T] *= 1 - gauss_A;
+	  	  	blurred_RGBWT[offset + offset_R] += rgba[offset_shift + offset_R] * gauss_A;
+	  	  	blurred_RGBWT[offset + offset_G] += rgba[offset_shift + offset_G] * gauss_A;
+	  	  	blurred_RGBWT[offset + offset_B] += rgba[offset_shift + offset_B] * gauss_A;
+	  	  	blurred_RGBWT[offset + offset_W] += gauss_A;
+	  	  	blurred_RGBWT[offset + offset_T] *= 1 - gauss_A;
 	  	  }
 	  	}
 	  }

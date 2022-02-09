@@ -5,21 +5,15 @@
 \title{apply_kernel_data}
 \usage{
 apply_kernel_data(
-  rgbwt,
-  rgba = NULL,
+  fRGBWT,
+  RGBA = NULL,
   filter = "circle",
   radius = 2,
   sigma = 1,
-  approx_limit = 3.5,
-  output_raster = TRUE
+  approx_limit = 3.5
 )
 }
 \arguments{
-\item{rgbwt}{Integer rgbwt matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
-\code{transparency} ~ 1 - alpha, dimension nxmx5).}
-
-\item{rgba}{Integer rgba matrix (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4).}
-
 \item{filter}{Either \code{circle} or \code{gaussian} (symmetric).}
 
 \item{radius}{Size of circle kernel (float), defaults to \code{2}.}
@@ -27,10 +21,13 @@ apply_kernel_data(
 \item{sigma}{Parameter for gaussian filtering, defaults to \code{1}.}
 
 \item{approx_limit}{Sets the size of the kernel square, multiplied with \code{sigma}, defaults to \code{3.5}.}
+
+\item{RGBWT}{Float RGBWT matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
+\code{transparency} ~ 1 - alpha, dimension nxmx5).}
 }
 \value{
-Raster result or list with integer rgbwt and rgba matrices.
+Float RGBWT matrix.
 }
 \description{
-Blur given rgbwt matrix using \code{circle} or \code{gauss} filtering.
+Blur given RGBWT matrix using \code{circle} or \code{gauss} filtering.
 }

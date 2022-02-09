@@ -22,8 +22,8 @@ apply_kernel_histogram <- function(
   sigma = 10)
 {
 
-   if(!is.matrix(fhistogram) && !is.array(fhistogram)) stop('histogram in matrix form expected')
-   if(dim(fhistogram)[2] < 2) stop('not supported matrix format')
+   if(!is.matrix(fhistogram) && !is.array(fhistogram)) stop('fhistogram in matrix form expected')
+   if(dim(fhistogram)[2] < 2) stop('not fhistogram format')
    if(!is.numeric(kernel_pixels) || !is.numeric(sigma) || length(kernel_pixels) != 1 || length(sigma) != 1) 
    	stop('number expected')
    if(filter != "square" && filter != "gauss") stop('"square" or "gauss" kernel expected')

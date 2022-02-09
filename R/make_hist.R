@@ -27,7 +27,7 @@ make_histogram <- function(
    n <- dim(xy)[1]
    if(dim(xy)[2] != 2) stop('2-column xy input expected')
    
-   if(!is.vector(xlim) || !is.vector(ylim) || !is.vector(out_size)) stop('vector input expected')
+   if(!is.vector(xlim) || !is.vector(ylim) || !is.vector(out_size)) stop('vector input in parameters xlim, ylim or out_size expected')
    
    rows <- out_size[1]
    cols <- out_size[2]

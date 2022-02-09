@@ -15,10 +15,10 @@ colorize_histogram <- function(
   fhistogram,
   RGBA = array(c(250,128,114,255,144,238,144,255,176,224,230,255), c(4,3)))
 {  
-   if(!is.matrix(fhistogram) && !is.array(fhistogram)) stop('histogram in matrix form expected')
-   if(dim(fhistogram)[2] < 2) stop('not supported matrix format')
-   if(dim(RGBA)[1] != 4) stop('palette with 4 columns expected')
-   if(dim(RGBA)[2] < 2) stop('palette with at least 2 colors expected')
+   if(!is.matrix(fhistogram) && !is.array(fhistogram)) stop('fhistogram in matrix form expected')
+   if(dim(fhistogram)[2] < 2) stop('not fhistogram format')
+   if(dim(RGBA)[1] != 4) stop('RGBA with 4 columns expected')
+   if(dim(RGBA)[2] < 2) stop('RGBA with at least 2 colors expected')
    
    rows <- dim(fhistogram)[1]
    cols <- dim(fhistogram)[2]

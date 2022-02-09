@@ -11,7 +11,7 @@
 #'                   You can easily flip the top/bottom to the "usual" mathematical
 #'                   system by flipping the `ylim` vector.
 #'
-#' @param size 2-element vector integer size of the result histogram,
+#' @param out_size 2-element vector integer size of the result histogram,
 #'             defaults to `c(512,512)`.
 #'
 #' @param RGBA Integer vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B 
@@ -25,30 +25,30 @@ colorize_data <- function(
   xy,
   xlim =c(min(xy[,1]),max(xy[,1])),
   ylim =c(min(xy[,2]),max(xy[,2])),
-  size = c(512, 512),
+  out_size = c(512, 512),
   RGBA = c(0,0,0,255))
 {
    n <- dim(xy)[1]
    if(dim(xy)[2] != 2) stop('2-column xy input expected')
    
-   if(!is.vector(xlim) || !is.vector(ylim) || !is.vector(size)) stop('vector input expected')
+   if(!is.vector(xlim) || !is.vector(ylim) || !is.vector(out_size)) stop('vector input in parameters xlim, ylim or out_size expected')
    
    if(is.vector(RGBA))
    {
-   	if(length(RGBA) != 4) stop('rgba vector of length 4 expected')
+   	if(length(RGBA) != 4) stop('RGBA vector of length 4 expected')
    	n_col <- 1
    }
    else if(is.matrix(RGBA) || is.array(rgba))
    {
-	if(dim(RGBA)[1] != 4) stop('rgba matrix with 4 columns expected')
+	if(dim(RGBA)[1] != 4) stop('RGBA matrix with 4 columns expected')
 	n_col <- dim(RGBA)[2]
-	if(n_col != n) stop('incorrect number of colors')
+	if(n_col != n) stop('incorrect number of colors parameter RGBA')
    }
-   else stop('unsupported rgba input')
+   else stop('unsupported RGBA input')
 
    
-   rows <- size[1]
-   cols <- size[2]
+   rows <- out_size[1]
+   cols <- out_size[2]
    dim_RGBWT <- 5
       
    RGBWT <- rep(0, rows * cols * dim_RGBWT)  #initialize RGBWT
