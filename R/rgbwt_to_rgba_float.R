@@ -25,9 +25,9 @@ rgbwt_to_rgba_float <- function(fRGBWT)
     
     RGBA <- rep(0, rows * cols * dim_RGBA)  #initialize matrix
     RGBA <- array(RGBA, c(rows, cols, dim_RGBA))
-    RGBA[,,1] <- R
-    RGBA[,,2] <- G
-    RGBA[,,3] <- B
+    RGBA[,,1] <- R*A                        #store premultiplied alpha
+    RGBA[,,2] <- G*A
+    RGBA[,,3] <- B*A
     RGBA[,,4] <- A
     
     fRGBA <- array(as.single(RGBA), c(rows, cols, dim_RGBA))

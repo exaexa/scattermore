@@ -16,6 +16,15 @@ rgba_float_to_rgba_int <- function(fRGBA)
     rows <- dim(fRGBA)[1]
     cols <- dim(fRGBA)[2]
     
+    A <- fRGBA[,,4]
+    R <- ifelse(A == 0, 0, fRGBA[,,1] / A)  #preventing zero division
+    G <- ifelse(A == 0, 0, fRGBA[,,2] / A)  #"unpremultiply" alpha
+    B <- ifelse(A == 0, 0, fRGBA[,,3] / A)
+    
+    fRGBA[,,1] <- R
+    fRGBA[,,2] <- G
+    fRGBA[,,3] <- B
+    
     i32RGBA <- array(as.integer(fRGBA*255), c(rows, cols, dim_RGBA))
     return(i32RGBA)
 }

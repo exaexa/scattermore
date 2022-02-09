@@ -40,6 +40,7 @@ create_gauss(float *kernel,
 {
 	const int range = size/2;
 	const float s = 2 * sigma * sigma;
+	const float s_pi = s * M_PI;
 	
 	int i;
 	for(i = -range; i <= range; ++i)
@@ -49,7 +50,7 @@ create_gauss(float *kernel,
 	  {
 	  	int index = (range+j)*size + (range+i);
 	  	float r = i*i + j*j;
-		kernel[index] = (exp(-r / s)) / (s * M_PI);
+		kernel[index] = (exp(-r / s)) / s_pi;
 	  }
 	}
 }
