@@ -9,7 +9,9 @@ colorize_data(
   xlim = c(min(xy[, 1]), max(xy[, 1])),
   ylim = c(min(xy[, 2]), max(xy[, 2])),
   out_size = c(512, 512),
-  RGBA = c(0, 0, 0, 255)
+  RGBA = c(0, 0, 0, 255),
+  map = NULL,
+  palette = NULL
 )
 }
 \arguments{
@@ -22,11 +24,15 @@ left/top, and the last pixel on the right/bottom), 2-element vector.
 You can easily flip the top/bottom to the "usual" mathematical
 system by flipping the \code{ylim} vector.}
 
-\item{out_size}{2-element vector integer size of the result histogram,
+\item{out_size}{2-element vector, integer size of the result histogram,
 defaults to \code{c(512,512)}.}
 
 \item{RGBA}{Integer vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B
 and alpha channels  in integers, defaults to \code{c(0,0,0,255)}.}
+
+\item{map}{Integer vector with indices to \code{palette}.}
+
+\item{palette}{Matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B and alpha channels  in integers.}
 }
 \value{
 Float RGBWT matrix.

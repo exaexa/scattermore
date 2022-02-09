@@ -17,7 +17,7 @@ colorize_histogram <- function(
 {  
    if(!is.matrix(fhistogram) && !is.array(fhistogram)) stop('fhistogram in matrix form expected')
    if(dim(fhistogram)[2] < 2) stop('not fhistogram format')
-   if(dim(RGBA)[1] != 4) stop('RGBA with 4 columns expected')
+   if(dim(RGBA)[1] != 4) stop('RGBA with 4 rows expected')
    if(dim(RGBA)[2] < 2) stop('RGBA with at least 2 colors expected')
    
    rows <- dim(fhistogram)[1]

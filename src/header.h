@@ -10,6 +10,7 @@ void kernel_hist_gauss(const unsigned *dim, float *blurred_histogram, const floa
 void hist_colorize(const unsigned *dim, float *RGBWT, const float *pallete, const float *histogram);
 void data_one(const unsigned *dim, const float *xlim, const float *ylim, const float *RGBA, float *RGBWT, const float *xy);
 void data_more(const unsigned *dim, const float *xlim, const float *ylim, const float *RGBA, float *RGBWT, const float *xy);
+void data_palette(const unsigned *dim, const float *xlim, const float *ylim, const float *palette, float *RGBWT, const unsigned *map, const float *xy);
 void kernel_data_circle(const unsigned *dim, const float *radius, float *blurred_RGBWT, const float *RGBWT);
 void kernel_data_gauss(const unsigned *dim, float *blurred_RGBWT, const float *RGBWT, const float *approx_limit, const float *sigma);
 
