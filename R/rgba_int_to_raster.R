@@ -12,7 +12,7 @@
 rgba_int_to_raster <- function(i32RGBA)
 {
     dim_RGBA <- 4
-    if((!is.matrix(i32RGBA) && !is.array(i32RGBA)) || dim(i32RGBA)[3] != dim_RGBA) stop('not supported i32RGBA format')
+    if(!is.array(i32RGBA) || dim(i32RGBA)[3] != dim_RGBA) stop('not supported i32RGBA format')
     
     return(grDevices::as.raster(i32RGBA, max = 255))
 }

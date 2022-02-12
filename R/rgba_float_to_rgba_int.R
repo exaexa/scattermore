@@ -11,7 +11,7 @@
 rgba_float_to_rgba_int <- function(fRGBA)
 {
     dim_RGBA <- 4
-    if((!is.matrix(fRGBA) && !is.array(fRGBA)) || dim(fRGBA)[3] != dim_RGBA) stop('not supported fRGBA format')
+    if(!is.array(fRGBA) || dim(fRGBA)[3] != dim_RGBA) stop('not supported fRGBA format')
     
     rows <- dim(fRGBA)[1]
     cols <- dim(fRGBA)[2]

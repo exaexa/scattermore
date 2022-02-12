@@ -13,8 +13,8 @@
 combine_two_rgba_float <- function(fRGBA_1, fRGBA_2)
 {
     dim_RGBA <- 4
-    if((!is.matrix(fRGBA_1) && !is.array(fRGBA_1)) || dim(fRGBA_1)[3] != dim_RGBA) stop('not supported fRGBA_1 format')
-    if((!is.matrix(fRGBA_2) && !is.array(fRGBA_2)) || dim(fRGBA_2)[3] != dim_RGBA) stop('not supported fRGBA_2 format')
+    if(!is.array(fRGBA_1) || dim(fRGBA_1)[3] != dim_RGBA) stop('not supported fRGBA_1 format')
+    if(!is.array(fRGBA_2) || dim(fRGBA_2)[3] != dim_RGBA) stop('not supported fRGBA_2 format')
     if((dim(fRGBA_1)[1] != dim(fRGBA_2)[1]) || (dim(fRGBA_1)[2] != dim(fRGBA_2)[2])) stop('parameters do not have same dimensions')
     
     rows <- dim(fRGBA_1)[1]

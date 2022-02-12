@@ -11,7 +11,7 @@
 rgbwt_to_rgba_int <- function(fRGBWT)
 {
     dim_RGBWT <- 5
-    if((!is.matrix(fRGBWT) && !is.array(fRGBWT)) || dim(fRGBWT)[3] != dim_RGBWT) stop('not supported fRGBWT format')
+    if(!is.array(fRGBWT) || dim(fRGBWT)[3] != dim_RGBWT) stop('not supported fRGBWT format')
     
     rows <- dim(fRGBWT)[1]
     cols <- dim(fRGBWT)[2]

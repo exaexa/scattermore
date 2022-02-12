@@ -32,7 +32,7 @@ apply_kernel_data <- function(
    
    dim_RGBWT <- 5
    
-   if((!is.matrix(fRGBWT) && !is.array(fRGBWT)) || dim(fRGBWT)[3] != 5) stop('not supported fRGBWT format')
+   if(!is.array(fRGBWT) || dim(fRGBWT)[3] != 5) stop('not supported fRGBWT format')
    rows <- dim(fRGBWT)[1]
    cols <- dim(fRGBWT)[2]
 
