@@ -32,21 +32,12 @@ apply_kernel_data <- function(
    
    dim_RGBWT <- 5
    
-   if(filter == "circle")
-   {
-      if((!is.matrix(fRGBWT) && !is.array(fRGBWT)) || dim(fRGBWT)[3] != 5) stop('not supported fRGBWT format')
-      rows <- dim(fRGBWT)[1]
-      cols <- dim(fRGBWT)[2]
-   }
-   else
-   {
-      if((!is.matrix(RGBA) && !is.array(RGBA)) || dim(RGBA)[3] != 4) stop('not supported RGBA format')
-      rows <- dim(RGBA)[1]
-      cols <- dim(RGBA)[2]
-   }
+   if((!is.matrix(fRGBWT) && !is.array(fRGBWT)) || dim(fRGBWT)[3] != 5) stop('not supported fRGBWT format')
+   rows <- dim(fRGBWT)[1]
+   cols <- dim(fRGBWT)[2]
 
    
-   blurred_RGBWT <- rep(0, rows * cols * dim_RGBWT)  #initialize matrix
+   blurred_RGBWT <- rep(0, rows * cols * dim_RGBWT)  #initialize blurred RGBWT matrix
    blurred_RGBWT <- array(blurred_RGBWT, c(rows, cols, dim_RGBWT))
    blurred_RGBWT[,,5] <- 1  #initialize transparency (multiplying)
    
@@ -60,10 +51,10 @@ apply_kernel_data <- function(
    }
    else
    {
-      result <- .C("kernel_data_gauss", #TODO prerobit, ale doteraz funguje
+      result <- .C("kernel_data_gauss",
         dimen = as.integer(c(rows, cols)),
         blurred_fRGBWT = as.single(blurred_RGBWT),
-        RGBA = as.single(RGBA/255),
+        fRGBWT = as.single(fRGBWT),
         approx_limit = as.single(approx_limit),
         sigma = as.single(sigma))
    }
