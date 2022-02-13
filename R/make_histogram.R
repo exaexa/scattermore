@@ -41,6 +41,6 @@ make_histogram <- function(
      ylim = as.single(ylim),
      xy = as.single(xy))
      
-    fhistogram <- array(as.single(result$i32histogram/255), c(rows, cols)) #change to values 0-1
+    fhistogram <- array(as.single(result$i32histogram), c(rows, cols))
     return(fhistogram)
 }
