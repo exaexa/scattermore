@@ -1,0 +1,40 @@
+---
+title: "Histograms with scattermore2"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{histogram}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(scattermore2)
+```
+
+## Create histogram
+```{r}
+histogram <- make_histogram(cbind(rnorm(1e5), rnorm(1e5)), xlim=c(-5,5), ylim=c(-5,5))
+image(histogram)
+```
+
+## Apply kernels on histogram
+```{r}
+blurred_histogram <- apply_kernel_histogram(histogram, kernel_pixels=10)
+gauss_blurred_histogram <- apply_kernel_histogram(histogram, filter="gauss", kernel_pixels=10)
+image(blurred_histogram)
+image(gauss_blurred_histogram)
+```
+
+## Colorize blurred histogram
+```{r}
+colorized <- colorize_histogram(blurred_histogram)
+raster <- rgba_int_to_raster(rgbwt_to_rgba_int(colorized))
+plot(raster)
+```
