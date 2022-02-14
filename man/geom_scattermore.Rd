@@ -44,7 +44,7 @@ non-integer point sizes, e.g. \code{3.2} looks much better than \code{3}.
 \examples{
 library(ggplot2)
 library(scattermore)
-ggplot(data.frame(x=rnorm(100000), y=rexp(100000))) +
+ggplot(data.frame(x=rnorm(1e6), y=rexp(1e6))) +
   geom_scattermore(aes(x,y,color=x),
                    pointsize=3,
                    alpha=0.1,
