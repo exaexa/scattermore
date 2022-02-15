@@ -27,8 +27,8 @@ image(histogram)
 ## Apply kernels on histogram
 ```{r}
 blurred_histogram <- apply_kernel_histogram(histogram, kernel_pixels=10)
-gauss_blurred_histogram <- apply_kernel_histogram(histogram, filter="gauss", kernel_pixels=10)
 image(blurred_histogram)
+gauss_blurred_histogram <- apply_kernel_histogram(histogram, filter="gauss", kernel_pixels=10)
 image(gauss_blurred_histogram)
 ```
 
@@ -39,8 +39,18 @@ raster <- rgba_int_to_raster(rgbwt_to_rgba_int(colorized))
 plot(raster)
 ```
 
+## Colorize blurred histogram with palette
+```{r}
+v = c(255, 0, 0, 100, 0, 255, 0, 25, 0, 0, 255, 50, 0, 0, 0, 100)
+palette = array(v, c(4, 4))
+
+colorized <- colorize_histogram(blurred_histogram, RGBA=palette)
+raster <- rgba_int_to_raster(rgbwt_to_rgba_int(colorized))
+plot(raster)
+```
+
 **************************************************************
-## Nice examples
+## Nice examples using scattermore2
 
 ![Mammoth](../pictures/mammoth_blurred.png)
 
