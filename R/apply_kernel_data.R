@@ -2,7 +2,7 @@
 #'
 #' Blur given RGBWT matrix using `circle` or `gauss` filtering.
 #'
-#' @param RGBWT Float RGBWT matrix (`red`, `green`, `blue` channels, `weight` ~ sum of alphas,
+#' @param fRGBWT Float RGBWT matrix (`red`, `green`, `blue` channels, `weight` ~ sum of alphas,
 #'                                   `transparency` ~ 1 - alpha, dimension nxmx5).
 #'
 #' @param filter Either `circle` or `gaussian` (symmetric).
