@@ -13,6 +13,9 @@ apply_kernel_data(
 )
 }
 \arguments{
+\item{fRGBWT}{Float RGBWT matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
+\code{transparency} ~ 1 - alpha, dimension nxmx5).}
+
 \item{filter}{Either \code{circle} or \code{gaussian} (symmetric).}
 
 \item{radius}{Size of circle kernel (float), defaults to \code{2}.}
@@ -20,9 +23,6 @@ apply_kernel_data(
 \item{sigma}{Parameter for gaussian filtering, defaults to \code{1}.}
 
 \item{approx_limit}{Sets the size of the kernel square, multiplied with \code{sigma}, defaults to \code{3.5}.}
-
-\item{RGBWT}{Float RGBWT matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
-\code{transparency} ~ 1 - alpha, dimension nxmx5).}
 }
 \value{
 Float RGBWT matrix.
