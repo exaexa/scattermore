@@ -6,13 +6,18 @@
 #'           rasters in R, X axis grows right, and Y axis grows DOWN.
 #'           Flipping `ylim` causes the "usual" mathematical behavior.
 #'
-#' @param xlim, ylim Float limits as usual (position of the first pixel on the
-#'                   left/top, and the last pixel on the right/bottom), 2-element vector.
-#'                   You can easily flip the top/bottom to the "usual" mathematical
-#'                   system by flipping the `ylim` vector.
+#' @param xlim Float limits as usual (position of the first pixel on the
+#'             left/top, and the last pixel on the right/bottom), 2-element vector.
+#'             You can easily flip the top/bottom to the "usual" mathematical
+#'             system by flipping the `ylim` vector.
+#'
+#' @param ylim Float limits as usual (position of the first pixel on the
+#'             left/top, and the last pixel on the right/bottom), 2-element vector.
+#'             You can easily flip the top/bottom to the "usual" mathematical
+#'             system by flipping the `ylim` vector.
 #'
 #' @param out_size 2-element vector, integer size of the result histogram,
-#'             defaults to `c(512,512)`.
+#'                 defaults to `c(512,512)`.
 #'
 #' @param RGBA Integer vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B 
 #'             and alpha channels  in integers, defaults to `c(0,0,0,255)`.
