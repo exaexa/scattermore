@@ -2,7 +2,7 @@
 #'
 #' Colorize given histogram with input palette.
 #'
-#' @param histogram Matrix or array R datatype interpreted as histogram.
+#' @param fhistogram Matrix or array R datatype interpreted as histogram.
 #'
 #' @param RGBA Integer matrix (4xn dim, n>= 2) with R, G, B and alpha channels 
 #'             in integers, defaults to shades of `red`, `green` and `blue` with `alpha = 255`.
