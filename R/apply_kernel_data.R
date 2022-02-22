@@ -19,7 +19,6 @@
 #' @useDynLib scattermore2, .registration=TRUE
 apply_kernel_data <- function(
   fRGBWT,
-  RGBA = NULL,
   filter = "circle",
   radius = 2,
   sigma = 1,
