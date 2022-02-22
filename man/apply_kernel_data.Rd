@@ -6,7 +6,6 @@
 \usage{
 apply_kernel_data(
   fRGBWT,
-  RGBA = NULL,
   filter = "circle",
   radius = 2,
   sigma = 1,
