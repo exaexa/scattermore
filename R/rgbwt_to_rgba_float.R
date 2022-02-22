@@ -2,7 +2,7 @@
 #'
 #' Convert rgbwt matrix to float RGBA matrix.
 #'
-#' @param rgbwt Float rgbwt matrix (`red`, `green`, `blue` channels, `weight` ~ sum of alphas,
+#' @param fRGBWT Float rgbwt matrix (`red`, `green`, `blue` channels, `weight` ~ sum of alphas,
 #'                                   `transparency` ~ 1 - alpha, dimension nxmx5).
 #' @return Float RGBA matrix.
 #'
