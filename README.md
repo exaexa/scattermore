@@ -17,4 +17,4 @@ R package with implemented C-based conversion of large scatterplot data to raste
 
 Nice examples for creating histograms from archaelogical data.
 
-<kbd><img src="./pictures/mammoth_blurred.png" width="400" height="400"></kbd> &nbsp;&nbsp;&nbsp; <kbd><img src="./pictures/trex.png" width="400" height="400"></kbd>
+<kbd><img src="./pictures/mammoth_blurred.png" width="300" height="300"></kbd> &nbsp;&nbsp;&nbsp; <kbd><img src="./pictures/trex.png" width="300" height="300"></kbd>
