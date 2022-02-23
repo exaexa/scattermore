@@ -1,18 +1,19 @@
-# scattermore2 🎆
+# scattermore2 🎆 
 
 ## Fast Scatterplots with More Points
 
 [![R-CMD-check](https://github.com/Teri934/scattermore2/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Teri934/scattermore2/actions/workflows/R-CMD-check.yaml) [![pkgdown](https://github.com/Teri934/scattermore2/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Teri934/scattermore2/actions/workflows/pkgdown.yaml)   [![test-coverage](https://github.com/Teri934/scattermore2/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/Teri934/scattermore2/actions/workflows/test-coverage.yaml)
 
-### Installation
+### Installation 💻
 ```r
 devtools::install_github('teri934/scattermore')
 ```
 
-### Short Description
+### Short Description 📝
 R package with implemented C-based conversion of large scatterplot data to rasters plus other operations such as data blurring or data alpha blending. Speeds up plotting of data with millions of points.
 
-### Simple Usage
+
+### Simple Usage 🖱️
 
 ```r
 library(scattermore2)
@@ -39,7 +40,7 @@ plot(raster)
 blabla
 ```
 
-### Extremely Fast
+### Really Fast ⏩
 
 Compare `scattermore2` with default R functionality. `Scattermore2` only creates raster graphics for the plots, its result can be plotted afterwards.
 
