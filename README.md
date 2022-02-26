@@ -6,7 +6,7 @@
 
 ### Installation 💻
 ```r
-devtools::install_github('teri934/scattermore')
+devtools::install_github('teri934/scattermore2')
 ```
 
 ### Short Description 📝
@@ -74,6 +74,8 @@ So we see...
 
 ### Scattermore2 and Archaelogy 🦴
 
-Nice examples for creating histograms from archaelogical data.
+Nice examples for creating histograms from archaelogical data. Smithsonian Institute provides a lot of interesting data, including [mammoth skeleton](https://3d.si.edu/explorer/woolly-mammoth) 
+and [T-rex skeleton eating triceratops skeleton](https://3d.si.edu/object/3d/tyrannosaurus-rex:d8c62d28-4ebc-11ea-b77f-2e728ce88125).
+
 
 <kbd><img src="./pictures/mammoth_blurred.png" width="300" height="300"></kbd> &nbsp;&nbsp;&nbsp; <kbd><img src="./pictures/trex.png" width="300" height="300"></kbd>
