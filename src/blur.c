@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <math.h>
 
-//apply blurring for current point, symmetric kernel
+//apply blurring for current point
+//kernel is symmetric
 float 
 blur(const float *kernel, 
      const float *histogram, 
@@ -9,16 +10,16 @@ blur(const float *kernel,
      const size_t x, 
      const size_t y)
 {
-	float sum = 0;
-	const size_t rows = dim[0];
+    float sum = 0;
+    const size_t rows = dim[0];
     const size_t cols = dim[1];
     const size_t size = dim[2];
-	const int range = size / 2;
+    const int range = size / 2;
 	
 		  
-	int i;
-	for(i = -range; i <= range; ++i)
-	{
+    int i;
+    for (i = -range; i <= range; ++i)
+    {
         int j;
         for(j = -range; j <= range; ++j)
         {
@@ -28,9 +29,9 @@ blur(const float *kernel,
             if(y + i >= 0 && y + i < rows && x + j >= 0 && x + j < cols)
                 sum = sum + histogram[histogram_index] * kernel[kernel_index];  //else add nothing (zero border padding)
         }
-	}
+    }
 	  
-	return sum;
+    return sum;
 }
 
 
@@ -41,15 +42,15 @@ create_gauss(float *kernel,
              const size_t size,
              const float sigma)
 {
-	const int range = size / 2;
-	const float s = 2 * sigma * sigma;
-	const float s_pi = s * M_PI;
+    const int range = size / 2;
+    const float s = 2 * sigma * sigma;
+    const float s_pi = s * M_PI;
 	
-	int i;
-	for(i = -range; i <= range; ++i)
-	{
+    int i;
+    for (i = -range; i <= range; ++i)
+    {
         int j;
-        for(j = -range; j <= range; ++j)
+        for (j = -range; j <= range; ++j)
         {
             int index = (range + j) * size + (range + i);
             float r = i * i + j * j;
