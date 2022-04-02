@@ -5,9 +5,9 @@ void
 hist_colorize(const unsigned *dim,
               float *RGBWT,
               const float *palette,
-	          const float *histogram)
+	      const float *histogram)
 {
-	const size_t size_out_y = dim[0];
+    const size_t size_out_y = dim[0];
     const size_t size_out_x = dim[1];
     const size_t size_palette = dim[2];
     const float bin = 1.0 / size_palette;
@@ -19,11 +19,11 @@ hist_colorize(const unsigned *dim,
     const size_t offset_W = size_out * 3;
     const size_t offset_T = size_out * 4;
 
-	size_t i;
-	for(i = 0; i < size_out_y; ++i)
-	{
+    size_t i;
+    for (i = 0; i < size_out_y; ++i)
+    {
         size_t j;
-        for(j = 0; j < size_out_x; ++j)
+        for (j = 0; j < size_out_x; ++j)
         {
             float histogram_value = histogram[j * size_out_y + i];
             size_t palette_index = ((size_t)(histogram_value / bin));  //determining column in palette
@@ -43,5 +43,5 @@ hist_colorize(const unsigned *dim,
             RGBWT[offset + offset_W] = 1;
             RGBWT[offset + offset_T] = 1 - A;
         }
-	}
+    }
 }
