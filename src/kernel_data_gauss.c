@@ -6,9 +6,9 @@
 void
 kernel_data_gauss(const unsigned *dim,
                   float *blurred_RGBWT,
-	              const float *RGBWT,
-	              const float *approx_limit,
-	              const float *sigma)
+	          const float *RGBWT,
+	          const float *approx_limit,
+	          const float *sigma)
 {
     const size_t size_out_y = dim[0];
     const size_t size_out_x = dim[1];
@@ -20,32 +20,32 @@ kernel_data_gauss(const unsigned *dim,
     const size_t offset_W = size_out * 3;
     const size_t offset_T = size_out * 4;
 	
-	int radius = ceil((*sigma) * (*approx_limit));  //size of the kernel
+    int radius = ceil((*sigma) * (*approx_limit));  //size of the kernel
     const size_t size_kernel = radius * 2 - 1;  //odd size
     const int int_radius = radius / 2;    //updated size of the kernel
     float kernel[size_kernel * size_kernel];
 
+    create_gauss(kernel, size_kernel, *sigma);
 
-	create_gauss(kernel, size_kernel, *sigma);
-
-	size_t i;
-	for(i = 0; i < size_out_y; ++i)
-	{
+	
+    size_t i;
+    for (i = 0; i < size_out_y; ++i)
+    {
         size_t j;
-        for(j = 0; j < size_out_x; ++j)
+        for (j = 0; j < size_out_x; ++j)
         {
             size_t offset = j * size_out_y + i;
 
             int x;
-            for(x = -int_radius; x <= int_radius; ++x)  //use neighboring pixels inside of circle with generated radius
+            for (x = -int_radius; x <= int_radius; ++x)  //use neighboring pixels inside of circle with generated radius
             {
                 int y;
-                for(y = -int_radius; y <= int_radius; ++y)
+                for (y = -int_radius; y <= int_radius; ++y)
                 {
                     int x_shift = j + x;
                     int y_shift = i + y;
 
-                    if(x_shift < 0 || x_shift >= size_out_x || y_shift < 0 || y_shift >= size_out_y)
+                    if (x_shift < 0 || x_shift >= size_out_x || y_shift < 0 || y_shift >= size_out_y)
                         continue;
 
                     size_t offset_shift = x_shift * size_out_y + y_shift;
@@ -55,7 +55,7 @@ kernel_data_gauss(const unsigned *dim,
                     float A = 1 - RGBWT[offset_shift + offset_T];
                     float R, G, B;
 
-                    if(RGBWT[offset_shift + offset_W] != 0)	//find R, G, B values
+                    if (RGBWT[offset_shift + offset_W] != 0)	//find R, G, B values
                     {
                         R = RGBWT[offset_shift + offset_R] / W;
                         G = RGBWT[offset_shift + offset_G] / W;
@@ -76,5 +76,5 @@ kernel_data_gauss(const unsigned *dim,
                 }
             }
         }
-	}
+    }
 }
