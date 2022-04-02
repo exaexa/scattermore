@@ -31,27 +31,27 @@ data_palette(const unsigned *dim,
     const float y_bin = (size_out_y - 1) / (y_end - y_begin);
                                 
 		  	
-	size_t i;
-	for(i = 0; i < size_data; ++i)
-	{
-		size_t x = (xy[i] - x_begin) * x_bin;  //get new point coordinates for result raster
-		size_t y = (xy[i + size_data] - y_begin) * y_bin;
+    size_t i;
+    for (i = 0; i < size_data; ++i)
+    {
+        size_t x = (xy[i] - x_begin) * x_bin;  //get new point coordinates for result raster
+	size_t y = (xy[i + size_data] - y_begin) * y_bin;
 			
-		if(x >= size_out_x || y >= size_out_y)
-			continue;
+	if (x >= size_out_x || y >= size_out_y)
+		continue;
 			
-		size_t index = map[i];		      //get index to palette
+	size_t index = map[i];		      //get index to palette
 			
-		float R = palette[offset_palette * index + 0];
-		float G = palette[offset_palette * index + 1];
-		float B = palette[offset_palette * index + 2];
-		float A = palette[offset_palette * index + 3];
+	float R = palette[offset_palette * index + 0];
+	float G = palette[offset_palette * index + 1];
+	float B = palette[offset_palette * index + 2];
+	float A = palette[offset_palette * index + 3];
 				
-		size_t offset = x * size_out_y + y;
-		RGBWT[offset + offset_R] += R * A;
-		RGBWT[offset + offset_G] += G * A;
-		RGBWT[offset + offset_B] += B * A;
-		RGBWT[offset + offset_W] += A;
-		RGBWT[offset + offset_T] *= 1 - A;
-	}	 
+	size_t offset = x * size_out_y + y;
+	RGBWT[offset + offset_R] += R * A;
+	RGBWT[offset + offset_G] += G * A;
+	RGBWT[offset + offset_B] += B * A;
+	RGBWT[offset + offset_W] += A;
+	RGBWT[offset + offset_T] *= 1 - A;
+    }	 
 }
