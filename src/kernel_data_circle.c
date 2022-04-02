@@ -4,9 +4,9 @@
 //blur data using its RGBWT matrix with circle kernel
 void
 kernel_data_circle(const unsigned *dim,
-		           float *radius,
-	               float *blurred_RGBWT,
-	               const float *RGBWT)
+		   float *radius,
+	           float *blurred_RGBWT,
+	           const float *RGBWT)
 {
     const size_t size_out_y = dim[0];
     const size_t size_out_x = dim[1];
@@ -18,22 +18,23 @@ kernel_data_circle(const unsigned *dim,
     const size_t offset_W = size_out * 3;
     const size_t offset_T = size_out * 4;
 	             
-	const int int_radius = ceil(*radius);
-	const float squared_radius = (*radius) * (*radius);
+    const int int_radius = ceil(*radius);
+    const float squared_radius = (*radius) * (*radius);
 	
-	size_t i;
-	for(i = 0; i < size_out_y; ++i)
-	{
+	
+    size_t i;
+    for (i = 0; i < size_out_y; ++i)
+    {
         size_t j;
-        for(j = 0; j < size_out_x; ++j)
+        for (j = 0; j < size_out_x; ++j)
         {
             size_t offset = j * size_out_y + i;
 
             int x;
-            for(x = -int_radius; x <= int_radius; ++x)   //use neighboring pixels inside of circle with given radius
+            for (x = -int_radius; x <= int_radius; ++x)   //use neighboring pixels inside of circle with given radius
             {
                 int y;
-                for(y = -int_radius; y <= int_radius; ++y)
+                for (y = -int_radius; y <= int_radius; ++y)
                 {
                     if(x * x + y * y > squared_radius)   //out from the circle
                         continue;
