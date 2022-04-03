@@ -69,7 +69,7 @@ system.time(plot(data, pch='.', xlim=c(-5,5), ylim=c(-5,5), col=rgb(0.25,0.5,0.7
   6.944   0.060   7.012 
 ```
 
-So we see...
+So we see other...
 
 
 ### Scattermore2 and Archaelogy 🦴
