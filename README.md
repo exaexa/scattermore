@@ -78,4 +78,4 @@ Nice examples for creating histograms from archaelogical data. Smithsonian Insti
 and [T-rex skeleton eating triceratops skeleton](https://3d.si.edu/object/3d/tyrannosaurus-rex:d8c62d28-4ebc-11ea-b77f-2e728ce88125).
 
 
-<kbd><img src="https://github.com/teri934/scattermore2/blob/master/pictures/mammoth_blurred.png" width="300" height="300"></kbd> &nbsp;&nbsp;&nbsp; <kbd><img src="https://github.com/teri934/scattermore2/blob/master/pictures/trex.png" width="300" height="300"></kbd>
+<kbd><img src="https://raw.githubusercontent.com/teri934/scattermore2/master/pictures/mammoth_blurred.png" width="300" height="300"></kbd> &nbsp;&nbsp;&nbsp; <kbd><img src="https://raw.githubusercontent.com/teri934/scattermore2/master/pictures/trex.png" width="300" height="300"></kbd>
