@@ -1,6 +1,6 @@
 Package: scattermore2
 Title: Scatterplots with More Points
-Version: 0.0.1
+Version: 0.0.0.9000
 Authors@R:
     c(person(given = "Tereza",
            family = "Kulichova",
