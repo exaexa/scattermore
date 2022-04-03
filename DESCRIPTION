@@ -1,9 +1,16 @@
 Package: scattermore2
 Title: Scatterplots with More Points
-Version: 0.0.0.9000
-Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
+Version: 0.0.1
+Authors@R:
+    c(person(given = "Tereza",
+           family = "Kulichova",
+           role = c("aut", "cre"),
+           email = "kulichova.t@gmail.com"),
+    person(given = "Mirek",
+           family = "Kratochvil",
+           role = c("aut", "cre"),
+           email = "exa.exa@gmail.com",
+           comment = c(ORCID = "0000-0001-7356-4075")))
 Description: C-based conversion of large scatterplot data to rasters plus other 
              operations such as data blurring or data alpha blending. Speeds up 
              plotting of data with millions of points.
