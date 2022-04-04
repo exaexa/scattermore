@@ -12,13 +12,13 @@ jobs:
     name: document
     runs-on: ubuntu-latest
     env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_PAT: ${{ secrets.CODECOV_TOKEN }}
     steps:
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/pr-fetch@v1
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.CODECOV_TOKEN }}
 
       - uses: r-lib/actions/setup-r@v1
         with:
@@ -40,20 +40,20 @@ jobs:
 
       - uses: r-lib/actions/pr-push@v1
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.CODECOV_TOKEN }}
 
   style:
     if: ${{ github.event.issue.pull_request && (github.event.comment.author_association == 'MEMBER' || github.event.comment.author_association == 'OWNER') && startsWith(github.event.comment.body, '/style') }}
     name: style
     runs-on: ubuntu-latest
     env:
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_PAT: ${{ secrets.CODECOV_TOKEN }}
     steps:
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/pr-fetch@v1
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.CODECOV_TOKEN }}
 
       - uses: r-lib/actions/setup-r@v1
 
@@ -72,4 +72,4 @@ jobs:
 
       - uses: r-lib/actions/pr-push@v1
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token: ${{ secrets.CODECOV_TOKEN }}
