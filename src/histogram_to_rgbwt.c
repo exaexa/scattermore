@@ -20,10 +20,10 @@ histogram_to_rgbwt(const unsigned *dim,
     const size_t offset_T = size_out * 4;
 
     size_t i;
-    for (i = 0; i < size_out_y; ++i)
+    for(i = 0; i < size_out_y; ++i)
     {
         size_t j;
-        for (j = 0; j < size_out_x; ++j)
+        for(j = 0; j < size_out_x; ++j)
         {
             float histogram_value = histogram[j * size_out_y + i];
             size_t palette_index = ((size_t)(histogram_value / bin));  //determining column in palette

@@ -23,7 +23,7 @@ scatter_histogram(const unsigned *pn,
 	
 
     size_t i;
-    for (i = 0; i < size_data; ++i)
+    for(i = 0; i < size_data; ++i)
     {
         size_t x = (xy[i] - x_begin) * x_bin;  //get new point coordinates for histogram
         size_t y = (xy[i + size_data] - y_begin) * y_bin;

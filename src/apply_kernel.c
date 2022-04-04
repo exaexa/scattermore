@@ -19,7 +19,7 @@ apply_kernel(const float *kernel,
 	
 		  
     int i;
-    for (i = -range; i <= range; ++i)
+    for(i = -range; i <= range; ++i)
     {
         int j;
         for(j = -range; j <= range; ++j)

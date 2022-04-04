@@ -12,10 +12,10 @@ kernel_gauss_histogram(const unsigned *dim,
     const size_t size_out_x = dim[1];
 	
     size_t i;
-    for (i = 0; i < size_out_y; ++i)
+    for(i = 0; i < size_out_y; ++i)
     {
         size_t j;
-        for (j = 0; j < size_out_x; ++j)
+        for(j = 0; j < size_out_x; ++j)
         {
             blurred_histogram[j * size_out_y + i] = apply_kernel(kernel, histogram, dim, j, i); //blurring of given point
         }

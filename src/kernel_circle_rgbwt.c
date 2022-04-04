@@ -26,12 +26,12 @@ kernel_circle_rgbwt(const unsigned *dim,
     for (i = 0; i < size_out_y; ++i)
     {
         size_t j;
-        for (j = 0; j < size_out_x; ++j)
+        for(j = 0; j < size_out_x; ++j)
         {
             size_t offset = j * size_out_y + i;
 
             int x;
-            for (x = -int_radius; x <= int_radius; ++x)   //use neighboring pixels inside of circle with given radius
+            for(x = -int_radius; x <= int_radius; ++x)   //use neighboring pixels inside of circle with given radius
             {
                 int y;
                 for (y = -int_radius; y <= int_radius; ++y)

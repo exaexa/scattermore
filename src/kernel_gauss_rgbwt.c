@@ -23,23 +23,23 @@ kernel_gauss_rgbwt(const unsigned *dim,
 
 	
     size_t i;
-    for (i = 0; i < size_out_y; ++i)
+    for(i = 0; i < size_out_y; ++i)
     {
         size_t j;
-        for (j = 0; j < size_out_x; ++j)
+        for(j = 0; j < size_out_x; ++j)
         {
             size_t offset = j * size_out_y + i;
 
             int x;
-            for (x = -radius; x <= radius; ++x)  //use neighboring pixels inside of circle with generated radius
+            for(x = -radius; x <= radius; ++x)  //use neighboring pixels inside of circle with generated radius
             {
                 int y;
-                for (y = -radius; y <= radius; ++y)
+                for(y = -radius; y <= radius; ++y)
                 {
                     int x_shift = j + x;
                     int y_shift = i + y;
 
-                    if (x_shift < 0 || x_shift >= size_out_x || y_shift < 0 || y_shift >= size_out_y)
+                    if(x_shift < 0 || x_shift >= size_out_x || y_shift < 0 || y_shift >= size_out_y)
                         continue;
 
                     size_t offset_shift = x_shift * size_out_y + y_shift;
@@ -49,7 +49,7 @@ kernel_gauss_rgbwt(const unsigned *dim,
                     float A = 1 - RGBWT[offset_shift + offset_T];
                     float R, G, B;
 
-                    if (RGBWT[offset_shift + offset_W] != 0)	//find R, G, B values
+                    if(RGBWT[offset_shift + offset_W] != 0)	//find R, G, B values
                     {
                         R = RGBWT[offset_shift + offset_R] / W;
                         G = RGBWT[offset_shift + offset_G] / W;
