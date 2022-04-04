@@ -22,23 +22,43 @@ library(scattermore2)
 #### Make Histograms...
 
 ```r
-histogram <- make_histogram(cbind(rnorm(1e5), rnorm(1e5)))
-colorized_histogram <- colorize_histogram(histogram)
-raster <- rgba_int_to_raster(rgbwt_to_rgba_int(colorized_histogram))
+histogram <- scatter_histogram(cbind(rnorm(1e5), rnorm(1e5)), xlim=c(-5,5), ylim=c(-5,5))
+blurred_histogram <- apply_kernel_histogram(histogram, kernel_pixels=10)
+rgbwt <- histogram_to_rgbwt(blurred_histogram)
+raster <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
 plot(raster)
 ```
 
-#### ... Colorize Data...
+#### ... Colorize Points...
 ```r
-colorized <- colorize_data(cbind(rnorm(1e5), rnorm(1e5)), RGBA= c(64,128,192,50))
-raster <- rgba_int_to_raster(rgbwt_to_rgba_int(colorized))
+rgbwt <- scatter_points_rgbwt(points, RGBA= c(64,128,192,50), xlim=c(-5,5), ylim=c(-5,5))
+blurred_rgbwt <- apply_kernel_rgbwt(rgbwt)
+raster <- rgba_int_to_raster(rgbwt_to_rgba_int(blurred_rgbwt))
 plot(raster)
 ```
 
-#### ... and Other Stuff
+#### ... Merge...
 ```r
-blabla
+p1 <- scatter_points_rgbwt(points, RGBA= c(64,128,192,50), xlim=c(-5,5), ylim=c(-5,5))
+p2 <- scatter_points_rgbwt(points, RGBA= c(192,128,64,50), xlim=c(-5,5), ylim=c(-5,5))
+
+merged <- merge_rgbwt(p1,p2)
+raster <- rgba_int_to_raster(rgbwt_to_rgba_int(merged))
+plot(raster)
 ```
+
+#### ... and Blend
+```r
+p1 <- scatter_points_rgbwt(points, RGBA= c(64,128,192,50), xlim=c(-5,5), ylim=c(-5,5))
+p2 <- scatter_points_rgbwt(points, RGBA= c(192,128,64,50), xlim=c(-5,5), ylim=c(-5,5))
+
+p1_frgba <- rgbwt_to_rgba_float(p1)
+p2_frgba <- rgbwt_to_rgba_float(p2)
+blended <- blend_rgba_float(p1_frgba,p2_frgba)
+raster <- rgba_int_to_raster(rgba_float_to_rgba_int(blended))
+plot(raster)
+```
+#### You can find more information in vignettes.
 
 ### Really Fast ⏩
 
@@ -46,11 +66,11 @@ Compare `scattermore2` with default R functionality. `Scattermore2` only creates
 
 ```r
 # create 10 million 2D datapoints
-data <- cbind(rnorm(1e7),rnorm(1e7))
+points <- cbind(rnorm(1e7),rnorm(1e7))
 ```
 ```r
 # plot the datapoints and see how long it takes
-system.time(plot(rgba_int_to_raster(rgbwt_to_rgba_int(colorize_data(data, RGBA= c(64,128,192,50))))))
+system.time(plot(rgba_int_to_raster(rgbwt_to_rgba_int(scatter_points_rgbwt(points, RGBA= c(64,128,192,50), xlim=c(-5,5), ylim=c(-5,5))))))
 
    user  system elapsed 
   0.743   0.216   0.959 
@@ -63,13 +83,11 @@ You should see something like this:
 Now the default:
 
 ```r
-system.time(plot(data, pch='.', xlim=c(-5,5), ylim=c(-5,5), col=rgb(0.25,0.5,0.75,0.04)))
+system.time(plot(points, pch='.', xlim=c(-5,5), ylim=c(-5,5), col=rgb(0.25,0.5,0.75,0.04)))
 
    user  system elapsed 
   6.944   0.060   7.012 
 ```
-
-So we see other...
 
 
 ### Scattermore2 and Archaelogy 🦴
