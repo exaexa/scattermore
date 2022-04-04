@@ -1,4 +1,4 @@
-#' colorize_data
+#' scatter_points_rgbwt
 #'
 #' Colorize given data with one given color or each point has its corresponding given color.
 #'
@@ -30,11 +30,11 @@
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
-colorize_data <- function(
+scatter_points_rgbwt <- function(
   xy,
   xlim = c(min(xy[,1]),max(xy[,1])),
   ylim = c(min(xy[,2]),max(xy[,2])),
-  out_size = c(512, 512),
+  out_size = c(512,512),
   RGBA = c(0,0,0,255),
   map = NULL,
   palette = NULL)
@@ -76,32 +76,32 @@ colorize_data <- function(
    
    if(id == 1)                  #colorize using palette
    {
-     result <- .C("data_palette",
+     result <- .C("scatter_indexed_rgbwt",
        dimen = as.integer(c(rows, cols, n)),
        xlim = as.single(xlim),
        ylim = as.single(ylim),
-       palette = as.single(palette/255),
+       palette = as.single(palette / 255),
        fRGBWT = as.single(RGBWT),
        map = as.integer(map),
        xy = as.single(xy))
    }
    else if(id == 2)            #colorize with one color
    {
-     result <- .C("data_one",
+     result <- .C("scatter_singlecolor_rgbwt",
        dimen = as.integer(c(rows, cols, n)),
        xlim = as.single(xlim),
        ylim = as.single(ylim),
-       RGBA = as.single(RGBA/255),
+       RGBA = as.single(RGBA / 255),
        fRGBWT = as.single(RGBWT),
        xy = as.single(xy))
    }
    else
    {                           #colorize with given color for each point
-     result <- .C("data_more",
+     result <- .C("scatter_multicolor_rgbwt",
        dimen = as.integer(c(rows, cols, n)),
        xlim = as.single(xlim),
        ylim = as.single(ylim),
-       RGBA = as.single(RGBA/255),
+       RGBA = as.single(RGBA / 255),
        fRGBWT = as.single(RGBWT),
        xy = as.single(xy))
    }

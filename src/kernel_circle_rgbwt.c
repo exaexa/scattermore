@@ -3,10 +3,10 @@
 
 //blur data using its RGBWT matrix with circle kernel
 void
-kernel_data_circle(const unsigned *dim,
-		   float *radius,
-	           float *blurred_RGBWT,
-	           const float *RGBWT)
+kernel_circle_rgbwt(const unsigned *dim,
+                    float *radius,
+                    float *blurred_RGBWT,
+                    const float *RGBWT)
 {
     const size_t size_out_y = dim[0];
     const size_t size_out_x = dim[1];

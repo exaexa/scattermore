@@ -39,7 +39,7 @@ apply_kernel_histogram <- function(
       kernel <- rep(1, size * size) #initialize and normalize kernel
       kernel <- kernel / sum(kernel)
    
-      result <- .C("kernel_hist_square",
+      result <- .C("kernel_square_histogram",
         dimen = as.integer(c(rows, cols, size)),
         kernel = as.single(kernel),
         blurred_histogram = as.single(blurred_histogram),
@@ -47,7 +47,7 @@ apply_kernel_histogram <- function(
    }
    else
    {
-      result <- .C("kernel_hist_gauss",
+      result <- .C("kernel_gauss_histogram",
         dimen = as.integer(c(rows, cols, size)),
         blurred_histogram = as.single(blurred_histogram),
         fhistogram = as.single(fhistogram),

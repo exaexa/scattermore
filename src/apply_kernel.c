@@ -1,14 +1,15 @@
 #include <stdio.h>
 #include <math.h>
+#include "kernels.h"
 
 //apply blurring for current point
 //kernel is symmetric
 float 
-blur(const float *kernel, 
-     const float *histogram, 
-     const unsigned *dim, 
-     const size_t x, 
-     const size_t y)
+apply_kernel(const float *kernel,
+             const float *histogram,
+             const unsigned *dim,
+             const size_t x,
+             const size_t y)
 {
     float sum = 0;
     const size_t rows = dim[0];

@@ -1,8 +1,8 @@
 ---
-title: "Histograms with scattermore2"
+title: "Operations with histograms"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{histogram}
+  %\VignetteIndexEntry{Operations with histograms}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,7 +20,7 @@ library(scattermore2)
 
 ## Create histogram
 ```{r}
-histogram <- make_histogram(cbind(rnorm(1e5), rnorm(1e5)), xlim=c(-5,5), ylim=c(-5,5))
+histogram <- scatter_histogram(cbind(rnorm(1e5), rnorm(1e5)), xlim=c(-5,5), ylim=c(-5,5))
 image(histogram)
 ```
 
@@ -34,8 +34,8 @@ image(gauss_blurred_histogram)
 
 ## Colorize blurred histogram
 ```{r}
-colorized <- colorize_histogram(blurred_histogram)
-raster <- rgba_int_to_raster(rgbwt_to_rgba_int(colorized))
+rgbwt <- histogram_to_rgbwt(blurred_histogram)
+raster <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
 plot(raster)
 ```
 
@@ -44,8 +44,8 @@ plot(raster)
 v = c(255, 0, 0, 100, 0, 255, 0, 25, 0, 0, 255, 50, 0, 0, 0, 100)
 palette = array(v, c(4, 4))
 
-colorized <- colorize_histogram(blurred_histogram, RGBA=palette)
-raster <- rgba_int_to_raster(rgbwt_to_rgba_int(colorized))
+rgbwt <- histogram_to_rgbwt(blurred_histogram, RGBA=palette)
+raster <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
 plot(raster)
 ```
 

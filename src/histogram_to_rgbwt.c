@@ -2,10 +2,10 @@
 
 //colorize histogram with given color palette
 void
-hist_colorize(const unsigned *dim,
-              float *RGBWT,
-              const float *palette,
-	      const float *histogram)
+histogram_to_rgbwt(const unsigned *dim,
+                   float *RGBWT,
+                   const float *palette,
+                   const float *histogram)
 {
     const size_t size_out_y = dim[0];
     const size_t size_out_x = dim[1];

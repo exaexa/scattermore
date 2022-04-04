@@ -2,12 +2,12 @@
 
 //create histogram from given point coordinates in respect to output size
 void
-hist_int(const unsigned *pn,
-	 const unsigned *size_out,
-	 unsigned *histogram,
-	 const float *xlim,
-	 const float *ylim,
-	 const float *xy)
+scatter_histogram(const unsigned *pn,
+                  const unsigned *size_out,
+                  unsigned *histogram,
+                  const float *xlim,
+                  const float *ylim,
+                  const float *xy)
 {
     const size_t size_data = *pn;
     const size_t size_out_x = size_out[0];

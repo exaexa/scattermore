@@ -1,4 +1,4 @@
-#' combine_two_rgbwt
+#' merge_rgbwt
 #'
 #' Blend two RGBWT matrices.
 #'
@@ -11,7 +11,7 @@
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
-combine_two_rgbwt <- function(fRGBWT_1, fRGBWT_2)
+merge_rgbwt <- function(fRGBWT_1, fRGBWT_2)
 {
     dim_RGBWT <- 5
     if(!is.array(fRGBWT_1) || dim(fRGBWT_1)[3] != dim_RGBWT) stop('not supported fRGBWT_1 format')

@@ -25,6 +25,6 @@ rgba_float_to_rgba_int <- function(fRGBA)
     fRGBA[,,2] <- G
     fRGBA[,,3] <- B
     
-    i32RGBA <- array(as.integer(fRGBA*255), c(rows, cols, dim_RGBA))
+    i32RGBA <- array(as.integer(fRGBA * 255), c(rows, cols, dim_RGBA))
     return(i32RGBA)
 }

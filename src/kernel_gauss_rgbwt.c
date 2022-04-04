@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <math.h>
-#include "header.h"
+#include "kernels.h"
 
 //blur data using its RGBWT matrix with gaussian kernel, expands smooth gaussian neighborhoods
 void
-kernel_data_gauss(const unsigned *dim,
-                  float *blurred_RGBWT,
-	          const float *RGBWT,
-	          const float *approx_limit,
-	          const float *sigma)
+kernel_gauss_rgbwt(const unsigned *dim,
+                   float *blurred_RGBWT,
+                   const float *RGBWT,
+                   const float *approx_limit,
+                   const float *sigma)
 {
     const size_t size_out_y = dim[0];
     const size_t size_out_x = dim[1];

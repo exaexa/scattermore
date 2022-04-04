@@ -1,4 +1,4 @@
-#' apply_kernel_data
+#' apply_kernel_rgbwt
 #'
 #' Blur given RGBWT matrix using `circle` or `gauss` filtering.
 #'
@@ -17,7 +17,7 @@
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
-apply_kernel_data <- function(
+apply_kernel_rgbwt <- function(
   fRGBWT,
   filter = "circle",
   radius = 2,
@@ -42,7 +42,7 @@ apply_kernel_data <- function(
    
    if(filter == "circle")
    {
-      result <- .C("kernel_data_circle",
+      result <- .C("kernel_circle_rgbwt",
         dimen = as.integer(c(rows, cols)),
         radius = as.single(radius),
         blurred_fRGBWT = as.single(blurred_RGBWT),
@@ -50,7 +50,7 @@ apply_kernel_data <- function(
    }
    else
    {
-      result <- .C("kernel_data_gauss",
+      result <- .C("kernel_gauss_rgbwt",
         dimen = as.integer(c(rows, cols)),
         blurred_fRGBWT = as.single(blurred_RGBWT),
         fRGBWT = as.single(fRGBWT),

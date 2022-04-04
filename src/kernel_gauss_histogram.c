@@ -1,12 +1,12 @@
 #include <stdio.h>
-#include "header.h"
+#include "kernels.h"
 
 //blur histogram using kernel of ones
 void
-kernel_hist_gauss(const unsigned *dim,
-	          float *blurred_histogram,
-	          const float *histogram,
-	          const float *sigma)
+kernel_gauss_histogram(const unsigned *dim,
+                       float *blurred_histogram,
+                       const float *histogram,
+                       const float *sigma)
 {
     const size_t size_out_y = dim[0];
     const size_t size_out_x = dim[1];
@@ -21,7 +21,7 @@ kernel_hist_gauss(const unsigned *dim,
         size_t j;
         for (j = 0; j < size_out_x; ++j)
         {
-            blurred_histogram[j * size_out_y + i] = blur(kernel, histogram, dim, j, i); //blurring of given point
+            blurred_histogram[j * size_out_y + i] = apply_kernel(kernel, histogram, dim, j, i); //blurring of given point
         }
     }    
 }

@@ -1,4 +1,4 @@
-#' make_histogram
+#' scatter_histogram
 #'
 #' Create histogram from given point coordinates.
 #'
@@ -23,11 +23,11 @@
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
-make_histogram <- function(
+scatter_histogram <- function(
   xy,
   xlim =c(min(xy[,1]),max(xy[,1])),
   ylim =c(min(xy[,2]),max(xy[,2])),
-  out_size = c(512, 512))
+  out_size = c(512,512))
 {
    n <- dim(xy)[1]
    if(dim(xy)[2] != 2) stop('2-column xy input expected')
@@ -38,7 +38,7 @@ make_histogram <- function(
    cols <- out_size[2]
    histogram <- rep(0, rows * cols)  #initialize histogram
    
-   result <- .C("hist_int",
+   result <- .C("scatter_histogram",
      n = as.integer(n),
      out_size = as.integer(out_size),
      i32histogram = as.integer(histogram),

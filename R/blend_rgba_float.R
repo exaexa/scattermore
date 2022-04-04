@@ -1,4 +1,4 @@
-#' combine_two_rgba_float
+#' blend_rgba_float
 #'
 #' Blend two RGBA matrices.
 #'
@@ -10,7 +10,7 @@
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
-combine_two_rgba_float <- function(fRGBA_1, fRGBA_2)
+blend_rgba_float <- function(fRGBA_1, fRGBA_2)
 {
     dim_RGBA <- 4
     if(!is.array(fRGBA_1) || dim(fRGBA_1)[3] != dim_RGBA) stop('not supported fRGBA_1 format')
@@ -28,7 +28,7 @@ combine_two_rgba_float <- function(fRGBA_1, fRGBA_2)
     RGBA[,,1] <- fRGBA_1[,,1] + (fRGBA_2[,,1] * (1-A_1))  #blend with premultiplied alpha
     RGBA[,,2] <- fRGBA_1[,,2] + (fRGBA_2[,,2] * (1-A_1))
     RGBA[,,3] <- fRGBA_1[,,3] + (fRGBA_2[,,3] * (1-A_1))
-    RGBA[,,4] <- A_1 + (A_2 * (1-A_1))
+    RGBA[,,4] <- A_1 + (A_2 * (1 - A_1))
     
     fRGBA <- array(as.single(RGBA), c(rows, cols, dim_RGBA))
     return(fRGBA)

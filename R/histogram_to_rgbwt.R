@@ -1,4 +1,4 @@
-#' colorize_histogram
+#' histogram_to_rgbwt
 #'
 #' Colorize given histogram with input palette.
 #'
@@ -11,7 +11,7 @@
 #'
 #' @export
 #' @useDynLib scattermore2, .registration=TRUE
-colorize_histogram <- function(
+histogram_to_rgbwt <- function(
   fhistogram,
   RGBA = array(c(250,128,114,255,144,238,144,255,176,224,230,255), c(4,3)))
 {  
@@ -27,11 +27,11 @@ colorize_histogram <- function(
    
    RGBWT <- rep(0, rows * cols * dim_RGBWT)  #initialize matrix
    
-   mini <- min(fhistogram)
-   maxi <- max(fhistogram)
-   normalized_fhistogram <- (fhistogram - mini) / (maxi - mini)  #normalize histogram on values 0-1
+   minimum <- min(fhistogram)
+   maximum <- max(fhistogram)
+   normalized_fhistogram <- (fhistogram - minimum) / (maximum - minimum)  #normalize histogram on values 0-1
    
-   result <- .C("hist_colorize",
+   result <- .C("histogram_to_rgbwt",
      dimen = as.integer(c(rows, cols, size)),
      fRGBWT = as.single(RGBWT),
      RGBA = as.single(RGBA / 255),
