@@ -13,7 +13,7 @@ static const R_CMethodDef cMethods[] = {
 	{ "scatter_multicolor_rgbwt", (DL_FUNC)&scatter_multicolor_rgbwt, 6 },
 	{ "scatter_indexed_rgbwt", (DL_FUNC)&scatter_indexed_rgbwt, 7 },
 	{ "kernel_circle_rgbwt", (DL_FUNC)&kernel_circle_rgbwt, 4 },
-	{ "kernel_gauss_rgbwt", (DL_FUNC)&kernel_gauss_rgbwt, 5 },
+	{ "kernel_gauss_rgbwt", (DL_FUNC)&kernel_gauss_rgbwt, 4 },
 	{ NULL, NULL, 0 }
 };
 

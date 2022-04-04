@@ -50,12 +50,27 @@ apply_kernel_rgbwt <- function(
    }
    else
    {
+      gauss_radius <- ceiling(sigma * approx_limit);  #size of the kernel
+      size <- gauss_radius * 2 - 1;  #odd size
+      range <- as.integer(size / 2)
+      grid <- array(rep(0, size * size), c(size, size))
+      centre <- range + 1
+      for (value in -range:range)  #creating grid of points
+      {
+        grid[centre + value,] <- rep(value, size)
+      }
+      x_coordinates <- grid  #gauss kernel calculations
+      y_coordinates <- t(grid)
+      squared_coordinates <- x_coordinates * x_coordinates + y_coordinates * y_coordinates
+      multiplied_sigma <- 2 * sigma * sigma;
+      multiplied_pi <- multiplied_sigma * pi;
+      kernel <- exp(-squared_coordinates / multiplied_sigma) / multiplied_pi
+
       result <- .C("kernel_gauss_rgbwt",
-        dimen = as.integer(c(rows, cols)),
+        dimen = as.integer(c(rows, cols, size)),
+        kernel = as.single(kernel),
         blurred_fRGBWT = as.single(blurred_RGBWT),
-        fRGBWT = as.single(fRGBWT),
-        approx_limit = as.single(approx_limit),
-        sigma = as.single(sigma))
+        fRGBWT = as.single(fRGBWT))
    }
 
     blurred_fRGBWT <- array(result$blurred_fRGBWT, c(rows, cols, dim_RGBWT))

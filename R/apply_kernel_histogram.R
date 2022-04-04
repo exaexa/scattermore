@@ -31,7 +31,7 @@ apply_kernel_histogram <- function(
    rows <- dim(fhistogram)[1]
    cols <- dim(fhistogram)[2]  
    
-   size <- 2*kernel_pixels + 1
+   size <- 2 * kernel_pixels + 1
    blurred_histogram <- rep(0, rows * cols) #initialize blurred histogram
    
    if(filter == "square")
@@ -47,11 +47,25 @@ apply_kernel_histogram <- function(
    }
    else
    {
+      range <- as.integer(size / 2)
+      grid <- array(rep(0, size * size), c(size, size))
+      centre <- range + 1
+      for (value in -range:range)  #creating grid of points
+      {
+        grid[centre + value,] <- rep(value, size)
+      }
+      x_coordinates <- grid  #gauss kernel calculations
+      y_coordinates <- t(grid)
+      squared_coordinates <- x_coordinates * x_coordinates + y_coordinates * y_coordinates
+      multiplied_sigma <- 2 * sigma * sigma;
+      multiplied_pi <- multiplied_sigma * pi;
+      kernel <- exp(-squared_coordinates / multiplied_sigma) / multiplied_pi
+
       result <- .C("kernel_gauss_histogram",
         dimen = as.integer(c(rows, cols, size)),
+        kernel = as.single(kernel),
         blurred_histogram = as.single(blurred_histogram),
-        fhistogram = as.single(fhistogram),
-        sigma = as.single(sigma))
+        fhistogram = as.single(fhistogram))
    }
 
     blurred_histogram <- array(result$blurred_histogram, c(rows, cols))

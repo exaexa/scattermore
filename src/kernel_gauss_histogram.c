@@ -4,16 +4,12 @@
 //blur histogram using kernel of ones
 void
 kernel_gauss_histogram(const unsigned *dim,
+                       const float *kernel,
                        float *blurred_histogram,
-                       const float *histogram,
-                       const float *sigma)
+                       const float *histogram)
 {
     const size_t size_out_y = dim[0];
     const size_t size_out_x = dim[1];
-    const size_t size_kernel = dim[2];
-    float kernel[size_kernel * size_kernel];
-
-    create_gauss(kernel, size_kernel, *sigma);
 	
     size_t i;
     for (i = 0; i < size_out_y; ++i)

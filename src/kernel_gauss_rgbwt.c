@@ -5,13 +5,14 @@
 //blur data using its RGBWT matrix with gaussian kernel, expands smooth gaussian neighborhoods
 void
 kernel_gauss_rgbwt(const unsigned *dim,
+                   const float *kernel,
                    float *blurred_RGBWT,
-                   const float *RGBWT,
-                   const float *approx_limit,
-                   const float *sigma)
+                   const float *RGBWT)
 {
     const size_t size_out_y = dim[0];
     const size_t size_out_x = dim[1];
+    const size_t size_kernel = dim[2];
+    const int radius = size_kernel / 2;
     const size_t size_out = size_out_x * size_out_y;
 
     const size_t offset_R = size_out * 0;
@@ -19,13 +20,6 @@ kernel_gauss_rgbwt(const unsigned *dim,
     const size_t offset_B = size_out * 2;
     const size_t offset_W = size_out * 3;
     const size_t offset_T = size_out * 4;
-	
-    int radius = ceil((*sigma) * (*approx_limit));  //size of the kernel
-    const size_t size_kernel = radius * 2 - 1;  //odd size
-    const int int_radius = radius / 2;    //updated size of the kernel
-    float kernel[size_kernel * size_kernel];
-
-    create_gauss(kernel, size_kernel, *sigma);
 
 	
     size_t i;
@@ -37,10 +31,10 @@ kernel_gauss_rgbwt(const unsigned *dim,
             size_t offset = j * size_out_y + i;
 
             int x;
-            for (x = -int_radius; x <= int_radius; ++x)  //use neighboring pixels inside of circle with generated radius
+            for (x = -radius; x <= radius; ++x)  //use neighboring pixels inside of circle with generated radius
             {
                 int y;
-                for (y = -int_radius; y <= int_radius; ++y)
+                for (y = -radius; y <= radius; ++y)
                 {
                     int x_shift = j + x;
                     int y_shift = i + y;
@@ -64,7 +58,7 @@ kernel_gauss_rgbwt(const unsigned *dim,
                     else
                         R = G = B = 0;
 
-                    int kernel_index = (int_radius + x) * size_kernel + (int_radius + y);
+                    int kernel_index = (radius + x) * size_kernel + (radius + y);
                     float gauss_A = A * kernel[kernel_index];
 
 

@@ -34,28 +34,3 @@ apply_kernel(const float *kernel,
 	  
     return sum;
 }
-
-
-//create gaussian filter with given sigma and size
-//size must be odd
-void 
-create_gauss(float *kernel, 
-             const size_t size,
-             const float sigma)
-{
-    const int range = size / 2;
-    const float s = 2 * sigma * sigma;
-    const float s_pi = s * M_PI;
-	
-    int i;
-    for (i = -range; i <= range; ++i)
-    {
-        int j;
-        for (j = -range; j <= range; ++j)
-        {
-            int index = (range + j) * size + (range + i);
-            float r = i * i + j * j;
-            kernel[index] = (exp(-r / s)) / s_pi;
-        }
-    }
-}
