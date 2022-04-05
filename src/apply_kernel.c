@@ -4,7 +4,7 @@
 
 //apply blurring for current point
 //kernel is symmetric
-float 
+float
 apply_kernel(const float *kernel,
              const float *histogram,
              const unsigned *dim,
@@ -16,8 +16,8 @@ apply_kernel(const float *kernel,
     const size_t cols = dim[1];
     const size_t size = dim[2];
     const int range = size / 2;
-	
-		  
+
+
     int i;
     for(i = -range; i <= range; ++i)
     {
@@ -31,6 +31,6 @@ apply_kernel(const float *kernel,
                 sum = sum + histogram[histogram_index] * kernel[kernel_index];  //else add nothing (zero border padding)
         }
     }
-	  
+
     return sum;
 }

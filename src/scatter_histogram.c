@@ -20,7 +20,7 @@ scatter_histogram(const unsigned *pn,
     const float y_begin = ylim[1];
     const float y_end = ylim[0];
     const float y_bin = (size_out_y - 1) / (y_end - y_begin);
-	
+
 
     size_t i;
     for(i = 0; i < size_data; ++i)

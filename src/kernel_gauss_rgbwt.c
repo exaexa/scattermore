@@ -21,7 +21,7 @@ kernel_gauss_rgbwt(const unsigned *dim,
     const size_t offset_W = size_out * 3;
     const size_t offset_T = size_out * 4;
 
-	
+
     size_t i;
     for(i = 0; i < size_out_y; ++i)
     {

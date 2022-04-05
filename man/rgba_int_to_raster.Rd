@@ -7,7 +7,7 @@
 rgba_int_to_raster(i32RGBA)
 }
 \arguments{
-\item{i32RGBA}{Integer RGBA matrix (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4, values ~ 0-255).}
+\item{i32RGBA}{RGBA matrix (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4, values ~ 0-255).}
 }
 \value{
 Raster result.

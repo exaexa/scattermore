@@ -29,8 +29,8 @@ scatter_indexed_rgbwt(const unsigned *dim,
     const float y_begin = ylim[1];
     const float y_end = ylim[0];
     const float y_bin = (size_out_y - 1) / (y_end - y_begin);
-                                
-		  	
+
+
     size_t i;
     for(i = 0; i < size_data; ++i)
     {
@@ -39,19 +39,19 @@ scatter_indexed_rgbwt(const unsigned *dim,
 
         if(x >= size_out_x || y >= size_out_y)
 		    continue;
-			
+
 	    size_t index = map[i];		      //get index to palette
-			
+
 	    float R = palette[offset_palette * index + 0];
         float G = palette[offset_palette * index + 1];
         float B = palette[offset_palette * index + 2];
         float A = palette[offset_palette * index + 3];
-				
+
 	    size_t offset = x * size_out_y + y;
         RGBWT[offset + offset_R] += R * A;
         RGBWT[offset + offset_G] += G * A;
         RGBWT[offset + offset_B] += B * A;
         RGBWT[offset + offset_W] += A;
         RGBWT[offset + offset_T] *= 1 - A;
-    }	 
+    }
 }

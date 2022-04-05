@@ -14,6 +14,7 @@ Authors@R:
 Description: C-based conversion of large scatterplot data to rasters plus other 
              operations such as data blurring or data alpha blending. Speeds up 
              plotting of data with millions of points.
+Imports: ggplot2, scales, grid, grDevices, graphics
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

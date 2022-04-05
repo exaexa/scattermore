@@ -50,7 +50,7 @@ plot(raster)
 ```{r}
 v = c(255, 0, 0, 100, 0, 255, 0, 10, 0, 0, 255, 10, 0, 0, 0, 0)
 colors <- array(v, c(4, 100000))
-rgbwt <- scatter_points_rgbwt(cbind(rnorm(1e5), rnorm(1e5)), RGBA = colors)
+rgbwt <- scatter_points_rgbwt(points, RGBA = colors)
 raster <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
 plot(raster)
 ```

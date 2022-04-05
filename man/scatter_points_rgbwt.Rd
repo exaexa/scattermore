@@ -15,32 +15,32 @@ scatter_points_rgbwt(
 )
 }
 \arguments{
-\item{xy}{2-column float matrix with point coordinates. As usual with
+\item{xy}{2-column matrix with point coordinates. As usual with
 rasters in R, X axis grows right, and Y axis grows DOWN.
 Flipping \code{ylim} causes the "usual" mathematical behavior.}
 
-\item{xlim}{Float limits as usual (position of the first pixel on the
+\item{xlim}{Limits as usual (position of the first pixel on the
 left/top, and the last pixel on the right/bottom), 2-element vector.
 You can easily flip the top/bottom to the "usual" mathematical
 system by flipping the \code{ylim} vector.}
 
-\item{ylim}{Float limits as usual (position of the first pixel on the
+\item{ylim}{Limits as usual (position of the first pixel on the
 left/top, and the last pixel on the right/bottom), 2-element vector.
 You can easily flip the top/bottom to the "usual" mathematical
 system by flipping the \code{ylim} vector.}
 
-\item{out_size}{2-element vector, integer size of the result histogram,
+\item{out_size}{2-element vector, size of the result histogram,
 defaults to \code{c(512,512)}.}
 
-\item{RGBA}{Integer vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B
+\item{RGBA}{Vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B
 and alpha channels  in integers, defaults to \code{c(0,0,0,255)}.}
 
-\item{map}{Integer vector with indices to \code{palette}.}
+\item{map}{Vector with indices to \code{palette}.}
 
 \item{palette}{Matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B and alpha channels  in integers.}
 }
 \value{
-Float RGBWT matrix.
+RGBWT matrix.
 }
 \description{
 Colorize given data with one given color or each point has its corresponding given color.

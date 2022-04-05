@@ -7,12 +7,12 @@
 rgbwt_to_rgba_int(fRGBWT)
 }
 \arguments{
-\item{fRGBWT}{float fRGBWT matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
+\item{fRGBWT}{fRGBWT matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
 \code{transparency} ~ 1 - alpha, dimension nxmx5).}
 }
 \value{
-Integer RGBA matrix.
+RGBA matrix.
 }
 \description{
-Convert fRGBWT matrix to integer RGBA matrix.
+Convert RGBWT matrix to integer RGBA matrix.
 }

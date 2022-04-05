@@ -141,7 +141,7 @@ scattermoreplot <- function(
 }
 
 #' geom_scattermore
-#' 
+#'
 #' [ggplot2::ggplot()] integration. This cooperates with the rest of ggplot
 #' (so you can use it to e.g. add rasterized scatterplots to vector output in
 #' order to reduce PDF size). Note that the ggplot processing overhead still dominates

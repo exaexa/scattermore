@@ -13,7 +13,7 @@ apply_kernel_rgbwt(
 )
 }
 \arguments{
-\item{fRGBWT}{Float RGBWT matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
+\item{fRGBWT}{RGBWT matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
 \code{transparency} ~ 1 - alpha, dimension nxmx5).}
 
 \item{filter}{Either \code{circle} or \code{gaussian} (symmetric).}
@@ -25,7 +25,7 @@ apply_kernel_rgbwt(
 \item{approx_limit}{Sets the size of the kernel square, multiplied with \code{sigma}, defaults to \code{3.5}.}
 }
 \value{
-Float RGBWT matrix.
+RGBWT matrix.
 }
 \description{
 Blur given RGBWT matrix using \code{circle} or \code{gauss} filtering.

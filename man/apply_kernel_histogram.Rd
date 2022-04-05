@@ -12,7 +12,7 @@ apply_kernel_histogram(
 )
 }
 \arguments{
-\item{fhistogram}{Matrix or array R datatype interpreted as histogram.}
+\item{fhistogram}{Matrix or array interpreted as histogram.}
 
 \item{filter}{Either \code{square}(matrix of ones) or \code{gaussian} (symmetric).}
 
@@ -22,7 +22,7 @@ apply_kernel_histogram(
 \item{sigma}{Parameter for gaussian filtering, defaults to \code{10}.}
 }
 \value{
-Float blurred histogram with the result.
+Blurred histogram with the result.
 }
 \description{
 Blur given histogram using \code{square} or \code{gauss} filtering.

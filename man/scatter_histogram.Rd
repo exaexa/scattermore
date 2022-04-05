@@ -12,25 +12,25 @@ scatter_histogram(
 )
 }
 \arguments{
-\item{xy}{2-column float matrix with point coordinates. As usual with
+\item{xy}{2-column matrix with point coordinates. As usual with
 rasters in R, X axis grows right, and Y axis grows DOWN.
 Flipping \code{ylim} causes the "usual" mathematical behavior.}
 
-\item{xlim}{Float limits as usual (position of the first pixel on the
+\item{xlim}{Limits as usual (position of the first pixel on the
 left/top, and the last pixel on the right/bottom), 2-element vector.
 You can easily flip the top/bottom to the "usual" mathematical
 system by flipping the \code{ylim} vector.}
 
-\item{ylim}{Float limits as usual (position of the first pixel on the
+\item{ylim}{Limits as usual (position of the first pixel on the
 left/top, and the last pixel on the right/bottom), 2-element vector.
 You can easily flip the top/bottom to the "usual" mathematical
 system by flipping the \code{ylim} vector.}
 
-\item{out_size}{2-element vector integer size of the result histogram,
+\item{out_size}{2-element vector size of the result histogram,
 defaults to \code{c(512,512)}.}
 }
 \value{
-Float histogram with the result (values ~ 0-1).
+Histogram with the result.
 }
 \description{
 Create histogram from given point coordinates.

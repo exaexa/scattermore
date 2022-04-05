@@ -7,12 +7,12 @@
 blend_rgba_float(fRGBA_1, fRGBA_2)
 }
 \arguments{
-\item{fRGBA_1}{Float RGBA matrix (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4, values ~ 0-1).}
+\item{fRGBA_1}{RGBA matrix (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4, values ~ 0-1).}
 
 \item{fRGBA_2}{The same as fRGBA_1 parameter.}
 }
 \value{
-Float RGBA matrix.
+RGBA matrix.
 }
 \description{
 Blend two RGBA matrices.

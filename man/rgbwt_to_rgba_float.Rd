@@ -7,12 +7,12 @@
 rgbwt_to_rgba_float(fRGBWT)
 }
 \arguments{
-\item{fRGBWT}{Float rgbwt matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
+\item{fRGBWT}{RGBWT matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
 \code{transparency} ~ 1 - alpha, dimension nxmx5).}
 }
 \value{
-Float RGBA matrix.
+RGBA matrix.
 }
 \description{
-Convert rgbwt matrix to float RGBA matrix.
+Convert RGBWT matrix to RGBA matrix.
 }

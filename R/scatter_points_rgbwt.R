@@ -2,31 +2,31 @@
 #'
 #' Colorize given data with one given color or each point has its corresponding given color.
 #'
-#' @param xy 2-column float matrix with point coordinates. As usual with
+#' @param xy 2-column matrix with point coordinates. As usual with
 #'           rasters in R, X axis grows right, and Y axis grows DOWN.
 #'           Flipping `ylim` causes the "usual" mathematical behavior.
 #'
-#' @param xlim Float limits as usual (position of the first pixel on the
+#' @param xlim Limits as usual (position of the first pixel on the
 #'             left/top, and the last pixel on the right/bottom), 2-element vector.
 #'             You can easily flip the top/bottom to the "usual" mathematical
 #'             system by flipping the `ylim` vector.
 #'
-#' @param ylim Float limits as usual (position of the first pixel on the
+#' @param ylim Limits as usual (position of the first pixel on the
 #'             left/top, and the last pixel on the right/bottom), 2-element vector.
 #'             You can easily flip the top/bottom to the "usual" mathematical
 #'             system by flipping the `ylim` vector.
 #'
-#' @param out_size 2-element vector, integer size of the result histogram,
+#' @param out_size 2-element vector, size of the result histogram,
 #'                 defaults to `c(512,512)`.
 #'
-#' @param RGBA Integer vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B 
+#' @param RGBA Vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B
 #'             and alpha channels  in integers, defaults to `c(0,0,0,255)`.
 #'
-#' @param map Integer vector with indices to `palette`.
+#' @param map Vector with indices to `palette`.
 #'
 #' @param palette Matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B and alpha channels  in integers.
 #'
-#' @return Float RGBWT matrix.
+#' @return RGBWT matrix.
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
@@ -41,9 +41,9 @@ scatter_points_rgbwt <- function(
 {
    n <- dim(xy)[1]
    if(dim(xy)[2] != 2) stop('2-column xy input expected')
-   
+
    if(!is.vector(xlim) || !is.vector(ylim) || !is.vector(out_size)) stop('vector input in parameters xlim, ylim or out_size expected')
-   
+
    dim_color <- 4
    if(is.vector(map))
    {
@@ -65,15 +65,14 @@ scatter_points_rgbwt <- function(
    }
    else stop('unsupported input')
 
-   
+
    rows <- out_size[1]
    cols <- out_size[2]
    dim_RGBWT <- 5
-      
-   RGBWT <- rep(0, rows * cols * dim_RGBWT)  #initialize RGBWT
-   RGBWT <- array(RGBWT, c(rows, cols, dim_RGBWT))
+
+   RGBWT <- array(0, c(rows, cols, dim_RGBWT))
    RGBWT[,,5] <- 1  #initialize transparency (multiplying)
-   
+
    if(id == 1)                  #colorize using palette
    {
      result <- .C("scatter_indexed_rgbwt",
@@ -105,7 +104,7 @@ scatter_points_rgbwt <- function(
        fRGBWT = as.single(RGBWT),
        xy = as.single(xy))
    }
-  
+
     fRGBWT <- array(result$fRGBWT, c(rows, cols, dim_RGBWT))
     return(fRGBWT)
 }

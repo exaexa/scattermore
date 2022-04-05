@@ -12,11 +12,11 @@ histogram_to_rgbwt(
 \arguments{
 \item{fhistogram}{Matrix or array R datatype interpreted as histogram.}
 
-\item{RGBA}{Integer matrix (4xn dim, n>= 2) with R, G, B and alpha channels
+\item{RGBA}{matrix (4xn dim, n>= 2) with R, G, B and alpha channels
 in integers, defaults to shades of \code{red}, \code{green} and \code{blue} with \code{alpha = 255}.}
 }
 \value{
-Float RGBWT matrix.
+RGBWT matrix.
 }
 \description{
 Colorize given histogram with input palette.

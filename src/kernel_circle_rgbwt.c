@@ -17,11 +17,11 @@ kernel_circle_rgbwt(const unsigned *dim,
     const size_t offset_B = size_out * 2;
     const size_t offset_W = size_out * 3;
     const size_t offset_T = size_out * 4;
-	             
+
     const int int_radius = ceil(*radius);
     const float squared_radius = (*radius) * (*radius);
-	
-	
+
+
     size_t i;
     for (i = 0; i < size_out_y; ++i)
     {

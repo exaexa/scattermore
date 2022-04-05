@@ -7,11 +7,11 @@
 rgba_float_to_rgba_int(fRGBA)
 }
 \arguments{
-\item{fRGBA}{Float RGBA matrix (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4, values ~ 0-1).}
+\item{fRGBA}{RGBA matrix (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4, values ~ 0-1).}
 }
 \value{
-Integer RGBA matrix (values ~ 0-255).
+RGBA matrix (values ~ 0-255).
 }
 \description{
-Convert RGBA float matrix to RGBA integer matrix.
+Convert RGBA matrix to RGBA matrix.
 }

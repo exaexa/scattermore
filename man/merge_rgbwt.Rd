@@ -7,14 +7,14 @@
 merge_rgbwt(fRGBWT_1, fRGBWT_2)
 }
 \arguments{
-\item{fRGBWT_1}{Float RGBWT matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
+\item{fRGBWT_1}{RGBWT matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
 \code{transparency} ~ 1 - alpha, dimension nxmx5).}
 
 \item{fRGBWT_2}{The same as fRGBWT_1 parameter.}
 }
 \value{
-Float RGBWT matrix.
+RGBWT matrix.
 }
 \description{
-Blend two RGBWT matrices.
+Merge two RGBWT matrices.
 }
