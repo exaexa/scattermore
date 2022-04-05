@@ -1,6 +1,6 @@
 Package: scattermore
 Title: Scatterplots with More Points
-Version: 0.0.0.9000
+Version: 1.0
 Authors@R:
     c(person(given = "Tereza",
            family = "Kulichova",
@@ -8,7 +8,7 @@ Authors@R:
            email = "kulichova.t@gmail.com"),
     person(given = "Mirek",
            family = "Kratochvil",
-           role = c("aut"),
+           role = c("aut", "cre"),
            email = "exa.exa@gmail.com",
            comment = c(ORCID = "0000-0001-7356-4075")))
 Description: C-based conversion of large scatterplot data to rasters plus other 
