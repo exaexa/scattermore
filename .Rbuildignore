@@ -1,0 +1,4 @@
+^doc$
+^Meta$
+^\.github$
+^codecov\.yml$

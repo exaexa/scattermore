@@ -1,17 +1,25 @@
 Package: scattermore
 Title: Scatterplots with More Points
-Version: 0.8
-Authors@R: 
+Version: 0.0.0.9000
+Authors@R:
+    c(person(given = "Tereza",
+           family = "Kulichova",
+           role = c("aut", "cre"),
+           email = "kulichova.t@gmail.com"),
     person(given = "Mirek",
            family = "Kratochvil",
-           role = c("aut", "cre"),
+           role = c("aut"),
            email = "exa.exa@gmail.com",
-           comment = c(ORCID = "0000-0001-7356-4075"))
-Description: C-based conversion of large scatterplot data to rasters. Speeds up
+           comment = c(ORCID = "0000-0001-7356-4075")))
+Description: C-based conversion of large scatterplot data to rasters plus other 
+             operations such as data blurring or data alpha blending. Speeds up 
              plotting of data with millions of points.
-URL: https://github.com/exaexa/scattermore
-Imports: ggplot2, scales, grid, grDevices, graphics
 License: GPL (>= 3)
 Encoding: UTF-8
-RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.2
+Suggests: 
+    covr,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

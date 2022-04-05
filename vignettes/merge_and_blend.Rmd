@@ -1,0 +1,38 @@
+---
+title: "Merging and blending points"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Merging and blending points}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(scattermore)
+points <- cbind(rnorm(1e5), rnorm(1e5))
+p1 <- scatter_points_rgbwt(points, RGBA= c(64,128,192,50), xlim=c(-5,5), ylim=c(-5,5))
+p2 <- scatter_points_rgbwt(points, RGBA= c(192,128,64,50), xlim=c(-5,5), ylim=c(-5,5))
+```
+
+## Merge two rgbwt matrices
+```{r}
+merged <- merge_rgbwt(p1,p2)
+raster <- rgba_int_to_raster(rgbwt_to_rgba_int(merged))
+plot(raster)
+```
+
+## Blend two rgba float matrices
+```{r}
+p1_frgba <- rgbwt_to_rgba_float(p1)
+p2_frgba <- rgbwt_to_rgba_float(p2)
+blended <- blend_rgba_float(p1_frgba,p2_frgba)
+raster <- rgba_int_to_raster(rgba_float_to_rgba_int(blended))
+plot(raster)
+```

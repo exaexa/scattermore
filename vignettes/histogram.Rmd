@@ -1,0 +1,63 @@
+---
+title: "Operations with histograms"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Operations with histograms}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(scattermore)
+```
+
+## Create histogram
+```{r}
+histogram <- scatter_histogram(cbind(rnorm(1e5), rnorm(1e5)), xlim=c(-5,5), ylim=c(-5,5))
+image(histogram)
+```
+
+## Apply kernels on histogram
+```{r}
+blurred_histogram <- apply_kernel_histogram(histogram, kernel_pixels=10)
+image(blurred_histogram)
+gauss_blurred_histogram <- apply_kernel_histogram(histogram, filter="gauss", kernel_pixels=10)
+image(gauss_blurred_histogram)
+```
+
+## Colorize blurred histogram
+```{r}
+rgbwt <- histogram_to_rgbwt(blurred_histogram)
+raster <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
+plot(raster)
+```
+
+## Colorize blurred histogram with palette
+```{r}
+v = c(255, 0, 0, 100, 0, 255, 0, 25, 0, 0, 255, 50, 0, 0, 0, 100)
+palette = array(v, c(4, 4))
+
+rgbwt <- histogram_to_rgbwt(blurred_histogram, RGBA=palette)
+raster <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
+plot(raster)
+```
+
+**************************************************************
+## Nice examples using scattermore
+
+![Mammoth](../pictures/mammoth_blurred.png)
+
+
+![T-rex](../pictures/trex.png)
+
+
+Smithsonian Institute provides a lot of interesting data, including [mammoth skeleton](https://3d.si.edu/explorer/woolly-mammoth) 
+and [T-rex skeleton eating triceratops skeleton](https://3d.si.edu/object/3d/tyrannosaurus-rex:d8c62d28-4ebc-11ea-b77f-2e728ce88125).
+
