@@ -2,7 +2,10 @@
 
 ## Fast Scatterplots with More Points
 
-[![R-CMD-check](https://github.com/Teri934/scattermore/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Teri934/scattermore/actions/workflows/R-CMD-check.yaml) [![pkgdown](https://github.com/Teri934/scattermore/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Teri934/scattermore/actions/workflows/pkgdown.yaml)   [![test-coverage](https://github.com/Teri934/scattermore/actions/workflows/test-coverage.yaml/badge.svg)](https://github.com/Teri934/scattermore/actions/workflows/test-coverage.yaml) [![codecov](https://codecov.io/gh/teri934/scattermore/branch/master/graph/badge.svg?token=3COU4T231C)](https://codecov.io/gh/teri934/scattermore)
+[![CRAN status](https://www.r-pkg.org/badges/version/scattermore)](https://cran.r-project.org/package=scattermore)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/scattermore)](https://cran.r-project.org/package=scattermore)
+[![R-CMD-check](https://github.com/exaexa/scattermore/actions/workflows/check-standard.yaml/badge.svg)](https://github.com/exaexa/scattermore/actions/workflows/check-standard.yaml)
+[![codecov](https://codecov.io/gh/exaexa/scattermore/branch/master/graph/badge.svg?token=3COU4T231C)](https://codecov.io/gh/exaexa/scattermore)
 
 
 ### Installation 💻
