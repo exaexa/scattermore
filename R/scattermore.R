@@ -52,29 +52,12 @@ scattermore <- function(
   cex=0,
   output.raster=TRUE)
 {
-  n <- dim(xy)[1]
-  if(dim(xy)[2] != 2) stop('2-column xy input expected')
+  scattered <- scatter_points_rgbwt(xy, out_size=size, RGBA=rgba, xlim=xlim, ylim=ylim)
+  if(cex != 0) scattered <- apply_kernel_rgbwt(scattered, radius=cex)
+  rgba_int <- rgbwt_to_rgba_int(scattered)
 
-  col <- if(is.matrix(rgba)) as.integer(rgba) else rgba
-  ncol <- length(col)
-  if(!(ncol %in% (4*c(1,n)))) stop('unsupported rgba content')
-  ncol <- ncol %/% 4L
-
-  rd <- rep(0L,size[1]*size[2]*4)
-  #TODO: replace this with new API calls
-  res <- .C("scattermore",
-    n=as.integer(n),
-    ncol=as.integer(ncol),
-    size=as.integer(size),
-    xlim=as.single(xlim),
-    ylim=as.single(ylim),
-    cex=as.single(cex),
-    xy=as.single(xy),
-    rgba=as.integer(rgba),
-    rd=as.integer(rd))
-
-  if(output.raster) grDevices::as.raster(array(res$rd,c(size[2],size[1],4)), max=255L)
-  else array(res$rd,c(size[2],size[1],4))
+  if(output.raster) rgba_int_to_raster(rgba_int)
+  else rgba_int
 }
 
 #' scattermoreplot
