@@ -15,6 +15,7 @@ rgbwt_to_rgba_float <- function(fRGBWT)
     rows <- dim(fRGBWT)[1]
     cols <- dim(fRGBWT)[2]
 
+    A <- 1 - fRGBWT[,,5]
     W <- A / pmax(scattermore.globals$epsilon, fRGBWT[,,4])
 
     fRGBA <- array(0, c(rows, cols, scattermore.globals$dim_RGBA))
