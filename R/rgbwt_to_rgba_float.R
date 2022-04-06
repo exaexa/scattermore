@@ -4,7 +4,7 @@
 #'
 #' @param fRGBWT RGBWT matrix (`red`, `green`, `blue` channels, `weight` ~ sum of alphas,
 #'                                   `transparency` ~ 1 - alpha, dimension nxmx5).
-#' @return RGBA matrix.
+#' @return RGBA matrix. Output *is premultiplied* by alpha.
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
@@ -15,13 +15,15 @@ rgbwt_to_rgba_float <- function(fRGBWT)
     rows <- dim(fRGBWT)[1]
     cols <- dim(fRGBWT)[2]
 
-    W <- pmin(1, 1 / fRGBWT[,,4])
+    epsilon <- 1e-9
+
     A <- 1 - fRGBWT[,,5]
+    W <- A / pmax(epsilon, fRGBWT[,,4])
 
     fRGBA <- array(0, c(rows, cols, scattermore.globals$dim_RGBA))
-    fRGBA[,,1] <- (fRGBWT[,,1] * W) * A   #store premultiplied alpha
-    fRGBA[,,2] <- (fRGBWT[,,2] * W) * A
-    fRGBA[,,3] <- (fRGBWT[,,3] * W) * A
+    fRGBA[,,1] <- fRGBWT[,,1] * W   #we store premultiplied alpha!
+    fRGBA[,,2] <- fRGBWT[,,2] * W
+    fRGBA[,,3] <- fRGBWT[,,3] * W
     fRGBA[,,4] <- A
 
     return(fRGBA)
