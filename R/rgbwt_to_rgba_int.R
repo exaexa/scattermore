@@ -10,26 +10,18 @@
 #' @useDynLib scattermore, .registration=TRUE
 rgbwt_to_rgba_int <- function(fRGBWT)
 {
-    dim_RGBWT <- 5
-    if(!is.array(fRGBWT) || dim(fRGBWT)[3] != dim_RGBWT) stop('not supported fRGBWT format')
+    if(!is.array(fRGBWT) || dim(fRGBWT)[3] != scattermore.globals$dim_RGBWT) stop('not supported fRGBWT format')
 
     rows <- dim(fRGBWT)[1]
     cols <- dim(fRGBWT)[2]
-    dim_RGBA <- 4
 
-    fRGBWT <- array(as.single(fRGBWT), c(rows, cols, dim_RGBWT))
-    W <- fRGBWT[,,4]
-    R <- ifelse(W == 0, 0, fRGBWT[,,1] / W)  #preventing zero division
-    G <- ifelse(W == 0, 0, fRGBWT[,,2] / W)
-    B <- ifelse(W == 0, 0, fRGBWT[,,3] / W)
-    A <- 1 - fRGBWT[,,5]
+    W <- pmin(255, 255 / (fRGBWT[,,4] * (1 - fRGBWT[,,5])))
 
-    RGBA <- array(0, c(rows, cols, dim_RGBA))
-    RGBA[,,1] <- R
-    RGBA[,,2] <- G
-    RGBA[,,3] <- B
-    RGBA[,,4] <- A
+    i32RGBA <- array(0, c(rows, cols, scattermore.globals$dim_RGBA))
+    i32RGBA[,,1] <- as.integer(fRGBWT[,,1] * W)
+    i32RGBA[,,2] <- as.integer(fRGBWT[,,2] * W)
+    i32RGBA[,,3] <- as.integer(fRGBWT[,,3] * W)
+    i32RGBA[,,4] <- as.integer(255 * (1 - fRGBWT[,,5]))
 
-    i32RGBA <- array(as.integer(RGBA * 255), c(rows, cols, dim_RGBA))
     return(i32RGBA)
 }

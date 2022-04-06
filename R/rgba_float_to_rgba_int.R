@@ -10,21 +10,18 @@
 #' @useDynLib scattermore, .registration=TRUE
 rgba_float_to_rgba_int <- function(fRGBA)
 {
-    dim_RGBA <- 4
-    if(!is.array(fRGBA) || dim(fRGBA)[3] != dim_RGBA) stop('not supported fRGBA format')
+    if(!is.array(fRGBA) || dim(fRGBA)[3] != scattermore.globals$dim_RGBA) stop('not supported fRGBA format')
 
     rows <- dim(fRGBA)[1]
     cols <- dim(fRGBA)[2]
 
-    A <- fRGBA[,,4]
-    R <- ifelse(A == 0, 0, fRGBA[,,1] / A)  #preventing zero division
-    G <- ifelse(A == 0, 0, fRGBA[,,2] / A)  #"unpremultiply" alpha
-    B <- ifelse(A == 0, 0, fRGBA[,,3] / A)
+    A <- pmin(255, 255 / fRGBA[,,4])  #"unpremultiply" alpha
 
-    fRGBA[,,1] <- R
-    fRGBA[,,2] <- G
-    fRGBA[,,3] <- B
+    i32RGBA <- array(0, c(rows, cols, scattermore.globals$dim_RGBA))
+    i32RGBA[,,1] <- as.integer(fRGBA[,,1] * A)
+    i32RGBA[,,2] <- as.integer(fRGBA[,,2] * A)
+    i32RGBA[,,3] <- as.integer(fRGBA[,,3] * A)
+    i32RGBA[,,4] <- as.integer(255 * fRGBA[,,4])
 
-    i32RGBA <- array(as.integer(fRGBA * 255), c(rows, cols, dim_RGBA))
     return(i32RGBA)
 }
