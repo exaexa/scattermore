@@ -48,16 +48,3 @@ rgbwt <- histogram_to_rgbwt(blurred_histogram, RGBA=palette)
 raster <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
 plot(raster)
 ```
-
-**************************************************************
-## Nice examples using scattermore
-
-![Mammoth](../pictures/mammoth_blurred.png)
-
-
-![T-rex](../pictures/trex.png)
-
-
-Smithsonian Institute provides a lot of interesting data, including [mammoth skeleton](https://3d.si.edu/explorer/woolly-mammoth) 
-and [T-rex skeleton eating triceratops skeleton](https://3d.si.edu/object/3d/tyrannosaurus-rex:d8c62d28-4ebc-11ea-b77f-2e728ce88125).
-
