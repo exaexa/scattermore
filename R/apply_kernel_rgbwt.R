@@ -50,12 +50,14 @@ apply_kernel_rgbwt <- function(
    else
    {
       kernel_pixels <- ceiling(sigma * approx_limit);  #size of the kernel
-      size <- kernel_pixels * 2 - 1;  #odd size
+      size <- kernel_pixels * 2 + 1;  #odd size
       kernel <- matrix(
         exp(
           -rowSums(expand.grid(-kernel_pixels:kernel_pixels, -kernel_pixels:kernel_pixels)^2)
            /(sigma^2)),
         size, size)
+
+      kernel <- kernel/sum(kernel)
 
       result <- .C("kernel_gauss_rgbwt",
         dimen = as.integer(c(size_x, size_y, kernel_pixels)),

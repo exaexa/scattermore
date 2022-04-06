@@ -51,6 +51,7 @@ apply_kernel_histogram <- function(
           -rowSums(expand.grid(-kernel_pixels:kernel_pixels, -kernel_pixels:kernel_pixels)^2)
            /(sigma^2)),
         size, size)
+      kernel <- kernel / sum(kernel)
 
       result <- .C("kernel_histogram",
         dimen = as.integer(c(size_x, size_y, kernel_pixels)),
