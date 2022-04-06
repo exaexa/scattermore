@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include "kernels.h"
 
-//blur histogram using kernel of ones
+//blur histogram using square kernel of total weight 1
 void
-kernel_gauss_histogram(const unsigned *dim,
-                       const float *kernel,
-                       float *blurred_histogram,
-                       const float *histogram)
+kernel_histogram(const unsigned *dim,
+                        const float *kernel,
+                        float *blurred_histogram,
+                        const float *histogram)
 {
-    //TODO this might be the same as kernel_square_histogram right?
     const size_t size_out_x = dim[0];
     const size_t size_out_y = dim[1];
 

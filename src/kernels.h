@@ -3,8 +3,7 @@
 #include <stdio.h>
 
 //main methods
-void kernel_square_histogram(const unsigned *dim, const float *kernel, float *blurred_histogram, const float *histogram);
-void kernel_gauss_histogram(const unsigned *dim, const float *kernel, float *blurred_histogram, const float *histogram);
+void kernel_histogram(const unsigned *dim, const float *kernel, float *blurred_histogram, const float *histogram);
 void kernel_circle_rgbwt(const unsigned *dim, const float *radius, float *blurred_RGBWT, const float *RGBWT);
 void kernel_gauss_rgbwt(const unsigned *dim, const float *kernel, float *blurred_RGBWT, const float *RGBWT);
 

@@ -8,7 +8,7 @@ scatter_histogram(
   xy,
   xlim = c(min(xy[, 1]), max(xy[, 1])),
   ylim = c(min(xy[, 2]), max(xy[, 2])),
-  out_size = c(512, 512)
+  out_size = c(512L, 512L)
 )
 }
 \arguments{
