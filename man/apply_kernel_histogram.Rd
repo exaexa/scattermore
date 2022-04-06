@@ -8,7 +8,7 @@ apply_kernel_histogram(
   fhistogram,
   filter = "square",
   kernel_pixels = 2,
-  sigma = 10
+  sigma = kernel_pixels/2
 )
 }
 \arguments{
