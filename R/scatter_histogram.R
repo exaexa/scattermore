@@ -34,8 +34,8 @@ scatter_histogram <- function(
 
    if(!is.vector(xlim) || !is.vector(ylim) || !is.vector(out_size)) stop('vector input in parameters xlim, ylim or out_size expected')
 
-   size_x <- as_integer(out_size[1])
-   size_y <- as_integer(out_size[2])
+   size_x <- as.integer(out_size[1])
+   size_y <- as.integer(out_size[2])
 
    result <- .C("scatter_histogram",
      n = as.integer(n),
