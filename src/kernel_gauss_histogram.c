@@ -8,8 +8,9 @@ kernel_gauss_histogram(const unsigned *dim,
                        float *blurred_histogram,
                        const float *histogram)
 {
-    const size_t size_out_y = dim[0];
-    const size_t size_out_x = dim[1];
+    //TODO this might be the same as kernel_square_histogram right?
+    const size_t size_out_x = dim[0];
+    const size_t size_out_y = dim[1];
 
     size_t i;
     for(i = 0; i < size_out_y; ++i)

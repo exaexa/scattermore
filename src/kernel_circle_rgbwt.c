@@ -8,8 +8,8 @@ kernel_circle_rgbwt(const unsigned *dim,
                     float *blurred_RGBWT,
                     const float *RGBWT)
 {
-    const size_t size_out_y = dim[0];
-    const size_t size_out_x = dim[1];
+    const size_t size_out_x = dim[0];
+    const size_t size_out_y = dim[1];
     const size_t size_out = size_out_x * size_out_y;
 
     const size_t offset_R = size_out * 0;
@@ -19,7 +19,7 @@ kernel_circle_rgbwt(const unsigned *dim,
     const size_t offset_T = size_out * 4;
 
     const int int_radius = ceil(*radius);
-    const float squared_radius = (*radius) * (*radius);
+    const int squared_radius = (*radius) * (*radius);
 
 
     size_t i;

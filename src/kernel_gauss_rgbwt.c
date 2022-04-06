@@ -9,10 +9,10 @@ kernel_gauss_rgbwt(const unsigned *dim,
                    float *blurred_RGBWT,
                    const float *RGBWT)
 {
-    const size_t size_out_y = dim[0];
-    const size_t size_out_x = dim[1];
-    const size_t size_kernel = dim[2];
-    const int radius = size_kernel / 2;
+    const size_t size_out_x = dim[0];
+    const size_t size_out_y = dim[1];
+    const int radius = dim[2];
+    const size_t size_kernel = radius * 2 + 1;
     const size_t size_out = size_out_x * size_out_y;
 
     const size_t offset_R = size_out * 0;
@@ -67,6 +67,9 @@ kernel_gauss_rgbwt(const unsigned *dim,
                     blurred_RGBWT[offset + offset_B] += B * gauss_A;
                     blurred_RGBWT[offset + offset_W] += gauss_A;
                     blurred_RGBWT[offset + offset_T] *= 1 - gauss_A;
+		    // TODO I need to check whether the alpha is done right
+		    // here (it is multiplicative so it should be powered to
+		    // (1-kernel_value) instead of multiplied) --mk
                 }
             }
         }

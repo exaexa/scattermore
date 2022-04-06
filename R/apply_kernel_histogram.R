@@ -19,7 +19,7 @@ apply_kernel_histogram <- function(
   fhistogram,
   filter = "square",
   kernel_pixels = 2,
-  sigma = 10)
+  sigma = kernel_pixels / 2)
 {
 
    if(!is.matrix(fhistogram) && !is.array(fhistogram)) stop('fhistogram in matrix form expected')
@@ -28,11 +28,10 @@ apply_kernel_histogram <- function(
    	stop('number expected')
    if(filter != "square" && filter != "gauss") stop('"square" or "gauss" kernel expected')
 
-   rows <- dim(fhistogram)[1]
-   cols <- dim(fhistogram)[2]
+   size_y <- dim(fhistogram)[1]
+   size_x <- dim(fhistogram)[2]
 
    size <- 2 * kernel_pixels + 1
-   blurred_histogram <- rep(0, rows * cols) #initialize blurred histogram
 
    if(filter == "square")
    {
@@ -40,34 +39,27 @@ apply_kernel_histogram <- function(
       kernel <- kernel / sum(kernel)
 
       result <- .C("kernel_square_histogram",
-        dimen = as.integer(c(rows, cols, size)),
+        dimen = as.integer(c(size_x, size_y, kernel_pixels)),
         kernel = as.single(kernel),
-        blurred_histogram = as.single(blurred_histogram),
+        blurred_histogram = as.single(rep(0, size_x * size_y)),
         fhistogram = as.single(fhistogram))
    }
    else
    {
-      range <- as.integer(size / 2)
-      grid <- array(rep(0, size * size), c(size, size))
-      centre <- range + 1
-      for (value in -range:range)  #creating grid of points
-      {
-        grid[centre + value,] <- rep(value, size)
-      }
-      x_coordinates <- grid  #gauss kernel calculations
-      y_coordinates <- t(grid)
-      squared_coordinates <- x_coordinates * x_coordinates + y_coordinates * y_coordinates
-      multiplied_sigma <- 2 * sigma * sigma;
-      multiplied_pi <- multiplied_sigma * pi;
-      kernel <- exp(-squared_coordinates / multiplied_sigma) / multiplied_pi
+      kernel <- matrix(
+        exp(
+          -rowSums(expand.grid(-kernel_pixels:kernel_pixels, -kernel_pixels:kernel_pixels)^2)
+           /(sigma^2)),
+        size, size)
 
+      #TODO: this is actually same as kernel_square_histogram?
       result <- .C("kernel_gauss_histogram",
-        dimen = as.integer(c(rows, cols, size)),
+        dimen = as.integer(c(size_x, size_y, kernel_pixels)),
         kernel = as.single(kernel),
-        blurred_histogram = as.single(blurred_histogram),
+        blurred_histogram = as.single(rep(0, size_x * size_y)),
         fhistogram = as.single(fhistogram))
    }
 
-    blurred_histogram <- array(result$blurred_histogram, c(rows, cols))
+    blurred_histogram <- array(result$blurred_histogram, c(size_y, size_x))
     return(blurred_histogram)
 }

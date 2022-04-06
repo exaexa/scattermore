@@ -10,8 +10,8 @@ scatter_indexed_rgbwt(const unsigned *dim,
                       const unsigned *map,
                       const float *xy)
 {
-    const size_t size_out_y = dim[0];
-    const size_t size_out_x = dim[1];
+    const size_t size_out_x = dim[0];
+    const size_t size_out_y = dim[1];
     const size_t size_data = dim[2];
     const size_t size_out = size_out_x * size_out_y;
 

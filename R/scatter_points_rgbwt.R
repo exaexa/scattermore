@@ -66,17 +66,17 @@ scatter_points_rgbwt <- function(
    else stop('unsupported input')
 
 
-   rows <- out_size[1]
-   cols <- out_size[2]
+   size_x <- as.integer(out_size[1])
+   size_y <- as.integer(out_size[2])
    dim_RGBWT <- 5
 
-   RGBWT <- array(0, c(rows, cols, dim_RGBWT))
+   RGBWT <- array(0, c(size_y, size_x, dim_RGBWT))
    RGBWT[,,5] <- 1  #initialize transparency (multiplying)
 
    if(id == 1)                  #colorize using palette
    {
      result <- .C("scatter_indexed_rgbwt",
-       dimen = as.integer(c(rows, cols, n)),
+       dimen = as.integer(c(size_x, size_y, n)),
        xlim = as.single(xlim),
        ylim = as.single(ylim),
        palette = as.single(palette / 255),
@@ -87,7 +87,7 @@ scatter_points_rgbwt <- function(
    else if(id == 2)            #colorize with one color
    {
      result <- .C("scatter_singlecolor_rgbwt",
-       dimen = as.integer(c(rows, cols, n)),
+       dimen = as.integer(c(size_x, size_y, n)),
        xlim = as.single(xlim),
        ylim = as.single(ylim),
        RGBA = as.single(RGBA / 255),
@@ -97,7 +97,7 @@ scatter_points_rgbwt <- function(
    else
    {                           #colorize with given color for each point
      result <- .C("scatter_multicolor_rgbwt",
-       dimen = as.integer(c(rows, cols, n)),
+       dimen = as.integer(c(size_x, size_y, n)),
        xlim = as.single(xlim),
        ylim = as.single(ylim),
        RGBA = as.single(RGBA / 255),
@@ -105,6 +105,6 @@ scatter_points_rgbwt <- function(
        xy = as.single(xy))
    }
 
-    fRGBWT <- array(result$fRGBWT, c(rows, cols, dim_RGBWT))
+    fRGBWT <- array(result$fRGBWT, c(size_y, size_x, dim_RGBWT))
     return(fRGBWT)
 }

@@ -12,23 +12,23 @@ apply_kernel(const float *kernel,
              const size_t y)
 {
     float sum = 0;
-    const size_t rows = dim[0];
-    const size_t cols = dim[1];
-    const size_t size = dim[2];
-    const int range = size / 2;
+    const size_t out_size_x = dim[0];
+    const size_t out_size_y = dim[1];
+    const int radius = dim[2];
+    const size_t kernel_size = 2 * radius + 1;
 
 
     int i;
-    for(i = -range; i <= range; ++i)
+    for(i = -radius; i <= radius; ++i)
     {
         int j;
-        for(j = -range; j <= range; ++j)
+        for(j = -radius; j <= radius; ++j)
         {
-            int histogram_index = (x + j) * rows + (y + i);
-            int kernel_index = (range + j) * size + (range + i);
+            int histogram_index = (x + j) * out_size_y + (y + i);
+            int kernel_index = (radius + j) * kernel_size + (radius + i);
 
-            if(y + i >= 0 && y + i < rows && x + j >= 0 && x + j < cols)
-                sum = sum + histogram[histogram_index] * kernel[kernel_index];  //else add nothing (zero border padding)
+            if(y + i >= 0 && y + i < out_size_y && x + j >= 0 && x + j < out_size_x)
+                sum += histogram[histogram_index] * kernel[kernel_index];  //else add nothing (zero border padding)
         }
     }
 
