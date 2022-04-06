@@ -23,13 +23,12 @@ blend_rgba_float <- function(fRGBA_1, fRGBA_2)
     A_1 <- fRGBA_1[,,4]
     A_2 <- fRGBA_2[,,4]
 
-    RGBA <- rep(0, rows * cols * dim_RGBA)  #initialize RGBA
-    RGBA <- array(RGBA, c(rows, cols, dim_RGBA))
+    RGBA <- array(0, c(rows, cols, dim_RGBA))
     RGBA[,,1] <- fRGBA_1[,,1] + (fRGBA_2[,,1] * (1-A_1))  #blend with premultiplied alpha
     RGBA[,,2] <- fRGBA_1[,,2] + (fRGBA_2[,,2] * (1-A_1))
     RGBA[,,3] <- fRGBA_1[,,3] + (fRGBA_2[,,3] * (1-A_1))
     RGBA[,,4] <- A_1 + (A_2 * (1 - A_1))
 
-    fRGBA <- array(as.single(RGBA), c(rows, cols, dim_RGBA))
+    fRGBA <- array(RGBA, c(rows, cols, dim_RGBA))
     return(fRGBA)
 }

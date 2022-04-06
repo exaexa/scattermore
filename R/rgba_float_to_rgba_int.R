@@ -15,7 +15,7 @@ rgba_float_to_rgba_int <- function(fRGBA)
     rows <- dim(fRGBA)[1]
     cols <- dim(fRGBA)[2]
 
-    A <- 255 / pmin(scattermore.globals$epsilon, fRGBA[,,4])  #"unpremultiply" alpha
+    A <- 255 / pmax(scattermore.globals$epsilon, fRGBA[,,4])  #"unpremultiply" alpha
 
     i32RGBA <- array(0, c(rows, cols, scattermore.globals$dim_RGBA))
     i32RGBA[,,1] <- as.integer(fRGBA[,,1] * A)
