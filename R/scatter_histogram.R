@@ -40,7 +40,7 @@ scatter_histogram <- function(
    result <- .C("scatter_histogram",
      n = as.integer(n),
      out_size = as.integer(out_size),
-     i32histogram = integer(0, size_x * size_y),
+     i32histogram = integer(size_x * size_y),
      xlim = as.single(xlim),
      ylim = as.single(ylim),
      xy = as.single(xy))
