@@ -15,9 +15,7 @@ rgbwt_to_rgba_int <- function(fRGBWT)
     rows <- dim(fRGBWT)[1]
     cols <- dim(fRGBWT)[2]
 
-    epsilon <- 1e-9
-
-    W <- 255 / pmax(epsilon, fRGBWT[,,4])
+    W <- 255 / pmax(scattermore.globals$epsilon, fRGBWT[,,4])
 
     i32RGBA <- array(0, c(rows, cols, scattermore.globals$dim_RGBA))
     i32RGBA[,,1] <- as.integer(fRGBWT[,,1] * W)

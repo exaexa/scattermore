@@ -15,10 +15,7 @@ rgbwt_to_rgba_float <- function(fRGBWT)
     rows <- dim(fRGBWT)[1]
     cols <- dim(fRGBWT)[2]
 
-    epsilon <- 1e-9
-
-    A <- 1 - fRGBWT[,,5]
-    W <- A / pmax(epsilon, fRGBWT[,,4])
+    W <- A / pmax(scattermore.globals$epsilon, fRGBWT[,,4])
 
     fRGBA <- array(0, c(rows, cols, scattermore.globals$dim_RGBA))
     fRGBA[,,1] <- fRGBWT[,,1] * W   #we store premultiplied alpha!
