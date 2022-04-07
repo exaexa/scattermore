@@ -4,7 +4,7 @@
 #'
 #' @param fRGBA RGBA matrix (`red`, `green`, `blue` and `alpha` channels, dimension nxmx4, values ~ 0-1).
 #'
-#' @return RGBA matrix (values ~ 0-255).
+#' @return RGBA matrix, output *is not premultiplied* by alpha.
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE

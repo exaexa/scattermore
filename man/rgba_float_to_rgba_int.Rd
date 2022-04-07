@@ -10,7 +10,7 @@ rgba_float_to_rgba_int(fRGBA)
 \item{fRGBA}{RGBA matrix (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4, values ~ 0-1).}
 }
 \value{
-RGBA matrix (values ~ 0-255).
+RGBA matrix, output \emph{is not premultiplied} by alpha.
 }
 \description{
 Convert RGBA matrix to RGBA matrix.

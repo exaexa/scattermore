@@ -11,7 +11,7 @@ rgbwt_to_rgba_float(fRGBWT)
 \code{transparency} ~ 1 - alpha, dimension nxmx5).}
 }
 \value{
-RGBA matrix.
+RGBA matrix, output \emph{is premultiplied} by alpha.
 }
 \description{
 Convert RGBWT matrix to RGBA matrix.

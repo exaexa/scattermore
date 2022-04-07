@@ -4,7 +4,7 @@
 #'
 #' @param fRGBWT fRGBWT matrix (`red`, `green`, `blue` channels, `weight` ~ sum of alphas,
 #'                                   `transparency` ~ 1 - alpha, dimension nxmx5).
-#' @return RGBA matrix. Output *is not premultiplied* by alpha.
+#' @return RGBA matrix, output *is not premultiplied* by alpha.
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
