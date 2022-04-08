@@ -31,7 +31,7 @@ apply_kernel_histogram <- function(
    size_y <- dim(fhistogram)[1]
    size_x <- dim(fhistogram)[2]
 
-   size <- 2 * kernel_pixels + 1
+   size <- 2 * kernel_pixels + 1 #odd size
 
    if(filter == "square")
    {
@@ -48,8 +48,8 @@ apply_kernel_histogram <- function(
    {
       kernel <- matrix(
         exp(
-          -rowSums(expand.grid(-kernel_pixels:kernel_pixels, -kernel_pixels:kernel_pixels)^2)
-           /(sigma^2)),
+          -rowSums(expand.grid(-kernel_pixels:kernel_pixels, -kernel_pixels:kernel_pixels) ^ 2)
+           /(sigma ^ 2)),
         size, size)
       kernel <- kernel / sum(kernel)
 

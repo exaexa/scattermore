@@ -5,11 +5,11 @@
 //apply blurring for current point
 //kernel is symmetric
 float
-apply_kernel(const float *kernel,
-             const float *histogram,
-             const unsigned *dim,
-             const size_t x,
-             const size_t y)
+use_kernel_histogram(const float *kernel,
+                     const float *histogram,
+                     const unsigned *dim,
+                     const size_t x,
+                     const size_t y)
 {
     float sum = 0;
     const size_t out_size_x = dim[0];
