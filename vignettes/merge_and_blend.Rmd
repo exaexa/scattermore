@@ -25,7 +25,7 @@ p2 <- scatter_points_rgbwt(points, RGBA= c(192,128,64,50), xlim=c(-5,5), ylim=c(
 ```{r}
 merged <- merge_rgbwt(p1,p2)
 raster <- rgba_int_to_raster(rgbwt_to_rgba_int(merged))
-plot(raster)
+plot(raster, interpolate=F)
 ```
 
 ## Blend two rgba float matrices
@@ -34,5 +34,5 @@ p1_frgba <- rgbwt_to_rgba_float(p1)
 p2_frgba <- rgbwt_to_rgba_float(p2)
 blended <- blend_rgba_float(p1_frgba,p2_frgba)
 raster <- rgba_int_to_raster(rgba_float_to_rgba_int(blended))
-plot(raster)
+plot(raster, interpolate=F)
 ```

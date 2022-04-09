@@ -36,7 +36,7 @@ image(gauss_blurred_histogram)
 ```{r}
 rgbwt <- histogram_to_rgbwt(blurred_histogram)
 raster <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
-plot(raster)
+plot(raster, interpolate=F)
 ```
 
 ## Colorize blurred histogram with palette
@@ -46,5 +46,5 @@ palette = array(v, c(4, 4))
 
 rgbwt <- histogram_to_rgbwt(blurred_histogram, RGBA=palette)
 raster <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
-plot(raster)
+plot(raster, interpolate=F)
 ```
