@@ -7,8 +7,9 @@
 apply_kernel_rgbwt(
   fRGBWT,
   filter = "circle",
+  kernel,
   radius = 2,
-  sigma = 1,
+  sigma = radius/2,
   approx_limit = 3.5
 )
 }
@@ -16,13 +17,15 @@ apply_kernel_rgbwt(
 \item{fRGBWT}{RGBWT matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
 \code{transparency} ~ 1 - alpha, dimension nxmx5).}
 
-\item{filter}{Either \code{circle} or \code{gaussian} (symmetric).}
+\item{filter}{Either \code{circle}, \code{square} or \code{gauss}, defaults to \code{circle}.}
 
-\item{radius}{Size of circle kernel (float), defaults to \code{2}.}
+\item{kernel}{}
 
-\item{sigma}{Parameter for gaussian filtering, defaults to \code{1}.}
+\item{radius}{Size of circle kernel, defaults to \code{2}.}
 
-\item{approx_limit}{Sets the size of the kernel square, multiplied with \code{sigma}, defaults to \code{3.5}.}
+\item{sigma}{Parameter for gaussian filtering, defaults to \code{radius / 2}.}
+
+\item{approx_limit}{Sets the size of the kernel, multiplied with \code{sigma}, defaults to \code{3.5}.}
 }
 \value{
 RGBWT matrix.

@@ -6,7 +6,4 @@
 void kernel_histogram(const unsigned *dim, const float *kernel, float *blurred_histogram, const float *histogram);
 void kernel_rgbwt(const unsigned *dim, const float *kernel, float *blurred_RGBWT, const float *RGBWT);
 
-//helper methods
-float use_kernel_histogram(const float *kernel, const float *histogram, const unsigned *dim, const size_t x, const size_t y);
-
 #endif

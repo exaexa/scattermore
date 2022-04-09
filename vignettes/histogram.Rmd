@@ -26,9 +26,9 @@ image(histogram)
 
 ## Apply kernels on histogram
 ```{r}
-blurred_histogram <- apply_kernel_histogram(histogram, kernel_pixels=10)
+blurred_histogram <- apply_kernel_histogram(histogram, radius=4)
 image(blurred_histogram)
-gauss_blurred_histogram <- apply_kernel_histogram(histogram, filter="gauss", kernel_pixels=10)
+gauss_blurred_histogram <- apply_kernel_histogram(histogram, filter="gauss", radius=4)
 image(gauss_blurred_histogram)
 ```
 

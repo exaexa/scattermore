@@ -15,13 +15,13 @@ rgba_float_to_rgba_int <- function(fRGBA)
     rows <- dim(fRGBA)[1]
     cols <- dim(fRGBA)[2]
 
-    A <- 255 / pmax(scattermore.globals$epsilon, fRGBA[,,4])  #"unpremultiply" alpha
+    A <- 255 / pmax(scattermore.globals$epsilon, fRGBA[,,scattermore.globals$A])  #"unpremultiply" alpha
 
     i32RGBA <- array(0, c(rows, cols, scattermore.globals$dim_RGBA))
-    i32RGBA[,,1] <- as.integer(fRGBA[,,1] * A)
-    i32RGBA[,,2] <- as.integer(fRGBA[,,2] * A)
-    i32RGBA[,,3] <- as.integer(fRGBA[,,3] * A)
-    i32RGBA[,,4] <- as.integer(255 * fRGBA[,,4])
+    i32RGBA[,,scattermore.globals$R] <- as.integer(fRGBA[,,scattermore.globals$R] * A)
+    i32RGBA[,,scattermore.globals$G] <- as.integer(fRGBA[,,scattermore.globals$G] * A)
+    i32RGBA[,,scattermore.globals$B] <- as.integer(fRGBA[,,scattermore.globals$B] * A)
+    i32RGBA[,,scattermore.globals$A] <- as.integer(255 * fRGBA[,,scattermore.globals$A])
 
     return(i32RGBA)
 }

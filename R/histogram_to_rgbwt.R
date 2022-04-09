@@ -17,27 +17,26 @@ histogram_to_rgbwt <- function(
 {
    if(!is.matrix(fhistogram) && !is.array(fhistogram)) stop('fhistogram in matrix form expected')
    if(dim(fhistogram)[2] < 2) stop('not fhistogram format')
-   if(dim(RGBA)[1] != 4) stop('RGBA with 4 rows expected')
+   if(dim(RGBA)[1] != scattermore.globals$dim_RGBA) stop('RGBA with 4 rows expected')
    if(dim(RGBA)[2] < 2) stop('RGBA with at least 2 colors expected')
 
    rows <- dim(fhistogram)[1]
    cols <- dim(fhistogram)[2]
    size <- dim(RGBA)[2]
-   dim_RGBWT <- 5
 
-   RGBWT <- rep(0, rows * cols * dim_RGBWT)  #initialize matrix
+   RGBWT <- rep(0, rows * cols * scattermore.globals$dim_RGBWT)  #initialize matrix
 
    minimum <- min(fhistogram)
    maximum <- max(fhistogram)
    normalized_fhistogram <- (fhistogram - minimum) / (maximum - minimum)  #normalize histogram on values 0-1
 
    result <- .C("histogram_to_rgbwt",
-     dimen = as.integer(c(rows, cols, size)),
-     fRGBWT = as.single(RGBWT),
-     RGBA = as.single(RGBA / 255),
-     normalized_fhistogram = as.single(normalized_fhistogram))
+       dimen = as.integer(c(rows, cols, size)),
+       fRGBWT = as.single(RGBWT),
+       RGBA = as.single(RGBA / 255),
+       normalized_fhistogram = as.single(normalized_fhistogram))
 
 
-   fRGBWT <- array(result$fRGBWT, c(rows, cols, dim_RGBWT))
+   fRGBWT <- array(result$fRGBWT, c(rows, cols, scattermore.globals$dim_RGBWT))
    return(fRGBWT)
 }

@@ -15,13 +15,13 @@ rgbwt_to_rgba_int <- function(fRGBWT)
     rows <- dim(fRGBWT)[1]
     cols <- dim(fRGBWT)[2]
 
-    W <- 255 / pmax(scattermore.globals$epsilon, fRGBWT[,,4])
+    W <- 255 / pmax(scattermore.globals$epsilon, fRGBWT[,,scattermore.globals$W])
 
     i32RGBA <- array(0, c(rows, cols, scattermore.globals$dim_RGBA))
-    i32RGBA[,,1] <- as.integer(fRGBWT[,,1] * W)
-    i32RGBA[,,2] <- as.integer(fRGBWT[,,2] * W)
-    i32RGBA[,,3] <- as.integer(fRGBWT[,,3] * W)
-    i32RGBA[,,4] <- as.integer(255 * (1 - fRGBWT[,,5]))
+    i32RGBA[,,scattermore.globals$R] <- as.integer(fRGBWT[,,scattermore.globals$R] * W)
+    i32RGBA[,,scattermore.globals$G] <- as.integer(fRGBWT[,,scattermore.globals$G] * W)
+    i32RGBA[,,scattermore.globals$B] <- as.integer(fRGBWT[,,scattermore.globals$B] * W)
+    i32RGBA[,,scattermore.globals$A] <- as.integer(255 * (1 - fRGBWT[,,scattermore.globals$T]))
 
     return(i32RGBA)
 }

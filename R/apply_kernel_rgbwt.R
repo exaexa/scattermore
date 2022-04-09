@@ -5,13 +5,15 @@
 #' @param fRGBWT RGBWT matrix (`red`, `green`, `blue` channels, `weight` ~ sum of alphas,
 #'                                   `transparency` ~ 1 - alpha, dimension nxmx5).
 #'
-#' @param filter Either `circle` or `gaussian` (symmetric).
+#' @param filter Either `circle`, `square` or `gauss`, defaults to `circle`.
 #'
-#' @param radius Size of circle kernel (float), defaults to `2`.
+#' @param kernel
 #'
-#' @param sigma Parameter for gaussian filtering, defaults to `1`.
+#' @param radius Size of circle kernel, defaults to `2`.
 #'
-#' @param approx_limit Sets the size of the kernel square, multiplied with `sigma`, defaults to `3.5`.
+#' @param sigma Parameter for gaussian filtering, defaults to `radius / 2`.
+#'
+#' @param approx_limit Sets the size of the kernel, multiplied with `sigma`, defaults to `3.5`.
 #'
 #' @return RGBWT matrix.
 #'
@@ -20,39 +22,33 @@
 apply_kernel_rgbwt <- function(
   fRGBWT,
   filter = "circle",
+  kernel,
   radius = 2,
-  sigma = 1,
+  sigma = radius / 2,
   approx_limit = 3.5)
 {
    if(!is.numeric(radius) || !is.numeric(sigma) || !is.numeric(approx_limit) || length(radius) != 1 || length(sigma) != 1|| length(approx_limit) != 1)
    	stop('number in parameters radius, sigma or approx_limit expected')
    if(radius <= 0) stop('positive radius expected')
 
-   dim_RGBWT <- 5
-
-   if(!is.array(fRGBWT) || dim(fRGBWT)[3] != 5) stop('not supported fRGBWT format')
+   if(!is.array(fRGBWT) || dim(fRGBWT)[3] != scattermore.globals$dim_RGBWT) stop('not supported fRGBWT format')
    size_y <- dim(fRGBWT)[1]
    size_x <- dim(fRGBWT)[2]
 
-   output_RGBWT <- array(0, c(size_y, size_x, dim_RGBWT))
-   output_RGBWT[,,5] <- 1  #initialize transparency (multiplying)
+   blurred_fRGBWT <- array(0, c(size_y, size_x, scattermore.globals$dim_RGBWT))
+   blurred_fRGBWT[,,scattermore.globals$T] <- 1  #initialize transparency (multiplying)
 
+   kernel_pixels <- ceiling(radius)
+   size <- kernel_pixels * 2 + 1;  #odd size
 
    if(filter == "circle")
    {
-      kernel_pixels <- as.integer(radius+1)
-      size <- kernel_pixels * 2 + 1;  #odd size
       kernel <- matrix(
           pmin(1, pmax(0, -sqrt(rowSums(expand.grid(-kernel_pixels:kernel_pixels, -kernel_pixels:kernel_pixels) ^ 2)) + radius)),
         size, size)
-
-
-      result <- .C("kernel_rgbwt",
-        dimen = as.integer(c(size_x, size_y, kernel_pixels)),
-        kernel = as.single(kernel),
-        output_RGBWT = as.single(output_RGBWT),
-        fRGBWT = as.single(fRGBWT))
    }
+   else if(filter == "square")
+       kernel <- rep(1, size * size) #initialize and normalize kernel
    else if(filter == "gauss")
    {
       kernel_pixels <- ceiling(sigma * approx_limit);  #size of the kernel
@@ -60,17 +56,21 @@ apply_kernel_rgbwt <- function(
       kernel <- matrix(
         exp(
           -rowSums(expand.grid(-kernel_pixels:kernel_pixels, -kernel_pixels:kernel_pixels) ^ 2)
-           /(sigma ^ 2)),
+           / (sigma ^ 2)),
         size, size)
+   }
+   else if(filter == "own")
+   {
 
-      result <- .C("kernel_rgbwt",
-        dimen = as.integer(c(size_x, size_y, kernel_pixels)),
-        kernel = as.single(kernel),
-        output_RGBWT = as.single(output_RGBWT),
-        fRGBWT = as.single(fRGBWT))
    }
    else stop('unsupported kernel shape')
 
-    output_RGBWT <- array(result$output_RGBWT, c(size_y, size_x, dim_RGBWT))
-    return(output_RGBWT)
+   result <- .C("kernel_rgbwt",
+       dimen = as.integer(c(size_x, size_y, kernel_pixels)),
+       kernel = as.single(kernel),
+       blurred_fRGBWT = as.single(blurred_fRGBWT),
+       fRGBWT = as.single(fRGBWT))
+
+   blurred_fRGBWT <- array(result$blurred_fRGBWT, c(size_y, size_x, scattermore.globals$dim_RGBWT))
+   return(blurred_fRGBWT)
 }

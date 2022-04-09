@@ -17,7 +17,7 @@
 #'                   system by flipping the `ylim` vector.
 #'
 #' @param out_size 2-element vector size of the result histogram,
-#'             defaults to `c(512,512)`.
+#'                 defaults to `c(512,512)`.
 #'
 #' @return Histogram with the result.
 #'
@@ -38,12 +38,12 @@ scatter_histogram <- function(
    size_y <- as.integer(out_size[2])
 
    result <- .C("scatter_histogram",
-     n = as.integer(n),
-     out_size = as.integer(out_size),
-     i32histogram = integer(size_x * size_y),
-     xlim = as.single(xlim),
-     ylim = as.single(ylim),
-     xy = as.single(xy))
+       n = as.integer(n),
+       out_size = as.integer(out_size),
+       i32histogram = integer(size_x * size_y),
+       xlim = as.single(xlim),
+       ylim = as.single(ylim),
+       xy = as.single(xy))
 
     fhistogram <- array(result$i32histogram, c(size_y, size_x))
     return(fhistogram)

@@ -6,20 +6,22 @@
 \usage{
 apply_kernel_histogram(
   fhistogram,
-  filter = "square",
-  kernel_pixels = 2,
-  sigma = kernel_pixels/2
+  filter = "circle",
+  kernel,
+  radius = 2,
+  sigma = radius/2
 )
 }
 \arguments{
 \item{fhistogram}{Matrix or array interpreted as histogram.}
 
-\item{filter}{Either \code{square}(matrix of ones) or \code{gaussian} (symmetric).}
+\item{filter}{Either \code{circle}, \code{square} or \code{gauss}, defaults to \code{circle}.}
 
-\item{kernel_pixels}{Used for determining size of kernel,
-(\code{size = 2*kernel_pixels + 1}), defaults to \code{2}.}
+\item{kernel}{}
 
-\item{sigma}{Parameter for gaussian filtering, defaults to \code{10}.}
+\item{radius}{Used for determining size of kernel, defaults to \code{2}.}
+
+\item{sigma}{Parameter for gaussian filtering, defaults to \code{radius / 2}.}
 }
 \value{
 Blurred histogram with the result.

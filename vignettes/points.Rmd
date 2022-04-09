@@ -40,7 +40,7 @@ plot(gauss_raster, interpolate=F)
 ```{r}
 v <- c(255, 0, 0, 100, 0, 255, 0, 25, 0, 0, 255, 50, 0, 0, 0, 100)
 palette <- array(v, c(4, 4))
-map <- rep(c(0,1,2,3), each=25000)
+map <- rep(c(1,2,3,4), each=25000)
 rgbwt <- scatter_points_rgbwt(points, map = map, palette = palette, xlim=c(-5,5), ylim=c(-5,5))
 raster <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
 plot(raster, interpolate=F)
