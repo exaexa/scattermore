@@ -29,22 +29,22 @@ scatter_histogram <- function(
   ylim =c(min(xy[,2]),max(xy[,2])),
   out_size = c(512L,512L))
 {
-   n <- dim(xy)[1]
-   if(dim(xy)[2] != 2) stop('2-column xy input expected')
+    n <- dim(xy)[1]
+    if(dim(xy)[2] != 2) stop('2-column xy input expected')
 
-   if(!is.vector(xlim) || !is.vector(ylim) || !is.vector(out_size)) stop('vector input in parameters xlim, ylim or out_size expected')
+    if(!is.vector(xlim) || !is.vector(ylim) || !is.vector(out_size)) stop('vector input in parameters xlim, ylim or out_size expected')
 
-   size_x <- as.integer(out_size[1])
-   size_y <- as.integer(out_size[2])
+    size_x <- as.integer(out_size[1])
+    size_y <- as.integer(out_size[2])
 
-   result <- .C("scatter_histogram",
-       n = as.integer(n),
-       out_size = as.integer(out_size),
-       i32histogram = integer(size_x * size_y),
-       xlim = as.single(xlim),
-       ylim = as.single(ylim),
-       xy = as.single(xy))
+    result <- .C("scatter_histogram",
+        n = as.integer(n),
+        out_size = as.integer(out_size),
+        i32histogram = integer(size_x * size_y),
+        xlim = as.single(xlim),
+        ylim = as.single(ylim),
+        xy = as.single(xy))
 
-    fhistogram <- array(result$i32histogram, c(size_y, size_x))
-    return(fhistogram)
+     fhistogram <- array(result$i32histogram, c(size_y, size_x))
+     return(fhistogram)
 }

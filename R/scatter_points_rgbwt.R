@@ -39,72 +39,72 @@ scatter_points_rgbwt <- function(
   map = NULL,
   palette = NULL)
 {
-   n <- dim(xy)[1]
-   if(dim(xy)[2] != 2) stop('2-column xy input expected')
+    n <- dim(xy)[1]
+    if(dim(xy)[2] != 2) stop('2-column xy input expected')
 
-   if(!is.vector(xlim) || !is.vector(ylim) || !is.vector(out_size)) stop('vector input in parameters xlim, ylim or out_size expected')
+    if(!is.vector(xlim) || !is.vector(ylim) || !is.vector(out_size)) stop('vector input in parameters xlim, ylim or out_size expected')
 
-   if(is.vector(map))
-   {
-       map <- map - 1
-       if(length(map) != n) stop('map with the same data count as xy expected')
-       if(any(map < 0)) stop("indices in map must start from 1")
-   	   if(!is.matrix(palette) && !is.array(palette)) stop('not supported palette format')
-   	   if(dim(palette)[1] != scattermore.globals$dim_RGBA) stop('palette with 4 rows expected')
-   	   id <- 1
-   }
-   else if(is.vector(RGBA))
-   {
-       if(length(RGBA) != scattermore.globals$dim_RGBA) stop('RGBA vector of length 4 expected')
-   	   id <- 2
-   }
-   else if(is.matrix(RGBA) || is.array(RGBA))
-   {
-       if(dim(RGBA)[1] != scattermore.globals$dim_RGBA) stop('RGBA matrix with 4 rows expected')
-	   if(dim(RGBA)[2] != n) stop('incorrect number of colors parameter RGBA')
-	   id <- 3
-   }
-   else stop('unsupported input')
+    if(is.vector(map))
+    {
+        map <- map - 1
+        if(length(map) != n) stop('map with the same data count as xy expected')
+        if(any(map < 0)) stop("indices in map must start from 1")
+   	    if(!is.matrix(palette) && !is.array(palette)) stop('not supported palette format')
+   	    if(dim(palette)[1] != scattermore.globals$dim_RGBA) stop('palette with 4 rows expected')
+   	    id <- 1
+    }
+    else if(is.vector(RGBA))
+    {
+        if(length(RGBA) != scattermore.globals$dim_RGBA) stop('RGBA vector of length 4 expected')
+   	    id <- 2
+    }
+    else if(is.matrix(RGBA) || is.array(RGBA))
+    {
+        if(dim(RGBA)[1] != scattermore.globals$dim_RGBA) stop('RGBA matrix with 4 rows expected')
+	    if(dim(RGBA)[2] != n) stop('incorrect number of colors parameter RGBA')
+	    id <- 3
+    }
+    else stop('unsupported input')
 
 
-   size_x <- as.integer(out_size[1])
-   size_y <- as.integer(out_size[2])
+    size_x <- as.integer(out_size[1])
+    size_y <- as.integer(out_size[2])
 
-   RGBWT <- array(0, c(size_y, size_x, scattermore.globals$dim_RGBWT))
-   RGBWT[,,scattermore.globals$T] <- 1  #initialize transparency (multiplying)
+    RGBWT <- array(0, c(size_y, size_x, scattermore.globals$dim_RGBWT))
+    RGBWT[,,scattermore.globals$T] <- 1  #initialize transparency (multiplying)
 
-   if(id == 1)                  #colorize using palette
-   {
-       result <- .C("scatter_indexed_rgbwt",
-           dimen = as.integer(c(size_x, size_y, n)),
-           xlim = as.single(xlim),
-           ylim = as.single(ylim),
-           palette = as.single(palette / 255),
-           fRGBWT = as.single(RGBWT),
-           map = as.integer(map),
-           xy = as.single(xy))
-   }
-   else if(id == 2)            #colorize with one color
-   {
-       result <- .C("scatter_singlecolor_rgbwt",
-           dimen = as.integer(c(size_x, size_y, n)),
-           xlim = as.single(xlim),
-           ylim = as.single(ylim),
-           RGBA = as.single(RGBA / 255),
-           fRGBWT = as.single(RGBWT),
-           xy = as.single(xy))
-   }
-   else
-   {                           #colorize with given color for each point
-       result <- .C("scatter_multicolor_rgbwt",
-           dimen = as.integer(c(size_x, size_y, n)),
-           xlim = as.single(xlim),
-           ylim = as.single(ylim),
-           RGBA = as.single(RGBA / 255),
-           fRGBWT = as.single(RGBWT),
-           xy = as.single(xy))
-   }
+    if(id == 1)                  #colorize using palette
+    {
+        result <- .C("scatter_indexed_rgbwt",
+            dimen = as.integer(c(size_x, size_y, n)),
+            xlim = as.single(xlim),
+            ylim = as.single(ylim),
+            palette = as.single(palette / 255),
+            fRGBWT = as.single(RGBWT),
+            map = as.integer(map),
+            xy = as.single(xy))
+    }
+    else if(id == 2)            #colorize with one color
+    {
+        result <- .C("scatter_singlecolor_rgbwt",
+            dimen = as.integer(c(size_x, size_y, n)),
+            xlim = as.single(xlim),
+            ylim = as.single(ylim),
+            RGBA = as.single(RGBA / 255),
+            fRGBWT = as.single(RGBWT),
+            xy = as.single(xy))
+    }
+    else
+    {                           #colorize with given color for each point
+        result <- .C("scatter_multicolor_rgbwt",
+            dimen = as.integer(c(size_x, size_y, n)),
+            xlim = as.single(xlim),
+            ylim = as.single(ylim),
+            RGBA = as.single(RGBA / 255),
+            fRGBWT = as.single(RGBWT),
+            xy = as.single(xy))
+    }
 
-   fRGBWT <- array(result$fRGBWT, c(size_y, size_x, scattermore.globals$dim_RGBWT))
-   return(fRGBWT)
+    fRGBWT <- array(result$fRGBWT, c(size_y, size_x, scattermore.globals$dim_RGBWT))
+    return(fRGBWT)
 }

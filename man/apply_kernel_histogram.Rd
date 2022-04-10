@@ -7,7 +7,7 @@
 apply_kernel_histogram(
   fhistogram,
   filter = "circle",
-  kernel,
+  mask,
   radius = 2,
   sigma = radius/2
 )
@@ -15,9 +15,9 @@ apply_kernel_histogram(
 \arguments{
 \item{fhistogram}{Matrix or array interpreted as histogram.}
 
-\item{filter}{Either \code{circle}, \code{square} or \code{gauss}, defaults to \code{circle}.}
+\item{filter}{Either \code{circle}, \code{square}, \code{gauss} or \code{own}, defaults to \code{circle}.}
 
-\item{kernel}{}
+\item{mask}{Own kernel used for blurring, \code{filter} parameter has to be set to \code{own}.}
 
 \item{radius}{Used for determining size of kernel, defaults to \code{2}.}
 

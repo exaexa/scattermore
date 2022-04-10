@@ -7,7 +7,7 @@
 apply_kernel_rgbwt(
   fRGBWT,
   filter = "circle",
-  kernel,
+  mask,
   radius = 2,
   sigma = radius/2,
   approx_limit = 3.5
@@ -17,9 +17,9 @@ apply_kernel_rgbwt(
 \item{fRGBWT}{RGBWT matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
 \code{transparency} ~ 1 - alpha, dimension nxmx5).}
 
-\item{filter}{Either \code{circle}, \code{square} or \code{gauss}, defaults to \code{circle}.}
+\item{filter}{Either \code{circle}, \code{square}, \code{gauss} or \code{own}, defaults to `circle.}
 
-\item{kernel}{}
+\item{mask}{Own kernel used for blurring, \code{filter} parameter has to be set to \code{own}.}
 
 \item{radius}{Size of circle kernel, defaults to \code{2}.}
 
