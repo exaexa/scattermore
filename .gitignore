@@ -3,3 +3,6 @@ inst/doc
 /Meta/
 /codecov
 
+/build.R
+/clean.sh
+/style_c.sh

@@ -1,3 +1,21 @@
+# This file is part of scattermore.
+#
+# Copyright (C) 2022 Mirek Kratochvil <exa.exa@gmail.com>
+#               2022 Tereza Kulichova <kulichova.t@gmail.com>
+#
+# scattermore is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# scattermore is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with scattermore. If not, see <https://www.gnu.org/licenses/>.
+
 #' apply_kernel_histogram
 #'
 #' Blur given histogram using `square` or `gauss` filtering.
@@ -16,60 +34,59 @@
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
-apply_kernel_histogram <- function(
-  fhistogram,
-  filter = "circle",
-  mask,
-  radius = 2,
-  sigma = radius / 2)
-{
-    if(!is.matrix(fhistogram) && !is.array(fhistogram)) stop('fhistogram in matrix form expected')
-    if(dim(fhistogram)[2] < 2) stop('not fhistogram format')
-    if(!is.numeric(radius) || !is.numeric(sigma) || length(radius) != 1 || length(sigma) != 1)
-        stop('number in parameters radius or sigma')
-    if(radius <= 0) stop('positive radius expected')
+apply_kernel_histogram <- function(fhistogram,
+                                   filter = "circle",
+                                   mask,
+                                   radius = 2,
+                                   sigma = radius / 2) {
+  if (!is.matrix(fhistogram) && !is.array(fhistogram)) stop("fhistogram in matrix form expected")
+  if (dim(fhistogram)[2] < 2) stop("not fhistogram format")
+  if (!is.numeric(radius) || !is.numeric(sigma) || length(radius) != 1 || length(sigma) != 1) {
+    stop("number in parameters radius or sigma")
+  }
+  if (radius <= 0) stop("positive radius expected")
 
 
-    size_y <- dim(fhistogram)[1]
-    size_x <- dim(fhistogram)[2]
+  size_y <- dim(fhistogram)[1]
+  size_x <- dim(fhistogram)[2]
 
-    kernel_pixels <- ceiling(radius)
-    size <- kernel_pixels * 2 + 1;  #odd size
+  kernel_pixels <- ceiling(radius)
+  size <- kernel_pixels * 2 + 1 # odd size
 
-    if(filter == "circle")
-    {
-       kernel <- matrix(
-           pmin(1, pmax(0, -sqrt(rowSums(expand.grid(-kernel_pixels:kernel_pixels, -kernel_pixels:kernel_pixels) ^ 2)) + radius)),
-       size, size)
-    }
-    else if(filter == "square")
-        kernel <- rep(1, size * size)
-    else if(filter == "gauss")
-    {
-       kernel <- matrix(
-           exp(
-                -rowSums(expand.grid(-kernel_pixels:kernel_pixels, -kernel_pixels:kernel_pixels) ^ 2)
-                / (sigma ^ 2)),
-       size, size)
-    }
-    else if(filter == "own")
-    {
-         if(!is.matrix(mask) && !is.array(mask)) stop('kernel in matrix or array form expected')
-         if(dim(mask)[1] != dim(mask)[2]) stop('kernel in square matrix expected')
-         if(dim(mask)[1] %% 2 == 0) stop('kernel with odd size expected')
+  if (filter == "circle") {
+    kernel <- matrix(
+      pmin(1, pmax(0, -sqrt(rowSums(expand.grid(-kernel_pixels:kernel_pixels, -kernel_pixels:kernel_pixels)^2)) + radius)),
+      size, size
+    )
+  } else if (filter == "square") {
+    kernel <- rep(1, size * size)
+  } else if (filter == "gauss") {
+    kernel <- matrix(
+      exp(
+        -rowSums(expand.grid(-kernel_pixels:kernel_pixels, -kernel_pixels:kernel_pixels)^2)
+        / (sigma^2)
+      ),
+      size, size
+    )
+  } else if (filter == "own") {
+    if (!is.matrix(mask) && !is.array(mask)) stop("kernel in matrix or array form expected")
+    if (dim(mask)[1] != dim(mask)[2]) stop("kernel in square matrix expected")
+    if (dim(mask)[1] %% 2 == 0) stop("kernel with odd size expected")
 
-         kernel <- mask
-         kernel_pixels <- floor(dim(kernel)[1] / 2)
-    }
-    else stop('unsupported kernel shape')
+    kernel <- mask
+    kernel_pixels <- floor(dim(kernel)[1] / 2)
+  } else {
+    stop("unsupported kernel shape")
+  }
 
 
-    result <- .C("kernel_histogram",
-        dimen = as.integer(c(size_x, size_y, kernel_pixels)),
-        kernel = as.single(kernel),
-        blurred_fhistogram = as.single(rep(0, size_x * size_y)),
-        fhistogram = as.single(fhistogram))
+  result <- .C("kernel_histogram",
+    dimen = as.integer(c(size_x, size_y, kernel_pixels)),
+    kernel = as.single(kernel),
+    blurred_fhistogram = as.single(rep(0, size_x * size_y)),
+    fhistogram = as.single(fhistogram)
+  )
 
-    blurred_fhistogram <- array(result$blurred_fhistogram, c(size_y, size_x))
-    return(blurred_fhistogram)
+  blurred_fhistogram <- array(result$blurred_fhistogram, c(size_y, size_x))
+  return(blurred_fhistogram)
 }

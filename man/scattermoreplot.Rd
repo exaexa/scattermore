@@ -35,10 +35,11 @@ Convenience base-graphics-like layer around scattermore. Currently only works wi
 \examples{
 # plot an actual rainbow
 library(scattermore)
-d <- data.frame(s=qlogis(1:1e6/(1e6+1), 6, 0.5), t=rnorm(1e6, pi/2, 0.5))
+d <- data.frame(s = qlogis(1:1e6 / (1e6 + 1), 6, 0.5), t = rnorm(1e6, pi / 2, 0.5))
 scattermoreplot(
-  d$s*cos(d$t),
-  d$s*sin(d$t),
-  col=rainbow(1e6, alpha=.05)[c((9e5+1):1e6, 1:9e5)],
-  main="scattermore demo")
+  d$s * cos(d$t),
+  d$s * sin(d$t),
+  col = rainbow(1e6, alpha = .05)[c((9e5 + 1):1e6, 1:9e5)],
+  main = "scattermore demo"
+)
 }
