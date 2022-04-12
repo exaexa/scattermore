@@ -26,7 +26,7 @@ raster <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
 plot(raster, interpolate=F)
 ```
 
-## Apply kernels on colorized data
+## Apply some kernels on colorized data
 ```{r}
 blurred_rgbwt <- apply_kernel_rgbwt(rgbwt)
 raster <- rgba_int_to_raster(rgbwt_to_rgba_int(blurred_rgbwt))

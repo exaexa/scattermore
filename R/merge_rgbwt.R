@@ -3,7 +3,7 @@
 #' Merge two RGBWT matrices.
 #'
 #' @param fRGBWT_1 RGBWT matrix (`red`, `green`, `blue` channels, `weight` ~ sum of alphas,
-#'                                   `transparency` ~ 1 - alpha, dimension nxmx5).
+#'                               `transparency` ~ 1 - alpha, dimension nxmx5).
 #'
 #' @param fRGBWT_2 The same as fRGBWT_1 parameter.
 #'
@@ -21,7 +21,7 @@ merge_rgbwt <- function(fRGBWT_1, fRGBWT_2)
     cols <- dim(fRGBWT_1)[2]
 
     fRGBWT <- array(0, c(rows, cols, scattermore.globals$dim_RGBWT))
-    fRGBWT[,,1:4] <- fRGBWT_1[,,1:4] + fRGBWT_2[,,1:4]   #blend
+    fRGBWT[,,1:4] <- fRGBWT_1[,,1:4] + fRGBWT_2[,,1:4] #merge
     fRGBWT[,,scattermore.globals$T] <- fRGBWT_1[,,scattermore.globals$T] * fRGBWT_2[,,scattermore.globals$T]
 
     return(fRGBWT)

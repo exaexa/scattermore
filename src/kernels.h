@@ -2,8 +2,15 @@
 #define KERNELS_H_
 #include <stdio.h>
 
-//main methods
-void kernel_histogram(const unsigned *dim, const float *kernel, float *blurred_histogram, const float *histogram);
-void kernel_rgbwt(const unsigned *dim, const float *kernel, float *blurred_RGBWT, const float *RGBWT);
+void
+kernel_histogram(const unsigned *dim,
+                 const float *kernel,
+                 float *blurred_histogram,
+                 const float *histogram);
+void
+kernel_rgbwt(const unsigned *dim,
+             const float *kernel,
+             float *blurred_RGBWT,
+             const float *RGBWT);
 
 #endif

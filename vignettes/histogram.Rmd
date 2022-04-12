@@ -24,7 +24,7 @@ histogram <- scatter_histogram(cbind(rnorm(1e5), rnorm(1e5)), xlim=c(-5,5), ylim
 image(histogram)
 ```
 
-## Apply kernels on histogram
+## Apply some kernels on histogram
 ```{r}
 blurred_histogram <- apply_kernel_histogram(histogram, radius=4)
 image(blurred_histogram)

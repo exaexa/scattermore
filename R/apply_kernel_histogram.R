@@ -43,7 +43,7 @@ apply_kernel_histogram <- function(
        size, size)
     }
     else if(filter == "square")
-        kernel <- rep(1, size * size) #initialize and normalize kernel
+        kernel <- rep(1, size * size)
     else if(filter == "gauss")
     {
        kernel <- matrix(

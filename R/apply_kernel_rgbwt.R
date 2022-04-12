@@ -48,11 +48,11 @@ apply_kernel_rgbwt <- function(
        size, size)
     }
     else if(filter == "square")
-        kernel <- rep(1, size * size) #initialize and normalize kernel
+        kernel <- rep(1, size * size)
     else if(filter == "gauss")
     {
-       kernel_pixels <- ceiling(sigma * approx_limit);  #size of the kernel
-       size <- kernel_pixels * 2 + 1;  #odd size
+       kernel_pixels <- ceiling(sigma * approx_limit);
+       size <- kernel_pixels * 2 + 1;
        kernel <- matrix(
            exp(
                -rowSums(expand.grid(-kernel_pixels:kernel_pixels, -kernel_pixels:kernel_pixels) ^ 2)

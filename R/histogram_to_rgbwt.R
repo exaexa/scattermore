@@ -24,7 +24,7 @@ histogram_to_rgbwt <- function(
     cols <- dim(fhistogram)[2]
     size <- dim(RGBA)[2]
 
-    RGBWT <- rep(0, rows * cols * scattermore.globals$dim_RGBWT)  #initialize matrix
+    RGBWT <- rep(0, rows * cols * scattermore.globals$dim_RGBWT)
 
     minimum <- min(fhistogram)
     maximum <- max(fhistogram)

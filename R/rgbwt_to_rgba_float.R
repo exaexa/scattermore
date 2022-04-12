@@ -3,7 +3,7 @@
 #' Convert RGBWT matrix to RGBA matrix.
 #'
 #' @param fRGBWT RGBWT matrix (`red`, `green`, `blue` channels, `weight` ~ sum of alphas,
-#'                                   `transparency` ~ 1 - alpha, dimension nxmx5).
+#'                             `transparency` ~ 1 - alpha, dimension nxmx5).
 #' @return RGBA matrix, output *is premultiplied* by alpha.
 #'
 #' @export
