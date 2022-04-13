@@ -63,7 +63,7 @@ scatter_points_rgbwt <- function(xy,
   if (is.vector(map)) {
     map <- as.integer(map) - 1L
     if (length(map) != n) stop("map with the same data count as xy expected")
-    if (any(map < 1)) stop("indices in map must start from 1")
+    if (any(map < 0L)) stop("indices in map must start from 1")
     if (!is.matrix(palette) && !is.array(palette)) stop("not supported palette format")
     if (dim(palette)[1] != scattermore.globals$dim_RGBA) stop("palette with 4 rows expected")
     id <- 1
