@@ -59,8 +59,8 @@ par(mar=rep(0,4))
 # plot the datapoints and see how long it takes
 system.time(plot(scattermore(data, rgba=c(64,128,192,10), xlim=c(-3,3), ylim=c(-3,3))))
 
-   user  system elapsed 
-  0.413   0.044   0.461 
+   user  system elapsed
+  0.413   0.044   0.461
 ```
 
 You should immediately see _quite a heap_ of tiny points:
@@ -73,8 +73,8 @@ Now, how fast would the standard `plot()` do?
 # compare with the usual plot function on x11/cairo
 system.time(plot(data, pch='.', xlim=c(-3,3), ylim=c(-3,3), col=rgb(0.25,0.5,0.75,0.04)))
 
-   user  system elapsed 
-  9.752   0.023   9.794 
+   user  system elapsed
+  9.752   0.023   9.794
 ```
 
 This way, 0.46 seconds of `scattermore` means a nice ~20x speedup over `plot`
