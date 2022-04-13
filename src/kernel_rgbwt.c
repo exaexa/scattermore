@@ -21,6 +21,8 @@
 
 #include "kernels.h"
 
+#include <stddef.h>
+
 // blur data using its RGBWT matrix with given kernel
 void
 kernel_rgbwt(const unsigned *dim,

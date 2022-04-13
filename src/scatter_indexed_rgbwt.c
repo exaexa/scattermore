@@ -21,6 +21,8 @@
 
 #include "scatters.h"
 
+#include <stddef.h>
+
 // calculate RGBWT matrix with given color palette and mapping
 void
 scatter_indexed_rgbwt(const unsigned *dim,

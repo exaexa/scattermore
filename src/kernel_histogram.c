@@ -21,6 +21,8 @@
 
 #include "kernels.h"
 
+#include <stddef.h>
+
 // blur histogram using given kernel
 void
 kernel_histogram(const unsigned *dim,

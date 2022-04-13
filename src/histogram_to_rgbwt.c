@@ -21,6 +21,8 @@
 
 #include "scatters.h"
 
+#include <stddef.h>
+
 // colorize histogram with given color palette
 void
 histogram_to_rgbwt(const unsigned *dim,

@@ -21,6 +21,8 @@
 
 #include "scatters.h"
 
+#include <stddef.h>
+
 void
 scatter_histogram(const unsigned *pn,
                   const unsigned *size_out,

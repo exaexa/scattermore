@@ -21,6 +21,8 @@
 
 #include "scatters.h"
 
+#include <stddef.h>
+
 // calculate RGBWT matrix with given color for each point
 void
 scatter_multicolor_rgbwt(const unsigned *dim,

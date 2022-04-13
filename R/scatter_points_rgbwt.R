@@ -38,13 +38,13 @@
 #'                 defaults to `c(512,512)`.
 #'
 #' @param RGBA Vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B
-#'             and alpha channels  in integers, defaults to `c(0,0,0,255)`.
+#'             and alpha channels in integers, defaults to `c(0,0,0,255)`.
 #'
-#' @param map Vector with indices to `palette`.
+#' @param map Vector with integer indices to `palette`.
 #'
-#' @param palette Matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B and alpha channels  in integers.
+#' @param palette Matrix with R, G, B and A channels in rows, of at `maximum(map)` columns.
 #'
-#' @return RGBWT matrix.
+#' @return An array in RGBWT format with the scatterplot output.
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
@@ -61,9 +61,9 @@ scatter_points_rgbwt <- function(xy,
   if (!is.vector(xlim) || !is.vector(ylim) || !is.vector(out_size)) stop("vector input in parameters xlim, ylim or out_size expected")
 
   if (is.vector(map)) {
-    map <- map - 1
+    map <- as.integer(map) - 1L
     if (length(map) != n) stop("map with the same data count as xy expected")
-    if (any(map < 0)) stop("indices in map must start from 1")
+    if (any(map < 1)) stop("indices in map must start from 1")
     if (!is.matrix(palette) && !is.array(palette)) stop("not supported palette format")
     if (dim(palette)[1] != scattermore.globals$dim_RGBA) stop("palette with 4 rows expected")
     id <- 1
@@ -72,12 +72,16 @@ scatter_points_rgbwt <- function(xy,
     id <- 2
   } else if (is.matrix(RGBA) || is.array(RGBA)) {
     if (dim(RGBA)[1] != scattermore.globals$dim_RGBA) stop("RGBA matrix with 4 rows expected")
-    if (dim(RGBA)[2] != n) stop("incorrect number of colors parameter RGBA")
-    id <- 3
+    if (dim(RGBA)[2] == n) {
+      id <- 3
+    } else if (dim(RGBA)[2] == 1) {
+      id <- 2
+    } else {
+      stop("incorrect number of colors in parameter RGBA")
+    }
   } else {
-    stop("unsupported input")
+    stop("unsupported input type")
   }
-
 
   size_x <- as.integer(out_size[1])
   size_y <- as.integer(out_size[2])
