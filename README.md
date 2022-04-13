@@ -150,7 +150,7 @@ ggsave('scattermore.png', units='in', width=3, height=3,
   geom_scattermost(
     d,
     col=viridisLite::viridis(100, alpha=0.05)[1+99*d[,2]],
-    pointsize=1,
+    pointsize=2,
     pixels=c(700,700)) +
   ggtitle("geom_scattermost"))
 ```
