@@ -3,7 +3,7 @@
 
 [![CRAN status](https://www.r-pkg.org/badges/version/scattermore)](https://cran.r-project.org/package=scattermore)
 [![CRAN downloads](https://cranlogs.r-pkg.org/badges/scattermore)](https://cran.r-project.org/package=scattermore)
-![CI status badge](https://github.com/exaexa/scattermore/actions/workflows/check-standard.yaml/badge.svg)
+![R CMD check status](https://github.com/exaexa/scattermore/workflows/R-CMD-check/badge.svg)
 [![codecov](https://codecov.io/gh/exaexa/scattermore/branch/master/graph/badge.svg?token=L1YIYBSLTW)](https://codecov.io/gh/exaexa/scattermore)
 
 Scatterplots with more datapoints. If you want to plot bazillions of points
