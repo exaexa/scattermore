@@ -33,14 +33,14 @@ system by flipping the \code{ylim} vector.}
 defaults to \code{c(512,512)}.}
 
 \item{RGBA}{Vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B
-and alpha channels  in integers, defaults to \code{c(0,0,0,255)}.}
+and alpha channels in integers, defaults to \code{c(0,0,0,255)}.}
 
-\item{map}{Vector with indices to \code{palette}.}
+\item{map}{Vector with integer indices to \code{palette}.}
 
-\item{palette}{Matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B and alpha channels  in integers.}
+\item{palette}{Matrix with R, G, B and A channels in rows, of at \code{maximum(map)} columns.}
 }
 \value{
-RGBWT matrix.
+An array in RGBWT format with the scatterplot output.
 }
 \description{
 Colorize given data with one given color or each point has its corresponding given color.
