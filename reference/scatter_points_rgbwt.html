@@ -92,15 +92,15 @@ system by flipping the <code>ylim</code> vector.</p></dd>
 defaults to <code>c(512,512)</code>.</p></dd>
 <dt>RGBA</dt>
 <dd><p>Vector with 4 elements or matrix or array (4xn dim, n &gt;= 2, n ~ xy rows) with R, G, B
-and alpha channels  in integers, defaults to <code>c(0,0,0,255)</code>.</p></dd>
+and alpha channels in integers, defaults to <code>c(0,0,0,255)</code>.</p></dd>
 <dt>map</dt>
-<dd><p>Vector with indices to <code>palette</code>.</p></dd>
+<dd><p>Vector with integer indices to <code>palette</code>.</p></dd>
 <dt>palette</dt>
-<dd><p>Matrix or array (4xn dim, n &gt;= 2, n ~ xy rows) with R, G, B and alpha channels  in integers.</p></dd>
+<dd><p>Matrix with R, G, B and A channels in rows, of at <code>maximum(map)</code> columns.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>RGBWT matrix.</p>
+    <p>An array in RGBWT format with the scatterplot output.</p>
     </div>
 
   </div>
