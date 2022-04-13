@@ -5,4 +5,7 @@
 /Meta/
 *.o
 /..Rcheck
+*.so
 .*.swp
+/vignettes/*.html
+/vignettes/*.R
