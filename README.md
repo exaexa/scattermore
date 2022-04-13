@@ -17,9 +17,8 @@ a part of a larger package for interactive cytometry data analysis
 
 ## Installation
 
-```r
-devtools::install_github('exaexa/scattermore')
-```
+- from CRAN repositories (recommended): `install.packages('scattermore')`
+- from GitHub (development version: `devtools::install_github('exaexa/scattermore')`
 
 ## Quick How-To
 
