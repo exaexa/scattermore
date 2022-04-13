@@ -1,8 +1,8 @@
-inst/doc
-/doc/
-/Meta/
 /codecov
-
-/build.R
-/clean.sh
-/style_c.sh
+/doc/
+/.idea/
+/inst/
+/Meta/
+*.o
+/..Rcheck
+.*.swp
