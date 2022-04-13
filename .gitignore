@@ -1,0 +1,11 @@
+/codecov
+/doc/
+/.idea/
+/inst/
+/Meta/
+*.o
+/..Rcheck
+*.so
+.*.swp
+/vignettes/*.html
+/vignettes/*.R

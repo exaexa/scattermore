@@ -17,9 +17,8 @@ a part of a larger package for interactive cytometry data analysis
 
 ## Installation
 
-```r
-devtools::install_github('exaexa/scattermore')
-```
+- from CRAN repositories (recommended): `install.packages('scattermore')`
+- from GitHub (development version: `devtools::install_github('exaexa/scattermore')`
 
 ## Quick How-To
 
@@ -154,5 +153,4 @@ ggsave('scattermore.png', units='in', width=3, height=3,
   ggtitle("geom_scattermost"))
 ```
 
-![Plot with points geom](media/point.png "usual points geom")
-![Plot with scattermore](media/scattermore.png "scattermost geom")
+<img alt="Plot with geom_point" src="/media/point.png" width="50%"><img alt="Plot with geom_scattermore" src="/media/scattermore.png" width="50%">

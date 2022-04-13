@@ -44,11 +44,12 @@ non-integer point sizes, e.g. \code{3.2} looks much better than \code{3}.
 \examples{
 library(ggplot2)
 library(scattermore)
-ggplot(data.frame(x=rnorm(1e6), y=rexp(1e6))) +
-  geom_scattermore(aes(x,y,color=x),
-                   pointsize=3,
-                   alpha=0.1,
-                   pixels=c(1000,1000),
-                   interpolate=TRUE) +
+ggplot(data.frame(x = rnorm(1e6), y = rexp(1e6))) +
+  geom_scattermore(aes(x, y, color = x),
+    pointsize = 3,
+    alpha = 0.1,
+    pixels = c(1000, 1000),
+    interpolate = TRUE
+  ) +
   scale_color_viridis_c()
 }

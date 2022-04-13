@@ -1,0 +1,7 @@
+^doc$
+^Meta$
+^\.github$
+^codecov\.yml$
+^\.idea$
+^pictures$
+^media$

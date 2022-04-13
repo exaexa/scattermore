@@ -44,5 +44,5 @@ Convert points to raster scatterplot rather quickly.
 }
 \examples{
 library(scattermore)
-plot(scattermore(cbind(rnorm(1e6),rnorm(1e6)), rgba=c(64,128,192,10)))
+plot(scattermore(cbind(rnorm(1e6), rnorm(1e6)), rgba = c(64, 128, 192, 10)))
 }
