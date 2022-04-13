@@ -1,7 +1,8 @@
-^doc$
-^Meta$
-^\.github$
 ^codecov\.yml$
+^doc$
+^\.github$
 ^\.idea$
-^pictures$
 ^media$
+^Meta$
+^pack_cran.sh$
+^style.sh$
