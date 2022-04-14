@@ -12,7 +12,7 @@ test_that("geom scattermore does not fail on trivial data", {
 })
 
 test_that("geom scattermost does not fail on trivial data", {
-  d <- data.frame(x = rnorm(1e5), y = rnorm(1e5))
+  d <- data.frame(x = rnorm(1e5), y = runif(1e5))
 
   expect_silent(geom_scattermost(
     cbind(rnorm(1e6), runif(1e6)),
