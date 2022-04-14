@@ -12,11 +12,9 @@ test_that("geom scattermore does not fail on trivial data", {
 })
 
 test_that("geom scattermost does not fail on trivial data", {
-  d <- cbind(rnorm(1e6), runif(1e6))
-
   expect_silent(geom_scattermost(
-    d,
-    col = viridisLite::viridis(100, alpha = 0.05)[1 + 99 * d[, 2]],
+    cbind(rnorm(1e6), runif(1e6)),
+    col = rainbow(1e6, alpha = .05)[c((9e5 + 1):1e6, 1:9e5)],
     pointsize = 2,
     pixels = c(700, 700)
   ))
