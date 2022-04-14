@@ -9,3 +9,4 @@
 .*.swp
 /vignettes/*.html
 /vignettes/*.R
+*.pdf
