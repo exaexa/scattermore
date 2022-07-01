@@ -37,7 +37,7 @@ static const R_CMethodDef cMethods[] = {
 };
 
 void // # nocov start
-R_init_Scattermore2(DllInfo *info)
+R_init_Scattermore(DllInfo *info)
 {
   R_registerRoutines(info, cMethods, NULL, NULL, NULL);
   R_useDynamicSymbols(info, FALSE);

@@ -22,15 +22,23 @@
 #ifndef KERNELS_H
 #define KERNELS_H
 
-void
-kernel_histogram(const unsigned *dim,
-                 const float *kernel,
-                 float *blurred_histogram,
-                 const float *histogram);
-void
-kernel_rgbwt(const unsigned *dim,
-             const float *kernel,
-             float *blurred_RGBWT,
-             const float *RGBWT);
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+  void kernel_histogram(const unsigned *dim,
+                        const float *kernel,
+                        float *blurred_histogram,
+                        const float *histogram);
+
+  void kernel_rgbwt(const unsigned *dim,
+                    const float *kernel,
+                    float *blurred_RGBWT,
+                    const float *RGBWT);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
