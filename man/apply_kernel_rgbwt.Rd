@@ -28,7 +28,7 @@ apply_kernel_rgbwt(
 
 \item{approx_limit}{Sets the size of the kernel, multiplied with \code{sigma}, defaults to \code{3.5}.}
 
-\item{threads}{Ensures multithreading when blurring the histogram, defaults to \code{1}, no (parallelization).}
+\item{threads}{Ensures multithreading when blurring the histogram, 0 chooses hardware concurrency, defaults to \code{1} (no parallelization).}
 }
 \value{
 RGBWT matrix.

@@ -24,7 +24,7 @@ apply_kernel_histogram(
 
 \item{sigma}{Parameter for gaussian filtering, defaults to \code{radius / 2}.}
 
-\item{threads}{Ensures multithreading when blurring the histogram, defaults to \code{1} (no parallelization).}
+\item{threads}{Ensures multithreading when blurring the histogram, 0 chooses hardware concurrency, defaults to \code{1} (no parallelization).}
 }
 \value{
 Blurred histogram with the result.

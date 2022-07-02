@@ -33,7 +33,7 @@
 #'
 #' @param approx_limit Sets the size of the kernel, multiplied with `sigma`, defaults to `3.5`.
 #'
-#' @param threads Ensures multithreading when blurring the histogram, defaults to `1`, no (parallelization).
+#' @param threads Ensures multithreading when blurring the histogram, 0 chooses hardware concurrency, defaults to `1` (no parallelization).
 #'
 #' @return RGBWT matrix.
 #'
@@ -50,7 +50,7 @@ apply_kernel_rgbwt <- function(fRGBWT,
     stop("number in parameters radius, sigma or approx_limit expected")
   }
   if (radius <= 0) stop("positive radius expected")
-  if (threads <= 0) stop("positive number of threads expected")
+  if (threads < 0) stop("non negative number of threads expected")
 
   if (!is.array(fRGBWT) || dim(fRGBWT)[3] != scattermore.globals$dim_RGBWT) stop("not supported fRGBWT format")
   size_y <- dim(fRGBWT)[1]

@@ -40,7 +40,11 @@ kernel_histogram(const unsigned *dim,
   const size_t size_out_y = dim[1];
   const int radius = dim[2];
   const size_t kernel_size = 2 * radius + 1;
-  const size_t num_threads = dim[3];
+
+  size_t num_threads = dim[3];
+  if (num_threads == 0)
+    num_threads = thread::hardware_concurrency();
+
   vector<thread> list_threads(num_threads);
   const size_t block_size_y = round(size_out_y / (float)num_threads);
 
@@ -52,7 +56,8 @@ kernel_histogram(const unsigned *dim,
         float sum = 0;
 
         int x;
-        for (x = -radius; x <= radius; ++x) { // blurring region around given point
+        for (x = -radius; x <= radius;
+             ++x) { // blurring region around given point
           int y;
           for (y = -radius; y <= radius; ++y) {
             int histogram_index = (j + x) * size_out_y + (i + y);
@@ -72,7 +77,8 @@ kernel_histogram(const unsigned *dim,
 
   size_t current_range_y = 0;
   for (size_t thread_id = 0; thread_id < num_threads; ++thread_id) {
-    list_threads[thread_id] = thread(thread_code, current_range_y); // assign part of the bitmap to each thread
+    list_threads[thread_id] = thread(
+      thread_code, current_range_y); // assign part of the bitmap to each thread
     current_range_y += block_size_y;
   }
 

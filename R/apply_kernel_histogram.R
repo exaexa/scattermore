@@ -30,7 +30,7 @@
 #'
 #' @param sigma Parameter for gaussian filtering, defaults to `radius / 2`.
 #'
-#' @param threads Ensures multithreading when blurring the histogram, defaults to `1` (no parallelization).
+#' @param threads Ensures multithreading when blurring the histogram, 0 chooses hardware concurrency, defaults to `1` (no parallelization).
 #'
 #' @return Blurred histogram with the result.
 #'
@@ -48,7 +48,7 @@ apply_kernel_histogram <- function(fhistogram,
     stop("number in parameters radius or sigma")
   }
   if (radius <= 0) stop("positive radius expected")
-  if (threads <= 0) stop("positive number of threads expected")
+  if (threads < 0) stop("non negative number of threads expected")
 
   size_y <- dim(fhistogram)[1]
   size_x <- dim(fhistogram)[2]

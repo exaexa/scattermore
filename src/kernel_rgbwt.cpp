@@ -40,7 +40,11 @@ kernel_rgbwt(const unsigned *dim,
   const int radius = dim[2];
   const size_t size_kernel = radius * 2 + 1;
   const size_t size_out = size_out_x * size_out_y;
-  const size_t num_threads = dim[3];
+
+  size_t num_threads = dim[3];
+  if (num_threads == 0)
+    num_threads = thread::hardware_concurrency();
+
   vector<thread> list_threads(num_threads);
   const size_t block_size_y = round(size_out_y / (float)num_threads);
 
@@ -60,7 +64,8 @@ kernel_rgbwt(const unsigned *dim,
         float R = 0, G = 0, B = 0, W = 0, T = 1;
 
         int x;
-        for (x = -radius; x <= radius; ++x) { // blurring region around given point
+        for (x = -radius; x <= radius;
+             ++x) { // blurring region around given point
           int y;
           for (y = -radius; y <= radius; ++y) {
             int x_shift = j + x;
@@ -94,7 +99,8 @@ kernel_rgbwt(const unsigned *dim,
 
   size_t current_range_y = 0;
   for (size_t thread_id = 0; thread_id < num_threads; ++thread_id) {
-    list_threads[thread_id] = thread(thread_code, current_range_y);  // assign part of the bitmap to each thread
+    list_threads[thread_id] = thread(
+      thread_code, current_range_y); // assign part of the bitmap to each thread
     current_range_y += block_size_y;
   }
 
