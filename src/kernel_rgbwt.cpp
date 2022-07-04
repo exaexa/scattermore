@@ -20,7 +20,7 @@
  */
 
 #include "kernels.h"
-#include "thread_blocks.cpp"
+#include "thread_blocks.h"
 
 #include <cmath>
 #include <stddef.h>
@@ -50,7 +50,9 @@ kernel_rgbwt(const unsigned *dim,
   const size_t offset_W = size_out * 3;
   const size_t offset_T = size_out * 4;
 
-  auto blurring_code = [&](size_t current_pixel_x, size_t current_pixel_y) {
+  auto apply_kernel = [&](size_t /*thread_id*/,
+                          size_t current_pixel_x,
+                          size_t current_pixel_y) {
     float R = 0, G = 0, B = 0, W = 0, T = 1;
     size_t offset = current_pixel_x * size_out_y + current_pixel_y;
 
@@ -84,5 +86,5 @@ kernel_rgbwt(const unsigned *dim,
   };
 
   threaded_foreach_2dblocks(
-    size_out_x, size_out_y, block_size, block_size, num_threads, blurring_code);
+    size_out_x, size_out_y, block_size, block_size, num_threads, apply_kernel);
 }

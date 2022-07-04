@@ -20,7 +20,7 @@
  */
 
 #include "kernels.h"
-#include "thread_blocks.cpp"
+#include "thread_blocks.h"
 
 #include <stddef.h>
 
@@ -41,7 +41,9 @@ kernel_histogram(const unsigned *dim,
   size_t num_threads = dim[3];
   size_t block_size = 8;
 
-  auto blurring_code = [&](size_t current_pixel_x, size_t current_pixel_y) {
+  auto apply_kernel = [&](size_t /*thread_id*/,
+                          size_t current_pixel_x,
+                          size_t current_pixel_y) {
     float sum = 0;
 
     int x;
@@ -63,5 +65,5 @@ kernel_histogram(const unsigned *dim,
   };
 
   threaded_foreach_2dblocks(
-    size_out_x, size_out_y, block_size, block_size, num_threads, blurring_code);
+    size_out_x, size_out_y, block_size, block_size, num_threads, apply_kernel);
 }

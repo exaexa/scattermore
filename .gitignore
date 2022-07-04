@@ -10,3 +10,4 @@
 /vignettes/*.html
 /vignettes/*.R
 *.pdf
+*.dll
