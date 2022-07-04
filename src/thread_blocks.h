@@ -19,7 +19,6 @@
  * scattermore. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <cstdio>
 #include <thread>
 #include <vector>
 
@@ -79,7 +78,7 @@ threaded_foreach_2dblocks(size_t size_out_x,
               size_t current_block_pixel_x = X * block_size_x + x;
               if (current_block_pixel_x >= size_out_x)
                 break;
-              func(current_block_pixel_x, current_block_pixel_y);
+              func(thread_id, current_block_pixel_x, current_block_pixel_y);
             }
           }
         }

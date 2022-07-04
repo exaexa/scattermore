@@ -1,8 +1,8 @@
 #!/bin/bash
 
-( cd src
-  clang-format -style="{BasedOnStyle: Mozilla, UseTab: Never, IndentWidth: 2, TabWidth: 2, AccessModifierOffset: -2, PointerAlignment: Right}" -verbose -i *.c *.cpp *.h *.hpp
-)
+clang-format -style="{BasedOnStyle: Mozilla, UseTab: Never, IndentWidth: 2, TabWidth: 2, AccessModifierOffset: -2, PointerAlignment: Right}" \
+  -verbose -i \
+  `find -name '*.c' -or -name '*.cpp' -or -name '*.h'`
 
 find -name '*.c' -or -name '*.cpp' -or -name '*.h' -or -name '*.R' -or -name '*.sh' | while read filename ; do
     # remove any trailing spaces
