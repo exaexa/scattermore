@@ -55,8 +55,8 @@ kernel_histogram(const unsigned *dim,
         int histogram_index = (x_shift)*size_out_y + (y_shift);
         float kernel_value = kernel[(radius + x) * kernel_size + (radius + y)];
 
-        if (y_shift >= 0 && y_shift < size_out_y && x_shift >= 0 &&
-            x_shift < size_out_x)
+        if (y_shift >= 0 && (size_t)y_shift < size_out_y && x_shift >= 0 &&
+            (size_t)x_shift < size_out_x)
           sum += histogram[histogram_index] *
                  kernel_value; // else add nothing (zero border padding)
       }
