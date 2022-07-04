@@ -86,5 +86,5 @@ kernel_rgbwt(const unsigned *dim,
   };
 
   threaded_foreach_2dblocks(
-    size_out_x, size_out_y, block_size, block_size, num_threads, blurring_code);
+    size_out_x, size_out_y, block_size, block_size, num_threads, apply_kernel);
 }
