@@ -47,8 +47,8 @@ apply_kernel_histogram <- function(fhistogram,
   if (!is.numeric(radius) || !is.numeric(sigma) || length(radius) != 1 || length(sigma) != 1) {
     stop("number in parameters radius or sigma")
   }
-  if (radius <= 0) stop("positive radius expected")
-  if (threads < 0) stop("non negative number of threads expected")
+  if (radius <= 0) stop("non positive radius not supported")
+  if (threads < 0) stop("negative number of threads not supported")
 
   size_y <- dim(fhistogram)[1]
   size_x <- dim(fhistogram)[2]

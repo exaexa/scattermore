@@ -49,8 +49,8 @@ apply_kernel_rgbwt <- function(fRGBWT,
   if (!is.numeric(radius) || !is.numeric(sigma) || !is.numeric(approx_limit) || length(radius) != 1 || length(sigma) != 1 || length(approx_limit) != 1) {
     stop("number in parameters radius, sigma or approx_limit expected")
   }
-  if (radius <= 0) stop("positive radius expected")
-  if (threads < 0) stop("non negative number of threads expected")
+  if (radius <= 0) stop("non positive radius not supported")
+  if (threads < 0) stop("negative number of threads not supported")
 
   if (!is.array(fRGBWT) || dim(fRGBWT)[3] != scattermore.globals$dim_RGBWT) stop("not supported fRGBWT format")
   size_y <- dim(fRGBWT)[1]
