@@ -10,7 +10,7 @@ apply_kernel_histogram(
   mask,
   radius = 2,
   sigma = radius/2,
-  threads = 1
+  threads = 0
 )
 }
 \arguments{
@@ -24,7 +24,7 @@ apply_kernel_histogram(
 
 \item{sigma}{Parameter for gaussian filtering, defaults to \code{radius / 2}.}
 
-\item{threads}{Ensures multithreading when blurring the histogram, 0 chooses hardware concurrency, defaults to \code{1} (no parallelization).}
+\item{threads}{Number of parallel threads (default 0 chooses hardware concurrency).}
 }
 \value{
 Blurred histogram with the result.
