@@ -20,6 +20,7 @@
  */
 
 #include "kernels.h"
+#include "thread_blocks.cpp"
 
 #include <cmath>
 #include <stddef.h>
@@ -40,13 +41,8 @@ kernel_rgbwt(const unsigned *dim,
   const int radius = dim[2];
   const size_t size_kernel = radius * 2 + 1;
   const size_t size_out = size_out_x * size_out_y;
-
   size_t num_threads = dim[3];
-  if (num_threads == 0)
-    num_threads = thread::hardware_concurrency();
-
-  vector<thread> list_threads(num_threads);
-  const size_t block_size_y = round(size_out_y / (float)num_threads);
+  size_t block_size = 8;
 
   const size_t offset_R = size_out * 0;
   const size_t offset_G = size_out * 1;
@@ -54,56 +50,39 @@ kernel_rgbwt(const unsigned *dim,
   const size_t offset_W = size_out * 3;
   const size_t offset_T = size_out * 4;
 
-  auto thread_code = [&](size_t current_range_y) {
-    size_t i;
-    for (i = current_range_y; i < current_range_y + block_size_y; ++i) {
-      size_t j;
-      for (j = 0; j < size_out_x; ++j) {
-        size_t offset = j * size_out_y + i;
+  auto blurring_code = [&](size_t current_pixel_x, size_t current_pixel_y) {
+    float R = 0, G = 0, B = 0, W = 0, T = 1;
+    size_t offset = current_pixel_x * size_out_y + current_pixel_y;
 
-        float R = 0, G = 0, B = 0, W = 0, T = 1;
+    int x;
+    for (x = -radius; x <= radius; ++x) { // blurring region around given point
+      int y;
+      for (y = -radius; y <= radius; ++y) {
+        int x_shift = current_pixel_x + x;
+        int y_shift = current_pixel_y + y;
 
-        int x;
-        for (x = -radius; x <= radius;
-             ++x) { // blurring region around given point
-          int y;
-          for (y = -radius; y <= radius; ++y) {
-            int x_shift = j + x;
-            int y_shift = i + y;
+        if (x_shift < 0 || x_shift >= (int)size_out_x || y_shift < 0 ||
+            y_shift >= (int)size_out_y)
+          continue;
 
-            if (x_shift < 0 || x_shift >= (int)size_out_x || y_shift < 0 ||
-                y_shift >= (int)size_out_y)
-              continue;
+        size_t offset_shift = x_shift * size_out_y + y_shift;
+        float kernel_value = kernel[(radius + x) * size_kernel + (radius + y)];
 
-            size_t offset_shift = x_shift * size_out_y + y_shift;
-
-            float kernel_value =
-              kernel[(radius + x) * size_kernel + (radius + y)];
-
-            R += RGBWT[offset_shift + offset_R] * kernel_value;
-            G += RGBWT[offset_shift + offset_G] * kernel_value;
-            B += RGBWT[offset_shift + offset_B] * kernel_value;
-            W += RGBWT[offset_shift + offset_W] * kernel_value;
-            T *= 1 - ((1 - RGBWT[offset_shift + offset_T]) * kernel_value);
-          }
-        }
-
-        blurred_RGBWT[offset + offset_R] = R;
-        blurred_RGBWT[offset + offset_G] = G;
-        blurred_RGBWT[offset + offset_B] = B;
-        blurred_RGBWT[offset + offset_W] = W;
-        blurred_RGBWT[offset + offset_T] = T;
+        R += RGBWT[offset_shift + offset_R] * kernel_value;
+        G += RGBWT[offset_shift + offset_G] * kernel_value;
+        B += RGBWT[offset_shift + offset_B] * kernel_value;
+        W += RGBWT[offset_shift + offset_W] * kernel_value;
+        T *= 1 - ((1 - RGBWT[offset_shift + offset_T]) * kernel_value);
       }
     }
+
+    blurred_RGBWT[offset + offset_R] = R;
+    blurred_RGBWT[offset + offset_G] = G;
+    blurred_RGBWT[offset + offset_B] = B;
+    blurred_RGBWT[offset + offset_W] = W;
+    blurred_RGBWT[offset + offset_T] = T;
   };
 
-  size_t current_range_y = 0;
-  for (size_t thread_id = 0; thread_id < num_threads; ++thread_id) {
-    list_threads[thread_id] = thread(
-      thread_code, current_range_y); // assign part of the bitmap to each thread
-    current_range_y += block_size_y;
-  }
-
-  for (auto &thread : list_threads)
-    thread.join();
+  threaded_foreach_2dblocks(
+    size_out_x, size_out_y, block_size, block_size, num_threads, blurring_code);
 }
