@@ -15,6 +15,7 @@ mkdir ${TMPDIR} || exit 1
 git archive --format=tar --prefix="${N}/" "${HEAD}" \
 | tar f - \
 	--delete "${N}/pack_cran.sh" \
+	--delete "${N}/code_format.sh" \
 	--delete "${N}/media" \
 	--delete "${N}/README.md" \
 | tar xf - -C ${TMPDIR}
