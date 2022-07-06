@@ -11,7 +11,8 @@ scatter_points_rgbwt(
   out_size = c(512, 512),
   RGBA = c(0, 0, 0, 255),
   map = NULL,
-  palette = NULL
+  palette = NULL,
+  threads = 0
 )
 }
 \arguments{

@@ -70,8 +70,8 @@ scatter_histogram(const unsigned *dim,
   auto sum_copies = [&](size_t /*thread_id*/, size_t current_pixel) {
     unsigned sum = 0;
 
-    for (size_t i = 0; i < num_threads; ++i)
-      sum += histogram_copies[i][current_pixel];
+    for (size_t thread_id = 0; thread_id < num_threads; ++thread_id)
+      sum += histogram_copies[thread_id][current_pixel];
 
     histogram[current_pixel] = sum;
   };

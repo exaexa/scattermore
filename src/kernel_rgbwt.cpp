@@ -41,7 +41,7 @@ kernel_rgbwt(const unsigned *dim,
   const int radius = dim[2];
   const size_t size_kernel = radius * 2 + 1;
   const size_t size_out = size_out_x * size_out_y;
-  size_t num_threads = dim[3];
+  const size_t num_threads = dim[3];
   const size_t block_size = 8;
 
   const size_t offset_R = size_out * 0;
