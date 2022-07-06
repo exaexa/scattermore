@@ -22,39 +22,47 @@
 #ifndef SCATTERS_H
 #define SCATTERS_H
 
-void
-scatter_histogram(const unsigned *pn,
-                  const unsigned *size_out,
-                  unsigned *histogram,
-                  const float *xlim,
-                  const float *ylim,
-                  const float *xy);
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+  void scatter_histogram(const unsigned *dim,
+                         unsigned *histogram,
+                         const float *xlim,
+                         const float *ylim,
+                         const float *xy);
+
+  void scatter_singlecolor_rgbwt(const unsigned *dim,
+                                 const float *xlim,
+                                 const float *ylim,
+                                 const float *RGBA,
+                                 float *RGBWT,
+                                 const float *xy);
+
+  void scatter_multicolor_rgbwt(const unsigned *dim,
+                                const float *xlim,
+                                const float *ylim,
+                                const float *RGBA,
+                                float *RGBWT,
+                                const float *xy);
+
+  void scatter_indexed_rgbwt(const unsigned *dim,
+                             const float *xlim,
+                             const float *ylim,
+                             const float *palette,
+                             float *RGBWT,
+                             const unsigned *map,
+                             const float *xy);
+
+#ifdef __cplusplus
+}
+#endif
+
 void
 histogram_to_rgbwt(const unsigned *dim,
                    float *RGBWT,
                    const float *pallete,
                    const float *histogram);
-void
-scatter_singlecolor_rgbwt(const unsigned *dim,
-                          const float *xlim,
-                          const float *ylim,
-                          const float *RGBA,
-                          float *RGBWT,
-                          const float *xy);
-void
-scatter_multicolor_rgbwt(const unsigned *dim,
-                         const float *xlim,
-                         const float *ylim,
-                         const float *RGBA,
-                         float *RGBWT,
-                         const float *xy);
-void
-scatter_indexed_rgbwt(const unsigned *dim,
-                      const float *xlim,
-                      const float *ylim,
-                      const float *palette,
-                      float *RGBWT,
-                      const unsigned *map,
-                      const float *xy);
 
 #endif

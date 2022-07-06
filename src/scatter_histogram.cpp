@@ -20,20 +20,31 @@
  */
 
 #include "scatters.h"
+#include "thread_blocks.h"
 
 #include <stddef.h>
+#include <thread>
+#include <vector>
+
+using namespace std;
 
 void
-scatter_histogram(const unsigned *pn,
-                  const unsigned *size_out,
+scatter_histogram(const unsigned *dim,
                   unsigned *histogram,
                   const float *xlim,
                   const float *ylim,
                   const float *xy)
 {
-  const size_t size_data = *pn;
-  const size_t size_out_x = size_out[0];
-  const size_t size_out_y = size_out[1];
+  const size_t size_out_x = dim[0];
+  const size_t size_out_y = dim[1];
+  const size_t size_data = dim[2];
+  const size_t block_size = 8;
+
+  size_t nt = dim[3];
+  if (nt == 0)
+    nt = thread::hardware_concurrency();
+  const size_t num_threads = nt;
+  vector<vector<unsigned>> histogram_copies(num_threads);
 
   const float x_begin = xlim[0];
   const float x_end = xlim[1];
@@ -43,15 +54,29 @@ scatter_histogram(const unsigned *pn,
   const float y_end = ylim[0];
   const float y_bin = (size_out_y - 1) / (y_end - y_begin);
 
-  size_t i;
-  for (i = 0; i < size_data; ++i) {
-    size_t x =
-      (xy[i] - x_begin) * x_bin; // get new point coordinates for histogram
-    size_t y = (xy[i + size_data] - y_begin) * y_bin;
+  auto scatter_copies = [&](size_t thread_id, size_t current_pixel) {
+    size_t x = (xy[current_pixel] - x_begin) *
+               x_bin; // get new point coordinates for histogram
+    size_t y = (xy[current_pixel + size_data] - y_begin) * y_bin;
 
     if (x >= size_out_x || y >= size_out_y)
-      continue;
+      return;
+    if (histogram_copies[thread_id].size() == 0)
+      histogram_copies[thread_id].resize(size_out_x * size_out_y, 0);
 
-    ++histogram[x * size_out_y + y];
-  }
+    ++histogram_copies[thread_id][x * size_out_y + y];
+  };
+
+  auto sum_copies = [&](size_t /*thread_id*/, size_t current_pixel) {
+    unsigned sum = 0;
+
+    for (size_t i = 0; i < num_threads; ++i)
+      sum += histogram_copies[i][current_pixel];
+
+    histogram[current_pixel] = sum;
+  };
+
+  threaded_foreach_1dblocks(size_data, block_size, num_threads, scatter_copies);
+  threaded_foreach_1dblocks(
+    size_out_x * size_out_y, block_size, num_threads, sum_copies);
 }

@@ -33,6 +33,45 @@ n_blocks(i size_out, i block_size)
 
 template<typename F>
 void
+threaded_foreach_1dblocks(size_t size_out,
+                          size_t block_size,
+                          size_t num_threads,
+                          F func)
+{
+
+  if (num_threads == 0)
+    num_threads = thread::hardware_concurrency();
+
+  if (num_threads == 1) {
+    for (size_t i = 0; i < size_out; ++i)
+      func(0, i);
+    return;
+  }
+
+  // zero blocksize = equal thread split
+  size_t num_blocks =
+    block_size == 0 ? num_threads : n_blocks(size_out, block_size);
+
+  vector<thread> threads(num_threads);
+  for (size_t i = 0; i < num_threads; ++i)
+    threads[i] = thread(
+      [&](size_t thread_id) {
+        for (size_t block_id = thread_id; block_id < num_blocks;
+             block_id += num_threads) {
+          size_t block_begin = block_id * size_out / num_blocks;
+          size_t block_end = (block_id + 1) * size_out / num_blocks;
+          for (size_t j = block_begin; j < block_end; ++j)
+            func(thread_id, j);
+        }
+      },
+      i);
+
+  for (size_t i = 0; i < num_threads; ++i)
+    threads[i].join();
+}
+
+template<typename F>
+void
 threaded_foreach_2dblocks(size_t size_out_x,
                           size_t size_out_y,
                           size_t block_size_x,
@@ -83,45 +122,6 @@ threaded_foreach_2dblocks(size_t size_out_x,
               func(thread_id, current_block_pixel_x, current_block_pixel_y);
             }
           }
-        }
-      },
-      i);
-
-  for (size_t i = 0; i < num_threads; ++i)
-    threads[i].join();
-}
-
-template<typename F>
-void
-threaded_foreach_1dblocks(size_t size_out,
-                          size_t block_size,
-                          size_t num_threads,
-                          F func)
-{
-
-  if (num_threads == 0)
-    num_threads = thread::hardware_concurrency();
-
-  if (num_threads == 1) {
-    for (size_t i = 0; i < size_out; ++i)
-      func(0, i);
-    return;
-  }
-
-  // zero blocksize = equal thread split
-  size_t num_blocks =
-    block_size == 0 ? num_threads : n_blocks(size_out, block_size);
-
-  vector<thread> threads(num_threads);
-  for (size_t i = 0; i < num_threads; ++i)
-    threads[i] = thread(
-      [&](size_t thread_id) {
-        for (size_t block_id = thread_id; block_id < num_blocks;
-             block_id += num_threads) {
-          size_t block_begin = block_id * size_out / num_blocks;
-          size_t block_end = (block_id + 1) * size_out / num_blocks;
-          for (size_t j = block_begin; j < block_end; ++j)
-            func(thread_id, j);
         }
       },
       i);

@@ -26,7 +26,7 @@
 #include "scatters.h"
 
 static const R_CMethodDef cMethods[] = {
-  { "scatter_histogram", (DL_FUNC)&scatter_histogram, 6 },
+  { "scatter_histogram", (DL_FUNC)&scatter_histogram, 5 },
   { "kernel_histogram", (DL_FUNC)&kernel_histogram, 4 },
   { "histogram_to_rgbwt", (DL_FUNC)&histogram_to_rgbwt, 4 },
   { "scatter_singlecolor_rgbwt", (DL_FUNC)&scatter_singlecolor_rgbwt, 6 },

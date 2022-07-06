@@ -37,6 +37,8 @@
 #' @param out_size 2-element vector size of the result histogram,
 #'                 defaults to `c(512,512)`.
 #'
+#' @param threads Number of parallel threads (default 0 chooses hardware concurrency).
+#'
 #' @return Histogram with the result.
 #'
 #' @export
@@ -44,18 +46,18 @@
 scatter_histogram <- function(xy,
                               xlim = c(min(xy[, 1]), max(xy[, 1])),
                               ylim = c(min(xy[, 2]), max(xy[, 2])),
-                              out_size = c(512L, 512L)) {
+                              out_size = c(512L, 512L),
+                              threads = 0) {
   n <- dim(xy)[1]
   if (dim(xy)[2] != 2) stop("2-column xy input expected")
-
   if (!is.vector(xlim) || !is.vector(ylim) || !is.vector(out_size)) stop("vector input in parameters xlim, ylim or out_size expected")
+  if (threads < 0) stop("number of threads must not be negative")
 
   size_x <- as.integer(out_size[1])
   size_y <- as.integer(out_size[2])
 
   result <- .C("scatter_histogram",
-    n = as.integer(n),
-    out_size = as.integer(out_size),
+    dimen = as.integer(c(size_x, size_y, n, threads)),
     i32histogram = integer(size_x * size_y),
     xlim = as.single(xlim),
     ylim = as.single(ylim),
