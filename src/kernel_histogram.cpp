@@ -39,7 +39,7 @@ kernel_histogram(const unsigned *dim,
   const int radius = dim[2];
   const size_t kernel_size = 2 * radius + 1;
   size_t num_threads = dim[3];
-  size_t block_size = 8;
+  const size_t block_size = 8;
 
   auto apply_kernel = [&](size_t /*thread_id*/,
                           size_t current_pixel_x,

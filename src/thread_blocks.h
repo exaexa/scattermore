@@ -22,6 +22,8 @@
 #include <thread>
 #include <vector>
 
+using namespace std;
+
 template<typename i>
 constexpr i
 n_blocks(i size_out, i block_size)
@@ -39,7 +41,7 @@ threaded_foreach_2dblocks(size_t size_out_x,
                           F func)
 {
   if (num_threads == 0)
-    num_threads = std::thread::hardware_concurrency();
+    num_threads = thread::hardware_concurrency();
 
   size_t num_blocks_x = n_blocks(size_out_x, block_size_x);
   size_t num_blocks_y = n_blocks(size_out_y, block_size_y);
@@ -62,9 +64,9 @@ threaded_foreach_2dblocks(size_t size_out_x,
     return;
   }
 
-  std::vector<std::thread> threads(num_threads);
+  vector<thread> threads(num_threads);
   for (size_t i = 0; i < num_threads; ++i)
-    threads[i] = std::thread(
+    threads[i] = thread(
       [&](size_t thread_id) {
         for (size_t block_id = thread_id; block_id < num_blocks;
              block_id += num_threads) {
@@ -98,7 +100,7 @@ threaded_foreach_1dblocks(size_t size_out,
 {
 
   if (num_threads == 0)
-    num_threads = std::thread::hardware_concurrency();
+    num_threads = thread::hardware_concurrency();
 
   if (num_threads == 1) {
     for (size_t i = 0; i < size_out; ++i)
@@ -110,9 +112,9 @@ threaded_foreach_1dblocks(size_t size_out,
   size_t num_blocks =
     block_size == 0 ? num_threads : n_blocks(size_out, block_size);
 
-  std::vector<std::thread> threads(num_threads);
+  vector<thread> threads(num_threads);
   for (size_t i = 0; i < num_threads; ++i)
-    threads[i] = std::thread(
+    threads[i] = thread(
       [&](size_t thread_id) {
         for (size_t block_id = thread_id; block_id < num_blocks;
              block_id += num_threads) {
