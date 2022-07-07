@@ -44,6 +44,8 @@
 #'
 #' @param palette Matrix with R, G, B and A channels in rows, of at `maximum(map)` columns.
 #'
+#' @param threads Number of parallel threads (default 0 chooses hardware concurrency).
+#'
 #' @return An array in RGBWT format with the scatterplot output.
 #'
 #' @export

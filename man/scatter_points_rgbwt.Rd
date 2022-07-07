@@ -39,6 +39,8 @@ and alpha channels in integers, defaults to \code{c(0,0,0,255)}.}
 \item{map}{Vector with integer indices to \code{palette}.}
 
 \item{palette}{Matrix with R, G, B and A channels in rows, of at \code{maximum(map)} columns.}
+
+\item{threads}{Number of parallel threads (default 0 chooses hardware concurrency).}
 }
 \value{
 An array in RGBWT format with the scatterplot output.
