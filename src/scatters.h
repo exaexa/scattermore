@@ -55,14 +55,13 @@ extern "C"
                              const unsigned *map,
                              const float *xy);
 
+  void histogram_to_rgbwt(const unsigned *dim,
+                          float *RGBWT,
+                          const float *pallete,
+                          const float *histogram);
+
 #ifdef __cplusplus
 }
 #endif
-
-void
-histogram_to_rgbwt(const unsigned *dim,
-                   float *RGBWT,
-                   const float *pallete,
-                   const float *histogram);
 
 #endif
