@@ -37,7 +37,6 @@ histogram_to_rgbwt(const unsigned *dim,
   const size_t num_threads = dim[3];
   const float bin = 1.0 / size_palette;
   const size_t size_out = size_out_y * size_out_x;
-  const size_t block_size = 8;
 
   const size_t offset_R = size_out * 0;
   const size_t offset_G = size_out * 1;
@@ -65,5 +64,5 @@ histogram_to_rgbwt(const unsigned *dim,
     RGBWT[current_pixel + offset_T] = 1 - A;
   };
 
-  threaded_foreach_1dblocks(size_out, block_size, num_threads, change_format);
+  threaded_foreach_1dblocks(size_out, 0, num_threads, change_format);
 }

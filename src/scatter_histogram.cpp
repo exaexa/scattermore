@@ -37,8 +37,8 @@ scatter_histogram(const unsigned *dim,
 {
   const size_t size_out_x = dim[0];
   const size_t size_out_y = dim[1];
+  const size_t size_out = size_out_x * size_out_y;
   const size_t size_data = dim[2];
-  const size_t block_size = 8;
 
   size_t nt = dim[3];
   if (nt == 0)
@@ -76,7 +76,6 @@ scatter_histogram(const unsigned *dim,
     histogram[current_pixel] = sum;
   };
 
-  threaded_foreach_1dblocks(size_data, block_size, num_threads, scatter_copies);
-  threaded_foreach_1dblocks(
-    size_out_x * size_out_y, block_size, num_threads, sum_copies);
+  threaded_foreach_1dblocks(size_data, 0, num_threads, scatter_copies);
+  threaded_foreach_1dblocks(size_out, 0, num_threads, sum_copies);
 }
