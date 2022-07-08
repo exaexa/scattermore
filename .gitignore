@@ -11,3 +11,4 @@
 /vignettes/*.R
 *.pdf
 *.dll
+/build.R
