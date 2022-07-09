@@ -3,6 +3,7 @@
 export(apply_kernel_histogram)
 export(apply_kernel_rgbwt)
 export(blend_rgba_float)
+export(draw_line)
 export(geom_scattermore)
 export(geom_scattermost)
 export(histogram_to_rgbwt)

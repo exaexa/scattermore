@@ -23,6 +23,7 @@
 #include <R_ext/Rdynload.h>
 
 #include "kernels.h"
+#include "lines_shapes.h"
 #include "scatters.h"
 
 static const R_CMethodDef cMethods[] = {
@@ -33,6 +34,7 @@ static const R_CMethodDef cMethods[] = {
   { "scatter_multicolor_rgbwt", (DL_FUNC)&scatter_multicolor_rgbwt, 6 },
   { "scatter_indexed_rgbwt", (DL_FUNC)&scatter_indexed_rgbwt, 7 },
   { "kernel_rgbwt", (DL_FUNC)&kernel_rgbwt, 4 },
+  { "draw_line", (DL_FUNC)&draw_line, 6 },
   { NULL, NULL, 0 }
 };
 
