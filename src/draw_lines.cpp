@@ -19,21 +19,22 @@
  * scattermore. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "lines_shapes.h"
+#include "lines.h"
 
 #include <stddef.h>
 
 // use Bresenham algorithm to draw a line
 void
-draw_line(const float *xy,
-          const unsigned *size,
-          const float *xlim,
-          const float *ylim,
-          const float *RGBA,
-          float *RGBWT)
+draw_lines(const float *xy,
+           const unsigned *dim,
+           const float *xlim,
+           const float *ylim,
+           const float *RGBA,
+           float *RGBWT)
 {
-  const size_t size_out_x = size[0];
-  const size_t size_out_y = size[1];
+  const size_t size_out_x = dim[0];
+  const size_t size_out_y = dim[1];
+  const size_t n = dim[2];
   const size_t size_out = size_out_y * size_out_x;
 
   const size_t offset_R = size_out * 0;
@@ -41,6 +42,7 @@ draw_line(const float *xy,
   const size_t offset_B = size_out * 2;
   const size_t offset_W = size_out * 3;
   const size_t offset_T = size_out * 4;
+  const size_t offset_xy = 4;
 
   const float x_begin = xlim[0];
   const float x_end = xlim[1];
@@ -54,12 +56,6 @@ draw_line(const float *xy,
   float G = RGBA[1];
   float B = RGBA[2];
   float A = RGBA[3];
-
-  size_t x0 =
-    (xy[0] - x_begin) * x_bin; // initialization for Bresenham algorithm
-  size_t y0 = (xy[1] - y_begin) * y_bin;
-  size_t x1 = (xy[2] - x_begin) * x_bin;
-  size_t y1 = (xy[3] - y_begin) * y_bin;
 
   auto draw_line_low =
     [&](size_t x_start, size_t y_start, size_t x_finish, size_t y_finish) {
@@ -131,16 +127,24 @@ draw_line(const float *xy,
       }
     };
 
-  // initial case division
-  if (y1 - y0 < x1 - x0) {
-    if (x0 > x1)
-      draw_line_low(x1, y1, x0, y0);
-    else
-      draw_line_low(x0, y0, x1, y1);
-  } else {
-    if (y0 > y1)
-      draw_line_high(x1, y1, x0, y0);
-    else
-      draw_line_high(x0, y0, x1, y1);
+  for (size_t line = 0; line < n; ++line) {
+    // initialization for Bresenham algorithm
+    size_t x0 = (xy[offset_xy * line + 0] - x_begin) * x_bin;
+    size_t y0 = (xy[offset_xy * line + 1] - y_begin) * y_bin;
+    size_t x1 = (xy[offset_xy * line + 2] - x_begin) * x_bin;
+    size_t y1 = (xy[offset_xy * line + 3] - y_begin) * y_bin;
+
+    // initial case division
+    if (y1 - y0 < x1 - x0) {
+      if (x0 > x1)
+        draw_line_low(x1, y1, x0, y0);
+      else
+        draw_line_low(x0, y0, x1, y1);
+    } else {
+      if (y0 > y1)
+        draw_line_high(x1, y1, x0, y0);
+      else
+        draw_line_high(x0, y0, x1, y1);
+    }
   }
 }

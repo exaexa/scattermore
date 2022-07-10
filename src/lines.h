@@ -27,12 +27,12 @@ extern "C"
 {
 #endif
 
-  void draw_line(const float *xy,
-                 const unsigned *size,
-                 const float *xlim,
-                 const float *ylim,
-                 const float *RGBA,
-                 float *RGBWT);
+  void draw_lines(const float *xy,
+                  const unsigned *dim,
+                  const float *xlim,
+                  const float *ylim,
+                  const float *RGBA,
+                  float *RGBWT);
 
 #ifdef __cplusplus
 }
