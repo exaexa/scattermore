@@ -58,7 +58,7 @@ scatter_lines_rgbwt(const float *xy,
   float A = RGBA[3];
 
   auto plot_line_low =
-    [&](size_t x_start, size_t y_start, size_t x_finish, size_t y_finish) {
+    [&](size_t x_start, size_t y_start, size_t x_finish, size_t y_finish, int begin, int end) {
       int dx = x_finish - x_start;
       int dy = y_finish - y_start;
       int yi = 1;
@@ -72,7 +72,7 @@ scatter_lines_rgbwt(const float *xy,
       int two_dxy = 2 * (dy - dx);
       int D = two_dy - dx;
 
-      for (size_t x = x_start, y = y_start; x <= x_finish; ++x) {
+      for (size_t x = x_start + begin, y = y_start; x <= x_finish + end; ++x) {
         if (x >= size_out_x || y >= size_out_y)
           continue;
 
@@ -93,7 +93,7 @@ scatter_lines_rgbwt(const float *xy,
     };
 
   auto plot_line_high =
-    [&](size_t x_start, size_t y_start, size_t x_finish, size_t y_finish) {
+    [&](size_t x_start, size_t y_start, size_t x_finish, size_t y_finish, int begin, int end) {
       int dx = x_finish - x_start;
       int dy = y_finish - y_start;
       int xi = 1;
@@ -107,7 +107,7 @@ scatter_lines_rgbwt(const float *xy,
       int two_dxy = 2 * (dx - dy);
       int D = two_dx - dy;
 
-      for (size_t x = x_start, y = y_start; y <= y_finish; ++y) {
+      for (size_t x = x_start, y = y_start + begin; y <= y_finish + end; ++y) {
         if (x >= size_out_x || y >= size_out_y)
           continue;
 
@@ -137,14 +137,14 @@ scatter_lines_rgbwt(const float *xy,
     // initial case division
     if (abs(y1 - y0) < abs(x1 - x0)) {
       if (x0 > x1)
-        plot_line_low(x1, y1, x0, y0);
+        plot_line_low(x1, y1, x0, y0, 1, 0);
       else
-        plot_line_low(x0, y0, x1, y1);
+        plot_line_low(x0, y0, x1, y1, 0, -1);
     } else {
       if (y0 > y1)
-        plot_line_high(x1, y1, x0, y0);
+        plot_line_high(x1, y1, x0, y0, 1, 0);
       else
-        plot_line_high(x0, y0, x1, y1);
+        plot_line_high(x0, y0, x1, y1, 0, -1);
     }
   }
 }
