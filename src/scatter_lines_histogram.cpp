@@ -26,24 +26,17 @@
 
 // use Bresenham algorithm to draw a line
 void
-scatter_lines_rgbwt(const float *xy,
-                    const unsigned *dim,
-                    const float *xlim,
-                    const float *ylim,
-                    const float *RGBA,
-                    const int *skip,
-                    float *RGBWT)
+scatter_lines_histogram(const float *xy,
+                        const unsigned *dim,
+                        const float *xlim,
+                        const float *ylim,
+                        const int *skip,
+                        unsigned *histogram)
 {
   const size_t size_out_x = dim[0];
   const size_t size_out_y = dim[1];
   const size_t size_data = dim[2];
   const size_t size_out = size_out_y * size_out_x;
-
-  const size_t offset_R = size_out * 0;
-  const size_t offset_G = size_out * 1;
-  const size_t offset_B = size_out * 2;
-  const size_t offset_W = size_out * 3;
-  const size_t offset_T = size_out * 4;
 
   const int skip_start_pixel = skip[0];
   const int skip_end_pixel = skip[1];
@@ -55,11 +48,6 @@ scatter_lines_rgbwt(const float *xy,
   const float y_begin = ylim[1];
   const float y_end = ylim[0];
   const float y_bin = (size_out_y - 1) / (y_end - y_begin);
-
-  float R = RGBA[0];
-  float G = RGBA[1];
-  float B = RGBA[2];
-  float A = RGBA[3];
 
   auto plot_line_low = [&](size_t x_start,
                            size_t y_start,
@@ -94,13 +82,7 @@ scatter_lines_rgbwt(const float *xy,
       if (x >= size_out_x || y >= size_out_y)
         continue;
 
-      size_t offset = x * size_out_y + y;
-      RGBWT[offset + offset_R] += R * A;
-      RGBWT[offset + offset_G] += G * A;
-      RGBWT[offset + offset_B] += B * A;
-      RGBWT[offset + offset_W] += A;
-      RGBWT[offset + offset_T] *= 1 - A;
-
+      ++histogram[x * size_out_y + y];
       if (D > 0) {
         y += yi;
         D += two_dxy;
@@ -142,13 +124,7 @@ scatter_lines_rgbwt(const float *xy,
       if (x >= size_out_x || y >= size_out_y)
         continue;
 
-      size_t offset = x * size_out_y + y;
-      RGBWT[offset + offset_R] += R * A;
-      RGBWT[offset + offset_G] += G * A;
-      RGBWT[offset + offset_B] += B * A;
-      RGBWT[offset + offset_W] += A;
-      RGBWT[offset + offset_T] *= 1 - A;
-
+      ++histogram[x * size_out_y + y];
       if (D > 0) {
         x += xi;
         D += two_dxy;

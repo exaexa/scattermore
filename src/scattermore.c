@@ -23,8 +23,8 @@
 #include <R_ext/Rdynload.h>
 
 #include "kernels.h"
-#include "lines.h"
 #include "scatters.h"
+#include "scatters_lines.h"
 
 static const R_CMethodDef cMethods[] = {
   { "scatter_histogram", (DL_FUNC)&scatter_histogram, 6 },
@@ -34,7 +34,8 @@ static const R_CMethodDef cMethods[] = {
   { "scatter_multicolor_rgbwt", (DL_FUNC)&scatter_multicolor_rgbwt, 6 },
   { "scatter_indexed_rgbwt", (DL_FUNC)&scatter_indexed_rgbwt, 7 },
   { "kernel_rgbwt", (DL_FUNC)&kernel_rgbwt, 4 },
-  { "scatter_lines_rgbwt", (DL_FUNC)&scatter_lines_rgbwt, 6 },
+  { "scatter_lines_rgbwt", (DL_FUNC)&scatter_lines_rgbwt, 7 },
+  { "scatter_lines_histogram", (DL_FUNC)&scatter_lines_histogram, 6 },
   { NULL, NULL, 0 }
 };
 

@@ -19,8 +19,8 @@
  * scattermore. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef SCATTERMORE_LINES_SHAPES_H
-#define SCATTERMORE_LINES_SHAPES_H
+#ifndef SCATTERS_LINES_H
+#define SCATTERS_LINES_H
 
 #ifdef __cplusplus
 extern "C"
@@ -32,7 +32,15 @@ extern "C"
                            const float *xlim,
                            const float *ylim,
                            const float *RGBA,
+                           const int *skip,
                            float *RGBWT);
+
+  void scatter_lines_histogram(const float *xy,
+                               const unsigned *dim,
+                               const float *xlim,
+                               const float *ylim,
+                               const int *skip,
+                               unsigned *histogram);
 
 #ifdef __cplusplus
 }
