@@ -20,9 +20,9 @@
  */
 
 #include "scatters_lines.h"
+#include "scatters_lines_temp.hpp"
 
 #include <cstdlib>
-#include <stddef.h>
 
 // use Bresenham algorithm to draw a line
 void
@@ -61,100 +61,19 @@ scatter_lines_rgbwt(const float *xy,
   float B = RGBA[2];
   float A = RGBA[3];
 
-  auto plot_line_low = [&](size_t x_start,
-                           size_t y_start,
-                           size_t x_finish,
-                           size_t y_finish,
-                           int skip_start_pixel,
-                           int skip_end_pixel) {
-    int dx = x_finish - x_start;
-    int dy = y_finish - y_start;
-    int yi = 1;
-    if (dy < 0) {
-      yi = -1;
-      dy = -dy;
-    }
-    int two_dy = 2 * dy;
-    int two_dxy = 2 * (dy - dx);
-    int D = two_dy - dx;
+  // lambda expression used for individual pixel when plotting a line
+  auto pixel_function_rgbwt = [&](size_t x, size_t y) {
+    if (x >= size_out_x || y >= size_out_y)
+      return false;
 
-    size_t x = x_start, y = y_start;
-    if (skip_start_pixel == 1) {
-      if (D > 0) {
-        y += yi;
-        D += two_dxy;
-      } else
-        D += two_dy;
-      ++x;
-    }
-    if (skip_end_pixel == 1)
-      --x_finish;
+    size_t offset = x * size_out_y + y;
+    RGBWT[offset + offset_R] += R * A;
+    RGBWT[offset + offset_G] += G * A;
+    RGBWT[offset + offset_B] += B * A;
+    RGBWT[offset + offset_W] += A;
+    RGBWT[offset + offset_T] *= 1 - A;
 
-    for (; x <= x_finish; ++x) {
-      if (x >= size_out_x || y >= size_out_y)
-        continue;
-
-      size_t offset = x * size_out_y + y;
-      RGBWT[offset + offset_R] += R * A;
-      RGBWT[offset + offset_G] += G * A;
-      RGBWT[offset + offset_B] += B * A;
-      RGBWT[offset + offset_W] += A;
-      RGBWT[offset + offset_T] *= 1 - A;
-
-      if (D > 0) {
-        y += yi;
-        D += two_dxy;
-      } else
-        D += two_dy;
-    }
-  };
-
-  auto plot_line_high = [&](size_t x_start,
-                            size_t y_start,
-                            size_t x_finish,
-                            size_t y_finish,
-                            int skip_start_pixel,
-                            int skip_end_pixel) {
-    int dx = x_finish - x_start;
-    int dy = y_finish - y_start;
-    int xi = 1;
-    if (dx < 0) {
-      xi = -1;
-      dx = -dx;
-    }
-    int two_dx = 2 * dx;
-    int two_dxy = 2 * (dx - dy);
-    int D = two_dx - dy;
-
-    size_t x = x_start, y = y_start;
-    if (skip_start_pixel == 1) {
-      if (D > 0) {
-        x += xi;
-        D += two_dxy;
-      } else
-        D += two_dx;
-      ++y;
-    }
-    if (skip_end_pixel == 1)
-      --y_finish;
-
-    for (; y <= y_finish; ++y) {
-      if (x >= size_out_x || y >= size_out_y)
-        continue;
-
-      size_t offset = x * size_out_y + y;
-      RGBWT[offset + offset_R] += R * A;
-      RGBWT[offset + offset_G] += G * A;
-      RGBWT[offset + offset_B] += B * A;
-      RGBWT[offset + offset_W] += A;
-      RGBWT[offset + offset_T] *= 1 - A;
-
-      if (D > 0) {
-        x += xi;
-        D += two_dxy;
-      } else
-        D += two_dx;
-    }
+    return true;
   };
 
   for (size_t i = 0; i < size_data; ++i) {
@@ -169,15 +88,15 @@ scatter_lines_rgbwt(const float *xy,
     if (abs(y1 - y0) < abs(x1 - x0)) {
       if (x0 > x1)
         plot_line_low(
-          x1, y1, x0, y0, (skip_start_pixel + 1) % 2, (skip_end_pixel + 1) % 2);
+          x1, y1, x0, y0, (skip_start_pixel + 1) % 2, (skip_end_pixel + 1) % 2, pixel_function_rgbwt);
       else
-        plot_line_low(x0, y0, x1, y1, skip_start_pixel, skip_end_pixel);
+        plot_line_low(x0, y0, x1, y1, skip_start_pixel, skip_end_pixel, pixel_function_rgbwt);
     } else {
       if (y0 > y1)
         plot_line_high(
-          x1, y1, x0, y0, (skip_start_pixel + 1) % 2, (skip_end_pixel + 1) % 2);
+          x1, y1, x0, y0, (skip_start_pixel + 1) % 2, (skip_end_pixel + 1) % 2, pixel_function_rgbwt);
       else
-        plot_line_high(x0, y0, x1, y1, skip_start_pixel, skip_end_pixel);
+        plot_line_high(x0, y0, x1, y1, skip_start_pixel, skip_end_pixel, pixel_function_rgbwt);
     }
   }
 }
