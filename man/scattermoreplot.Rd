@@ -19,7 +19,7 @@ scattermoreplot(
 )
 }
 \arguments{
-\item{x, y, xlim, ylim, xlab, ylab, ...}{used as in \code{\link[graphics:plot]{graphics::plot()}} or forwarded to \code{\link[graphics:plot]{graphics::plot()}}}
+\item{x, y, xlim, ylim, xlab, ylab, ...}{used as in \code{\link[graphics:plot.default]{graphics::plot()}} or forwarded to \code{\link[graphics:plot.default]{graphics::plot()}}}
 
 \item{size}{forwarded to \code{\link[=scattermore]{scattermore()}}, or auto-derived from device and plot size if missing (the estimate is not pixel-perfect on most devices, but gets pretty close)}
 
@@ -27,7 +27,7 @@ scattermoreplot(
 
 \item{cex}{forwarded to \code{\link[=scattermore]{scattermore()}}}
 
-\item{pch}{ignored (to improve compatibility with \code{\link[graphics:plot]{graphics::plot()}}}
+\item{pch}{ignored (to improve compatibility with \code{\link[graphics:plot.default]{graphics::plot()}}}
 }
 \description{
 Convenience base-graphics-like layer around scattermore. Currently only works with linear axes!

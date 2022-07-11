@@ -1,8 +1,8 @@
 ---
-title: "Merging and blending points"
+title: "Merge and blend"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Merging and blending points}
+  %\VignetteIndexEntry{Merge and blend}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
