@@ -32,13 +32,19 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/histogram.html">Operations with histograms</a>
+      <a href="../articles/histogram_lines.html">Scatter histogram with lines</a>
     </li>
     <li>
-      <a href="../articles/merge_and_blend.html">Merging and blending points</a>
+      <a href="../articles/histogram_points.html">Scatter histogram with points</a>
     </li>
     <li>
-      <a href="../articles/points.html">Operations with points</a>
+      <a href="../articles/merge_and_blend.html">Merge and blend</a>
+    </li>
+    <li>
+      <a href="../articles/rgbwt_lines.html">Scatter rgbwt with lines</a>
+    </li>
+    <li>
+      <a href="../articles/rgbwt_points.html">Scatter rgbwt with points</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
@@ -60,14 +66,14 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">apply_kernel_rgbwt</span><span class="op">(</span>
-  <span class="va">fRGBWT</span>,
-  filter <span class="op">=</span> <span class="st">"circle"</span>,
-  <span class="va">mask</span>,
-  radius <span class="op">=</span> <span class="fl">2</span>,
-  sigma <span class="op">=</span> <span class="va">radius</span><span class="op">/</span><span class="fl">2</span>,
-  approx_limit <span class="op">=</span> <span class="fl">3.5</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">apply_kernel_rgbwt</span><span class="op">(</span></span>
+<span>  <span class="va">fRGBWT</span>,</span>
+<span>  filter <span class="op">=</span> <span class="st">"circle"</span>,</span>
+<span>  <span class="va">mask</span>,</span>
+<span>  radius <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  sigma <span class="op">=</span> <span class="va">radius</span><span class="op">/</span><span class="fl">2</span>,</span>
+<span>  approx_limit <span class="op">=</span> <span class="fl">3.5</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -75,20 +81,33 @@
     <dl><dt>fRGBWT</dt>
 <dd><p>RGBWT matrix (<code>red</code>, <code>green</code>, <code>blue</code> channels, <code>weight</code> ~ sum of alphas,
 <code>transparency</code> ~ 1 - alpha, dimension nxmx5).</p></dd>
+
+
 <dt>filter</dt>
 <dd><p>Either <code>circle</code>, <code>square</code>, <code>gauss</code> or <code>own</code>, defaults to `circle.</p></dd>
+
+
 <dt>mask</dt>
 <dd><p>Own kernel used for blurring, <code>filter</code> parameter has to be set to <code>own</code>.</p></dd>
+
+
 <dt>radius</dt>
 <dd><p>Size of circle kernel, defaults to <code>2</code>.</p></dd>
+
+
 <dt>sigma</dt>
 <dd><p>Parameter for gaussian filtering, defaults to <code>radius / 2</code>.</p></dd>
+
+
 <dt>approx_limit</dt>
 <dd><p>Sets the size of the kernel, multiplied with <code>sigma</code>, defaults to <code>3.5</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>RGBWT matrix.</p>
+    
+
+<p>RGBWT matrix.</p>
     </div>
 
   </div>
@@ -103,7 +122,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

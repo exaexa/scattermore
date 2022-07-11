@@ -52,13 +52,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/histogram.html">Operations with histograms</a>
+      <a href="articles/histogram_lines.html">Scatter histogram with lines</a>
     </li>
     <li>
-      <a href="articles/merge_and_blend.html">Merging and blending points</a>
+      <a href="articles/histogram_points.html">Scatter histogram with points</a>
     </li>
     <li>
-      <a href="articles/points.html">Operations with points</a>
+      <a href="articles/merge_and_blend.html">Merge and blend</a>
+    </li>
+    <li>
+      <a href="articles/rgbwt_lines.html">Scatter rgbwt with lines</a>
+    </li>
+    <li>
+      <a href="articles/rgbwt_points.html">Scatter rgbwt with points</a>
     </li>
   </ul>
 </li>
@@ -96,14 +102,14 @@
 </h2>
 <p>Function <code>scattermoreplot</code> is meant to behave roughly like the standard <code>plot</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">scattermore</span><span class="op">)</span>
-<span class="fu"><a href="reference/scattermoreplot.html">scattermoreplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1e7</span><span class="op">)</span>,
-                <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1e7</span><span class="op">)</span>,
-        col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">heat.colors</a></span><span class="op">(</span><span class="fl">1e7</span>, alpha<span class="op">=</span><span class="fl">.1</span><span class="op">)</span>,
-        main<span class="op">=</span><span class="st">'Scattermore demo'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">scattermore</span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/scattermoreplot.html">scattermoreplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1e7</span><span class="op">)</span>,</span>
+<span>                <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1e7</span><span class="op">)</span>,</span>
+<span>        col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">heat.colors</a></span><span class="op">(</span><span class="fl">1e7</span>, alpha<span class="op">=</span><span class="fl">.1</span><span class="op">)</span>,</span>
+<span>        main<span class="op">=</span><span class="st">'Scattermore demo'</span><span class="op">)</span></span></code></pre></div>
 <p>If you use <code>ggplot2</code>, you can use <code>geom_scattermore</code> instead of <code>geom_point</code> to rasterize the graphics (e.g. to reduce PDF size):</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span><span class="va">....</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_scattermore.html">geom_scattermore</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">ggplot</span><span class="op">(</span><span class="va">....</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/geom_scattermore.html">geom_scattermore</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>(Note that the processing of data in ggplot is usually too slow itself; use <code>geom_scattermost</code> to dodge that.)</p>
 </div>
 <div class="section level2">
@@ -166,28 +172,28 @@
 <li>The rasterization is not required to work in limited memory as in usual plotting libraries, which we use to gain a bit of extra precision in color mixing. This is most visible when plotting a ton of low-alpha points where the usual blending methods produce ugly rounding artifacts.</li>
 </ol>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">scattermore</span><span class="op">)</span>
-
-<span class="co"># data</span>
-<span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1e6</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1e6</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># first plot (geom_point)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">'point.png'</span>, units<span class="op">=</span><span class="st">'in'</span>, width<span class="op">=</span><span class="fl">3</span>, height<span class="op">=</span><span class="fl">3</span>,
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">d</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>,y<span class="op">=</span><span class="va">d</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>shape<span class="op">=</span><span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">.05</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span>,color<span class="op">=</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_color_viridis_c</a></span><span class="op">(</span>guide<span class="op">=</span><span class="cn">F</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"geom_point"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># second plot (geom_scattermost)</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">'scattermore.png'</span>, units<span class="op">=</span><span class="st">'in'</span>, width<span class="op">=</span><span class="fl">3</span>, height<span class="op">=</span><span class="fl">3</span>,
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="reference/geom_scattermost.html">geom_scattermost</a></span><span class="op">(</span>
-    <span class="va">d</span>,
-    col<span class="op">=</span><span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">100</span>, alpha<span class="op">=</span><span class="fl">0.05</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">+</span><span class="fl">99</span><span class="op">*</span><span class="va">d</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">]</span>,
-    pointsize<span class="op">=</span><span class="fl">2</span>,
-    pixels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">700</span>,<span class="fl">700</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"geom_scattermost"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">scattermore</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># data</span></span>
+<span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1e6</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">1e6</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># first plot (geom_point)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">'point.png'</span>, units<span class="op">=</span><span class="st">'in'</span>, width<span class="op">=</span><span class="fl">3</span>, height<span class="op">=</span><span class="fl">3</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">d</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span>,y<span class="op">=</span><span class="va">d</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>shape<span class="op">=</span><span class="st">'.'</span>, alpha<span class="op">=</span><span class="fl">.05</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">x</span>,<span class="va">y</span>,color<span class="op">=</span><span class="va">y</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html" class="external-link">scale_color_viridis_c</a></span><span class="op">(</span>guide<span class="op">=</span><span class="cn">F</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"geom_point"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># second plot (geom_scattermost)</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="st">'scattermore.png'</span>, units<span class="op">=</span><span class="st">'in'</span>, width<span class="op">=</span><span class="fl">3</span>, height<span class="op">=</span><span class="fl">3</span>,</span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/geom_scattermost.html">geom_scattermost</a></span><span class="op">(</span></span>
+<span>    <span class="va">d</span>,</span>
+<span>    col<span class="op">=</span><span class="fu">viridisLite</span><span class="fu">::</span><span class="fu"><a href="https://sjmgarnier.github.io/viridisLite/reference/viridis.html" class="external-link">viridis</a></span><span class="op">(</span><span class="fl">100</span>, alpha<span class="op">=</span><span class="fl">0.05</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">+</span><span class="fl">99</span><span class="op">*</span><span class="va">d</span><span class="op">[</span>,<span class="fl">2</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>    pointsize<span class="op">=</span><span class="fl">2</span>,</span>
+<span>    pixels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">700</span>,<span class="fl">700</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"geom_scattermost"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img alt="Plot with geom_point" src="/media/point.png" width="50%"><img alt="Plot with geom_scattermore" src="/media/scattermore.png" width="50%"></p>
 </div>
 </div>
@@ -244,7 +250,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer>

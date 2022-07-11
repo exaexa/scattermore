@@ -35,13 +35,19 @@ limits correctly. If you need to break speed records, use this."><!-- mathjax --
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/histogram.html">Operations with histograms</a>
+      <a href="../articles/histogram_lines.html">Scatter histogram with lines</a>
     </li>
     <li>
-      <a href="../articles/merge_and_blend.html">Merging and blending points</a>
+      <a href="../articles/histogram_points.html">Scatter histogram with points</a>
     </li>
     <li>
-      <a href="../articles/points.html">Operations with points</a>
+      <a href="../articles/merge_and_blend.html">Merge and blend</a>
+    </li>
+    <li>
+      <a href="../articles/rgbwt_lines.html">Scatter rgbwt with lines</a>
+    </li>
+    <li>
+      <a href="../articles/rgbwt_points.html">Scatter rgbwt with points</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
@@ -66,43 +72,52 @@ limits correctly. If you need to break speed records, use this.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">geom_scattermost</span><span class="op">(</span>
-  <span class="va">xy</span>,
-  color <span class="op">=</span> <span class="st">"black"</span>,
-  interpolate <span class="op">=</span> <span class="cn">FALSE</span>,
-  pointsize <span class="op">=</span> <span class="fl">0</span>,
-  pixels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">512</span>, <span class="fl">512</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">geom_scattermost</span><span class="op">(</span></span>
+<span>  <span class="va">xy</span>,</span>
+<span>  color <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>  interpolate <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  pointsize <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  pixels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">512</span>, <span class="fl">512</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>xy</dt>
 <dd><p>2-column object with data, as in <code><a href="scattermore.html">scattermore()</a></code>.</p></dd>
+
+
 <dt>color</dt>
 <dd><p>Color vector (or a single color).</p></dd>
+
+
 <dt>interpolate</dt>
 <dd><p>Default FALSE, passed to <code><a href="https://rdrr.io/r/grid/grid.raster.html" class="external-link">grid::rasterGrob()</a></code>.</p></dd>
+
+
 <dt>pointsize</dt>
 <dd><p>Radius of rasterized point. Use <code>0</code> for single pixels (fastest).</p></dd>
+
+
 <dt>pixels</dt>
 <dd><p>Vector with X and Y resolution of the raster, default <code>c(512,512)</code>.</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">scattermore</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000000</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000000</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-in"><span class="va">x_rng</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">x</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span class="r-in">  <span class="fu">geom_scattermost</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">x</span>, <span class="va">d</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>,</span>
-<span class="r-in">    color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">heat.colors</a></span><span class="op">(</span><span class="fl">100</span>, alpha <span class="op">=</span> <span class="fl">.01</span><span class="op">)</span></span>
-<span class="r-in">    <span class="op">[</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">99</span> <span class="op">*</span> <span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">x</span> <span class="op">-</span> <span class="va">x_rng</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/diff.html" class="external-link">diff</a></span><span class="op">(</span><span class="va">x_rng</span><span class="op">)</span><span class="op">]</span>,</span>
-<span class="r-in">    pointsize <span class="op">=</span> <span class="fl">2.5</span>,</span>
-<span class="r-in">    pixels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">1000</span><span class="op">)</span>,</span>
-<span class="r-in">    interpolate <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span class="r-in">  <span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">scattermore</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000000</span><span class="op">)</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1000000</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">x_rng</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html" class="external-link">range</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">x</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span></span>
+<span class="r-in"><span>  <span class="fu">geom_scattermost</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">x</span>, <span class="va">d</span><span class="op">$</span><span class="va">y</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">heat.colors</a></span><span class="op">(</span><span class="fl">100</span>, alpha <span class="op">=</span> <span class="fl">.01</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    <span class="op">[</span><span class="fl">1</span> <span class="op">+</span> <span class="fl">99</span> <span class="op">*</span> <span class="op">(</span><span class="va">d</span><span class="op">$</span><span class="va">x</span> <span class="op">-</span> <span class="va">x_rng</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/diff.html" class="external-link">diff</a></span><span class="op">(</span><span class="va">x_rng</span><span class="op">)</span><span class="op">]</span>,</span></span>
+<span class="r-in"><span>    pointsize <span class="op">=</span> <span class="fl">2.5</span>,</span></span>
+<span class="r-in"><span>    pixels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1000</span>, <span class="fl">1000</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    interpolate <span class="op">=</span> <span class="cn">TRUE</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_scattermost-1.png" alt="" width="700" height="433"></span>
 </code></pre></div>
     </div>
@@ -118,7 +133,7 @@ limits correctly. If you need to break speed records, use this.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

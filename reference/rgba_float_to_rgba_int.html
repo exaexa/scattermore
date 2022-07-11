@@ -32,13 +32,19 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu"><li>
-      <a href="../articles/histogram.html">Operations with histograms</a>
+      <a href="../articles/histogram_lines.html">Scatter histogram with lines</a>
     </li>
     <li>
-      <a href="../articles/merge_and_blend.html">Merging and blending points</a>
+      <a href="../articles/histogram_points.html">Scatter histogram with points</a>
     </li>
     <li>
-      <a href="../articles/points.html">Operations with points</a>
+      <a href="../articles/merge_and_blend.html">Merge and blend</a>
+    </li>
+    <li>
+      <a href="../articles/rgbwt_lines.html">Scatter rgbwt with lines</a>
+    </li>
+    <li>
+      <a href="../articles/rgbwt_points.html">Scatter rgbwt with points</a>
     </li>
   </ul></li>
       </ul><ul class="nav navbar-nav navbar-right"></ul></div><!--/.nav-collapse -->
@@ -60,17 +66,20 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">rgba_float_to_rgba_int</span><span class="op">(</span><span class="va">fRGBA</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">rgba_float_to_rgba_int</span><span class="op">(</span><span class="va">fRGBA</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>fRGBA</dt>
 <dd><p>RGBA matrix (<code>red</code>, <code>green</code>, <code>blue</code> and <code>alpha</code> channels, dimension nxmx4, values ~ 0-1).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>RGBA matrix, output <em>is not premultiplied</em> by alpha.</p>
+    
+
+<p>RGBA matrix, output <em>is not premultiplied</em> by alpha.</p>
     </div>
 
   </div>
@@ -85,7 +94,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
 </div>
 
       </footer></div>

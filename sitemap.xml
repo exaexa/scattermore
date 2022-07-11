@@ -7,7 +7,10 @@
     <loc>/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>/articles/histogram.html</loc>
+    <loc>/articles/histogram_lines.html</loc>
+  </url>
+  <url>
+    <loc>/articles/histogram_points.html</loc>
   </url>
   <url>
     <loc>/articles/index.html</loc>
@@ -16,7 +19,10 @@
     <loc>/articles/merge_and_blend.html</loc>
   </url>
   <url>
-    <loc>/articles/points.html</loc>
+    <loc>/articles/rgbwt_lines.html</loc>
+  </url>
+  <url>
+    <loc>/articles/rgbwt_points.html</loc>
   </url>
   <url>
     <loc>/authors.html</loc>
@@ -68,6 +74,12 @@
   </url>
   <url>
     <loc>/reference/scatter_histogram.html</loc>
+  </url>
+  <url>
+    <loc>/reference/scatter_lines_histogram.html</loc>
+  </url>
+  <url>
+    <loc>/reference/scatter_lines_rgbwt.html</loc>
   </url>
   <url>
     <loc>/reference/scatter_points_rgbwt.html</loc>
