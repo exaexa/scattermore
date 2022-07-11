@@ -22,9 +22,39 @@
 #ifndef SCATTERS_LINES_TEMP_H
 #define SCATTERS_LINES_TEMP_H
 
-#include<stddef.h>
+#include <cstdlib>
+#include <stddef.h>
 
-template <typename PX>
+template<typename PF>
+inline void
+plot_line(int x0,
+          int y0,
+          int x1,
+          int y1,
+          int skip_start_pixel,
+          int skip_end_pixel,
+          PF pixel_function)
+{
+  // initial case division for Bresenham algorithm
+  if (abs(y1 - y0) < abs(x1 - x0)) {
+    if (x0 > x1)
+      plot_line_low(
+        x1, y1, x0, y0, skip_end_pixel, skip_start_pixel, pixel_function);
+    else
+      plot_line_low(
+        x0, y0, x1, y1, skip_start_pixel, skip_end_pixel, pixel_function);
+  } else {
+    if (y0 > y1)
+      plot_line_high(
+        x1, y1, x0, y0, skip_end_pixel, skip_start_pixel, pixel_function);
+    else
+      plot_line_high(
+        x0, y0, x1, y1, skip_start_pixel, skip_end_pixel, pixel_function);
+  }
+}
+
+// one case for Bresenham algorithm
+template<typename PF>
 inline void
 plot_line_low(size_t x_start,
               size_t y_start,
@@ -32,44 +62,44 @@ plot_line_low(size_t x_start,
               size_t y_finish,
               int skip_start_pixel,
               int skip_end_pixel,
-              PX func)
+              PF pixel_function)
 {
-    int dx = x_finish - x_start;
-    int dy = y_finish - y_start;
-    int yi = 1;
-    if (dy < 0) {
-        yi = -1;
-        dy = -dy;
-    }
-    int two_dy = 2 * dy;
-    int two_dxy = 2 * (dy - dx);
-    int D = two_dy - dx;
+  int dx = x_finish - x_start;
+  int dy = y_finish - y_start;
+  int yi = 1;
+  if (dy < 0) {
+    yi = -1;
+    dy = -dy;
+  }
+  int two_dy = 2 * dy;
+  int two_dxy = 2 * (dy - dx);
+  int D = two_dy - dx;
 
-    size_t x = x_start, y = y_start;
-    if (skip_start_pixel == 1) {
-        if (D > 0) {
-            y += yi;
-            D += two_dxy;
-        } else
-            D += two_dy;
-        ++x;
-    }
-    if (skip_end_pixel == 1)
-        --x_finish;
+  size_t x = x_start, y = y_start;
+  if (skip_start_pixel == 1) {
+    if (D > 0) {
+      y += yi;
+      D += two_dxy;
+    } else
+      D += two_dy;
+    ++x;
+  }
+  if (skip_end_pixel == 1)
+    --x_finish;
 
-    for (; x <= x_finish; ++x) {
-        if (!func(x, y))
-            continue;
+  for (; x <= x_finish; ++x) {
+    pixel_function(x, y);
 
-        if (D > 0) {
-            y += yi;
-            D += two_dxy;
-        } else
-            D += two_dy;
-    }
+    if (D > 0) {
+      y += yi;
+      D += two_dxy;
+    } else
+      D += two_dy;
+  }
 }
 
-template <typename PX>
+// one case for Bresenham algorithm
+template<typename PF>
 inline void
 plot_line_high(size_t x_start,
                size_t y_start,
@@ -77,41 +107,40 @@ plot_line_high(size_t x_start,
                size_t y_finish,
                int skip_start_pixel,
                int skip_end_pixel,
-               PX func)
+               PF pixel_function)
 {
-    int dx = x_finish - x_start;
-    int dy = y_finish - y_start;
-    int xi = 1;
-    if (dx < 0) {
-        xi = -1;
-        dx = -dx;
-    }
-    int two_dx = 2 * dx;
-    int two_dxy = 2 * (dx - dy);
-    int D = two_dx - dy;
+  int dx = x_finish - x_start;
+  int dy = y_finish - y_start;
+  int xi = 1;
+  if (dx < 0) {
+    xi = -1;
+    dx = -dx;
+  }
+  int two_dx = 2 * dx;
+  int two_dxy = 2 * (dx - dy);
+  int D = two_dx - dy;
 
-    size_t x = x_start, y = y_start;
-    if (skip_start_pixel == 1) {
-        if (D > 0) {
-            x += xi;
-            D += two_dxy;
-        } else
-            D += two_dx;
-        ++y;
-    }
-    if (skip_end_pixel == 1)
-        --y_finish;
+  size_t x = x_start, y = y_start;
+  if (skip_start_pixel == 1) {
+    if (D > 0) {
+      x += xi;
+      D += two_dxy;
+    } else
+      D += two_dx;
+    ++y;
+  }
+  if (skip_end_pixel == 1)
+    --y_finish;
 
-    for (; y <= y_finish; ++y) {
-        if (!func(x, y))
-            continue;
+  for (; y <= y_finish; ++y) {
+    pixel_function(x, y);
 
-        if (D > 0) {
-            x += xi;
-            D += two_dxy;
-        } else
-            D += two_dx;
-    }
+    if (D > 0) {
+      x += xi;
+      D += two_dxy;
+    } else
+      D += two_dx;
+  }
 }
 
 #endif
