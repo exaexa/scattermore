@@ -20,7 +20,7 @@
  */
 
 #include "scatters_lines.h"
-#include "scatters_lines_temp.hpp"
+#include "scatters_lines_temp.h"
 
 #include <cstdlib>
 
