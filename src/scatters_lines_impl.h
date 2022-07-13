@@ -19,8 +19,8 @@
  * scattermore. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef SCATTERS_LINES_TEMP_H
-#define SCATTERS_LINES_TEMP_H
+#ifndef SCATTERS_LINES_IMPL_H
+#define SCATTERS_LINES_IMPL_H
 
 #include <cstdlib>
 #include <stddef.h>
@@ -34,8 +34,10 @@ plot_line(int x0,
           int skip_start_pixel,
           int skip_end_pixel,
           PF pixel_function)
-{
-  // initial case division for Bresenham algorithm
+{/*
+  * Bresenham algorithm; this is the initial case division, actual plotting is
+  * handled by plot_line_low and plot_line_high.
+  */
   if (abs(y1 - y0) < abs(x1 - x0)) {
     if (x0 > x1)
       plot_line_low(
@@ -53,13 +55,12 @@ plot_line(int x0,
   }
 }
 
-// one case for Bresenham algorithm
 template<typename PF>
 inline void
-plot_line_low(size_t x_start,
-              size_t y_start,
-              size_t x_finish,
-              size_t y_finish,
+plot_line_low(int x_start,
+              int y_start,
+              int x_finish,
+              int y_finish,
               int skip_start_pixel,
               int skip_end_pixel,
               PF pixel_function)
@@ -75,7 +76,7 @@ plot_line_low(size_t x_start,
   int two_dxy = 2 * (dy - dx);
   int D = two_dy - dx;
 
-  size_t x = x_start, y = y_start;
+  int x = x_start, y = y_start;
   if (skip_start_pixel == 1) {
     if (D > 0) {
       y += yi;
@@ -98,13 +99,12 @@ plot_line_low(size_t x_start,
   }
 }
 
-// one case for Bresenham algorithm
 template<typename PF>
 inline void
-plot_line_high(size_t x_start,
-               size_t y_start,
-               size_t x_finish,
-               size_t y_finish,
+plot_line_high(int x_start,
+               int y_start,
+               int x_finish,
+               int y_finish,
                int skip_start_pixel,
                int skip_end_pixel,
                PF pixel_function)
@@ -120,7 +120,7 @@ plot_line_high(size_t x_start,
   int two_dxy = 2 * (dx - dy);
   int D = two_dx - dy;
 
-  size_t x = x_start, y = y_start;
+  int x = x_start, y = y_start;
   if (skip_start_pixel == 1) {
     if (D > 0) {
       x += xi;

@@ -6,8 +6,8 @@
 \usage{
 scatter_lines_rgbwt(
   xy,
-  xlim = c(min(xy), max(xy)),
-  ylim = c(min(xy), max(xy)),
+  xlim = c(min(xy[, c(1, 3)]), max(xy[, c(1, 3)])),
+  ylim = c(min(xy[, c(2, 4)]), max(xy[, c(2, 4)])),
   out_size = c(512, 512),
   RGBA = c(0, 0, 0, 255),
   skip_start_pixel = FALSE,
