@@ -12,3 +12,4 @@
 *.pdf
 *.dll
 /build.R
+*.Rda
