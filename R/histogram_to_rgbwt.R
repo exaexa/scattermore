@@ -53,13 +53,6 @@ histogram_to_rgbwt <- function(fhistogram,
     normalized_fhistogram = as.single(normalized_fhistogram)
   )
 
-  R <- result$fRGBWT[seq.int(1, length(result$fRGBWT), scattermore.globals$dim_RGBWT)]
-  G <- result$fRGBWT[seq.int(2, length(result$fRGBWT), scattermore.globals$dim_RGBWT)]
-  B <- result$fRGBWT[seq.int(3, length(result$fRGBWT), scattermore.globals$dim_RGBWT)]
-  W <- result$fRGBWT[seq.int(4, length(result$fRGBWT), scattermore.globals$dim_RGBWT)]
-  T <- result$fRGBWT[seq.int(5, length(result$fRGBWT), scattermore.globals$dim_RGBWT)]
-  fRGBWT <- c(R, G, B, W, T) # get SoA format
-
-  fRGBWT <- array(fRGBWT, c(rows, cols, scattermore.globals$dim_RGBWT))
+  fRGBWT <- aperm(array(result$fRGBWT, c(scattermore.globals$dim_RGBWT, rows, cols)), c(2,3,1)) # SoA format
   return(fRGBWT)
 }

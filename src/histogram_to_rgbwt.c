@@ -57,9 +57,9 @@ histogram_to_rgbwt(const unsigned *dim,
     float A = palette[4 * palette_index + 3];
 
     size_t offset = i * 5;
-    RGBWT[offset + offset_R] = R;
-    RGBWT[offset + offset_G] = 0;
-    RGBWT[offset + offset_B] = 0;
+    RGBWT[offset + offset_R] = R * A;
+    RGBWT[offset + offset_G] = G * A;
+    RGBWT[offset + offset_B] = B * A;
     RGBWT[offset + offset_W] = A;
     RGBWT[offset + offset_T] = 1 - A;
   }
