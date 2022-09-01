@@ -20,6 +20,7 @@
  */
 
 #include "kernels.h"
+#include "macros.h"
 
 #include <stddef.h>
 
@@ -35,27 +36,32 @@ kernel_histogram(const unsigned *dim,
   const int radius = dim[2];
   const size_t kernel_size = 2 * radius + 1;
 
-  size_t i;
-  for (i = 0; i < size_out_y; ++i) {
-    size_t j;
-    for (j = 0; j < size_out_x; ++j) {
-      float sum = 0;
+  int x;
+  for (x = -radius; x <= radius; ++x) {
+    int j_begin =
+      max(1 - x, 1); // there is no need to check edge cases using if
+    int j_end = min(size_out_x - x, size_out_x);
 
-      int x;
-      for (x = -radius; x <= radius; ++x) {
-        int y;
-        for (y = -radius; y <= radius; ++y) {
-          int histogram_index = (j + x) * size_out_y + (i + y);
+    int y;
+    for (y = -radius; y <= radius; ++y) {
+      int i_begin = max(1 - y, 1); // the same as above
+      int i_end = min(size_out_y - y, size_out_y);
+
+      size_t i;
+      for (i = i_begin; i < i_end; ++i) {
+        size_t j;
+        for (j = j_begin; j < j_end; ++j) {
+          int x_shift = j + x;
+          int y_shift = i + y;
+          int histogram_index = x_shift * size_out_y + y_shift;
           float kernel_value =
             kernel[(radius + x) * kernel_size + (radius + y)];
 
-          if (i + y >= 0 && i + y < size_out_y && j + x >= 0 &&
-              j + x < size_out_x)
-            sum += histogram[histogram_index] *
-                   kernel_value; // else add nothing (zero border padding)
+          blurred_histogram[j * size_out_y + i] +=
+            histogram[histogram_index] *
+            kernel_value; // else add nothing (zero border padding)
         }
       }
-      blurred_histogram[j * size_out_y + i] = sum;
     }
   }
 }

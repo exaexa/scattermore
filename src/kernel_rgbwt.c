@@ -20,6 +20,7 @@
  */
 
 #include "kernels.h"
+#include "macros.h"
 
 #include <stddef.h>
 
@@ -42,43 +43,41 @@ kernel_rgbwt(const unsigned *dim,
   const size_t offset_W = size_out * 3;
   const size_t offset_T = size_out * 4;
 
-  size_t i;
-  for (i = 0; i < size_out_y; ++i) {
-    size_t j;
-    for (j = 0; j < size_out_x; ++j) {
-      size_t offset = j * size_out_y + i;
+  int x;
+  for (x = -radius; x <= radius; ++x) {
+    int j_begin =
+      max(1 - x, 1); // there is no need to check edge cases using if
+    int j_end = min(size_out_x - x, size_out_x);
 
-      float R = 0, G = 0, B = 0, W = 0, T = 1;
+    int y;
+    for (y = -radius; y <= radius; ++y) {
+      int i_begin = max(1 - y, 1); // the same as above
+      int i_end = min(size_out_y - y, size_out_y);
 
-      int x;
-      for (x = -radius; x <= radius; ++x) {
-        int y;
-        for (y = -radius; y <= radius; ++y) {
+      size_t i;
+      for (i = i_begin; i < i_end; ++i) {
+        size_t j;
+        for (j = j_begin; j < j_end; ++j) {
           int x_shift = j + x;
           int y_shift = i + y;
 
-          if (x_shift < 0 || x_shift >= size_out_x || y_shift < 0 ||
-              y_shift >= size_out_y)
-            continue;
-
+          size_t offset = j * size_out_y + i;
           size_t offset_shift = x_shift * size_out_y + y_shift;
-
           float kernel_value =
             kernel[(radius + x) * size_kernel + (radius + y)];
 
-          R += RGBWT[offset_shift + offset_R] * kernel_value;
-          G += RGBWT[offset_shift + offset_G] * kernel_value;
-          B += RGBWT[offset_shift + offset_B] * kernel_value;
-          W += RGBWT[offset_shift + offset_W] * kernel_value;
-          T *= 1 - ((1 - RGBWT[offset_shift + offset_T]) * kernel_value);
+          blurred_RGBWT[offset + offset_R] +=
+            RGBWT[offset_shift + offset_R] * kernel_value;
+          blurred_RGBWT[offset + offset_G] +=
+            RGBWT[offset_shift + offset_G] * kernel_value;
+          blurred_RGBWT[offset + offset_B] +=
+            RGBWT[offset_shift + offset_B] * kernel_value;
+          blurred_RGBWT[offset + offset_W] +=
+            RGBWT[offset_shift + offset_W] * kernel_value;
+          blurred_RGBWT[offset + offset_T] *=
+            1 - ((1 - RGBWT[offset_shift + offset_T]) * kernel_value);
         }
       }
-
-      blurred_RGBWT[offset + offset_R] = R;
-      blurred_RGBWT[offset + offset_G] = G;
-      blurred_RGBWT[offset + offset_B] = B;
-      blurred_RGBWT[offset + offset_W] = W;
-      blurred_RGBWT[offset + offset_T] = T;
     }
   }
 }
