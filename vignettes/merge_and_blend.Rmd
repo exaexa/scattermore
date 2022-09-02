@@ -23,7 +23,8 @@ p2 <- scatter_points_rgbwt(points, RGBA= c(192,128,64,50), xlim=c(-5,5), ylim=c(
 
 ## Merge two rgbwt matrices
 ```{r}
-merged <- merge_rgbwt(p1,p2)
+l <- list(p1, p2)
+merged <- merge_rgbwt(l)
 raster <- rgba_int_to_raster(rgbwt_to_rgba_int(merged))
 plot(raster, interpolate=F)
 ```
@@ -32,7 +33,8 @@ plot(raster, interpolate=F)
 ```{r}
 p1_frgba <- rgbwt_to_rgba_float(p1)
 p2_frgba <- rgbwt_to_rgba_float(p2)
-blended <- blend_rgba_float(p1_frgba,p2_frgba)
+l <- list(p1_frgba, p2_frgba)
+blended <- blend_rgba_float(l)
 raster <- rgba_int_to_raster(rgba_float_to_rgba_int(blended))
 plot(raster, interpolate=F)
 ```
