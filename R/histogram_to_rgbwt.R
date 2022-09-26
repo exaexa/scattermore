@@ -40,17 +40,22 @@ histogram_to_rgbwt <- function(fhistogram,
   cols <- dim(fhistogram)[2]
   size <- dim(RGBA)[2]
 
+  # transpose and get premultiplied alpha format
+  pRGBA <- t(RGBA) / 255
+  pRGBA <- t(cbind(pRGBA[, 1:3] * pRGBA[, 4], pRGBA[, 4]))
+
   RGBWT <- rep(0, rows * cols * scattermore.globals$dim_RGBWT)
 
   minimum <- min(fhistogram)
   maximum <- max(fhistogram)
-  normalized_fhistogram <- (fhistogram - minimum) / (maximum - minimum) # normalize histogram on values 0-1
 
   result <- .C("histogram_to_rgbwt",
     dimen = as.integer(c(rows, cols, size)),
     fRGBWT = as.single(RGBWT),
-    RGBA = as.single(RGBA / 255),
-    normalized_fhistogram = as.single(normalized_fhistogram)
+    RGBA = as.single(pRGBA),
+    fhistogram = as.single(fhistogram),
+    maximum = as.integer(maximum),
+    minimum = as.integer(minimum)
   )
 
 
