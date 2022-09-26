@@ -33,51 +33,43 @@ histogram_to_rgbwt(const unsigned *dim,
                    const float *histogram,
                    const float *extremes)
 {
-  const size_t size_out_y = dim[0];
-  const size_t size_out_x = dim[1];
-  const size_t size_palette = dim[2];
+  const size_t size_out_y = dim[0], size_out_x = dim[1], size_palette = dim[2],
+               size_out = size_out_y * size_out_x;
   const float bin = 1.0 / size_palette;
-  const size_t size_out = size_out_y * size_out_x;
   const float minimum = extremes[0], maximum = extremes[1];
 
   float difference = maximum - minimum;
   if (difference == 0)
     difference = 1; // not divide by 0
 
-  const size_t offset_R = size_out * 0;
-  const size_t offset_G = size_out * 1;
-  const size_t offset_B = size_out * 2;
-  const size_t offset_W = size_out * 3;
-  const size_t offset_T = size_out * 4;
+  const size_t offset_R = size_out * 0, offset_G = size_out * 1,
+               offset_B = size_out * 2, offset_W = size_out * 3,
+               offset_T = size_out * 4;
 
   const float *histogram_end = histogram + size_out;
   const float *histogram_end_rest = histogram_end - 3; // multiplier of 4
-  const __m128 bins = _mm_set1_ps(bin), ones = _mm_set1_ps(1),
+  const __m128 ones = _mm_set1_ps(1), bins = _mm_div_ps(ones, _mm_set1_ps(bin)),
                minimums = _mm_set1_ps(minimum),
-               differences = _mm_set1_ps(difference),
-               epsilons = _mm_set1_ps(1e-9);
-  const __m128i fours = _mm_set1_epi32(4),
-                sizes_palette = _mm_set1_epi32(size_palette - 1);
-
+               differences = _mm_div_ps(ones, _mm_set1_ps(difference));
+  const __m128i sizes_palette = _mm_set1_epi32(size_palette - 1);
 
   for (; histogram < histogram_end_rest; histogram += 4, RGBWT += 4) {
     __m128 histogram_values = _mm_loadu_ps(histogram);
     // normalize histogram_values
-    histogram_values = _mm_div_ps(_mm_sub_ps(histogram_values, minimums),
-                                  _mm_max_ps(differences, epsilons));
+    histogram_values =
+      _mm_mul_ps(_mm_sub_ps(histogram_values, minimums), differences);
     // palette indices multiplied by 4
     __m128i palette_indices =
-      _mm_cvtps_epi32(_mm_div_ps(histogram_values, bins));
+      _mm_cvtps_epi32(_mm_mul_ps(histogram_values, bins));
     // correct if one of the indices is equal to size_palette
-    palette_indices =
-      _mm_mul_epi32(_mm_min_epi32(palette_indices, sizes_palette), fours);
+    palette_indices = _mm_min_epi32(palette_indices, sizes_palette);
 
     // load RGBA values
     const __m128
-      data0 = _mm_loadu_ps(palette + _mm_extract_epi32(palette_indices, 0)),
-      data1 = _mm_loadu_ps(palette + _mm_extract_epi32(palette_indices, 1)),
-      data2 = _mm_loadu_ps(palette + _mm_extract_epi32(palette_indices, 2)),
-      data3 = _mm_loadu_ps(palette + _mm_extract_epi32(palette_indices, 3));
+      data0 = _mm_loadu_ps(palette + 4 * _mm_extract_epi32(palette_indices, 0)),
+      data1 = _mm_loadu_ps(palette + 4 * _mm_extract_epi32(palette_indices, 1)),
+      data2 = _mm_loadu_ps(palette + 4 * _mm_extract_epi32(palette_indices, 2)),
+      data3 = _mm_loadu_ps(palette + 4 * _mm_extract_epi32(palette_indices, 3));
     // transpose and store SoA format directly (based on MM_TRANSPOSE4_PS)
     const __m128 t0 = _mm_unpacklo_ps(data0, data1),
                  t1 = _mm_unpackhi_ps(data0, data1),
@@ -103,10 +95,10 @@ histogram_to_rgbwt(const unsigned *dim,
     if (palette_index == size_palette)
       --palette_index;
 
-    float R = palette[4 * palette_index + 0];
-    float G = palette[4 * palette_index + 1];
-    float B = palette[4 * palette_index + 2];
-    float A = palette[4 * palette_index + 3];
+    float R = palette[4 * palette_index + 0],
+          G = palette[4 * palette_index + 1],
+          B = palette[4 * palette_index + 2],
+          A = palette[4 * palette_index + 3];
 
     // don't add offset
     RGBWT[offset_R] = R;
