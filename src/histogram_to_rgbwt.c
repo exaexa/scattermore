@@ -31,15 +31,18 @@ histogram_to_rgbwt(const unsigned *dim,
                    float *RGBWT,
                    const float *palette,
                    const float *histogram,
-                   const int maximum,
-                   const int minimum)
+                   const float *extremes)
 {
   const size_t size_out_y = dim[0];
   const size_t size_out_x = dim[1];
   const size_t size_palette = dim[2];
   const float bin = 1.0 / size_palette;
   const size_t size_out = size_out_y * size_out_x;
-  const int difference = maximum - minimum;
+  const float minimum = extremes[0], maximum = extremes[1];
+
+  float difference = maximum - minimum;
+  if (difference == 0)
+    difference = 1; // not divide by 0
 
   const size_t offset_R = size_out * 0;
   const size_t offset_G = size_out * 1;
@@ -49,18 +52,19 @@ histogram_to_rgbwt(const unsigned *dim,
 
   const float *histogram_end = histogram + size_out;
   const float *histogram_end_rest = histogram_end - 3; // multiplier of 4
-  const __m128 bins = _mm_set1_ps(bin);
-  const __m128 ones = _mm_set1_ps(1);
-  const __m128i fours = _mm_set1_epi32(4);
-  const __m128i sizes_palette = _mm_set1_epi32(size_palette - 1);
-  const __m128 minimums = _mm_set1_ps(minimum);
-  const __m128 differences = _mm_set1_ps(difference);
-  const __m128 epsilons = _mm_set1_ps(1e-9);
+  const __m128 bins = _mm_set1_ps(bin), ones = _mm_set1_ps(1),
+               minimums = _mm_set1_ps(minimum),
+               differences = _mm_set1_ps(difference),
+               epsilons = _mm_set1_ps(1e-9);
+  const __m128i fours = _mm_set1_epi32(4),
+                sizes_palette = _mm_set1_epi32(size_palette - 1);
 
-  for (; histogram < 0; histogram += 4, RGBWT += 4) {
+
+  for (; histogram < histogram_end_rest; histogram += 4, RGBWT += 4) {
     __m128 histogram_values = _mm_loadu_ps(histogram);
     // normalize histogram_values
-    histogram_values = _mm_div_ps(_mm_sub_ps(histogram_values, minimums), _mm_max_ps(differences, epsilons));
+    histogram_values = _mm_div_ps(_mm_sub_ps(histogram_values, minimums),
+                                  _mm_max_ps(differences, epsilons));
     // palette indices multiplied by 4
     __m128i palette_indices =
       _mm_cvtps_epi32(_mm_div_ps(histogram_values, bins));
@@ -80,13 +84,14 @@ histogram_to_rgbwt(const unsigned *dim,
                  t2 = _mm_unpacklo_ps(data2, data3),
                  t3 = _mm_unpackhi_ps(data2, data3);
 
-    _mm_storeu_ps(RGBWT + offset_R, _mm_movelh_ps(t0,t2));
-    _mm_storeu_ps(RGBWT + offset_G, _mm_movehl_ps(t2,t0));
-    _mm_storeu_ps(RGBWT + offset_B, _mm_movelh_ps(t1,t3));
+    _mm_storeu_ps(RGBWT + offset_R, _mm_movelh_ps(t0, t2));
+    _mm_storeu_ps(RGBWT + offset_G, _mm_movehl_ps(t2, t0));
+    _mm_storeu_ps(RGBWT + offset_B, _mm_movelh_ps(t1, t3));
 
     const __m128 alpha = _mm_movehl_ps(t3, t1);
     _mm_storeu_ps(RGBWT + offset_W, alpha);
-    _mm_storeu_ps(RGBWT + offset_T, _mm_sub_ps(ones, alpha)); //RGBWT[offset + offset_T] = 1 - A;
+    _mm_storeu_ps(RGBWT + offset_T,
+                  _mm_sub_ps(ones, alpha)); // RGBWT[offset + offset_T] = 1 - A;
   }
 
   for (; histogram < histogram_end; ++histogram, ++RGBWT) { // do the rest

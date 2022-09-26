@@ -29,7 +29,7 @@
 static const R_CMethodDef cMethods[] = {
   { "scatter_histogram", (DL_FUNC)&scatter_histogram, 6 },
   { "kernel_histogram", (DL_FUNC)&kernel_histogram, 4 },
-  { "histogram_to_rgbwt", (DL_FUNC)&histogram_to_rgbwt, 6 },
+  { "histogram_to_rgbwt", (DL_FUNC)&histogram_to_rgbwt, 5 },
   { "scatter_singlecolor_rgbwt", (DL_FUNC)&scatter_singlecolor_rgbwt, 6 },
   { "scatter_multicolor_rgbwt", (DL_FUNC)&scatter_multicolor_rgbwt, 6 },
   { "scatter_indexed_rgbwt", (DL_FUNC)&scatter_indexed_rgbwt, 7 },

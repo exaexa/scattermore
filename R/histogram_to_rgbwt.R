@@ -54,8 +54,7 @@ histogram_to_rgbwt <- function(fhistogram,
     fRGBWT = as.single(RGBWT),
     RGBA = as.single(pRGBA),
     fhistogram = as.single(fhistogram),
-    maximum = as.integer(maximum),
-    minimum = as.integer(minimum)
+    extremes = as.single(c(minimum, maximum))
   )
 
 

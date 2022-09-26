@@ -34,8 +34,7 @@ histogram_to_rgbwt(const unsigned *dim,
                    float *RGBWT,
                    const float *pallete,
                    const float *histogram,
-                   const int maximum,
-                   const int minimum);
+                   const float *extremes);
 void
 scatter_singlecolor_rgbwt(const unsigned *dim,
                           const float *xlim,
