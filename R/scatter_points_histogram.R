@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with scattermore. If not, see <https://www.gnu.org/licenses/>.
 
-#' scatter_histogram
+#' scatter_points_histogram
 #'
 #' Create histogram from given point coordinates.
 #'
@@ -41,7 +41,7 @@
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
-scatter_histogram <- function(xy,
+scatter_points_histogram <- function(xy,
                               xlim = c(min(xy[, 1]), max(xy[, 1])),
                               ylim = c(min(xy[, 2]), max(xy[, 2])),
                               out_size = c(512L, 512L)) {
