@@ -61,7 +61,18 @@ scatter_lines_rgbwt(const float *xy,
   float A = RGBA[3];
 
   // lambda expression used for individual pixel when plotting a line
-  auto pixel_function_rgbwt = [R, G, B, A, size_out_x, size_out_y, offset_R, offset_G, offset_B, offset_W, offset_T, RGBWT](size_t x, size_t y) {
+  auto pixel_function_rgbwt = [R,
+                               G,
+                               B,
+                               A,
+                               size_out_x,
+                               size_out_y,
+                               offset_R,
+                               offset_G,
+                               offset_B,
+                               offset_W,
+                               offset_T,
+                               RGBWT](size_t x, size_t y) {
     if (x < size_out_x && y < size_out_y) {
       size_t offset = x * size_out_y + y;
       RGBWT[offset + offset_R] += R * A;

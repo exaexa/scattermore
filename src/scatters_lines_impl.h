@@ -33,10 +33,10 @@ plot_line(int x0,
           int skip_start_pixel,
           int skip_end_pixel,
           PF pixel_function)
-{/*
-  * Bresenham algorithm; this is the initial case division, actual plotting is
-  * handled by plot_line_low and plot_line_high.
-  */
+{ /*
+   * Bresenham algorithm; this is the initial case division, actual plotting is
+   * handled by plot_line_low and plot_line_high.
+   */
   if (abs(y1 - y0) < abs(x1 - x0)) {
     if (x0 > x1)
       plot_line_low(

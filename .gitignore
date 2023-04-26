@@ -12,3 +12,5 @@
 *.pdf
 *.dll
 /build.R
+/.vscode/
+/src/Makevars

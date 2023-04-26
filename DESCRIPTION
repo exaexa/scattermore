@@ -18,7 +18,7 @@ Imports: ggplot2, scales, grid, grDevices, graphics
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.3
 Suggests: 
     covr,
     knitr,

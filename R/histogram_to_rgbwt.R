@@ -45,7 +45,8 @@ histogram_to_rgbwt <- function(fhistogram,
 
   minimum <- min(fhistogram)
   maximum <- max(fhistogram)
-  normalized_fhistogram <- (fhistogram - minimum) / (maximum - minimum) # normalize histogram on values 0-1
+  # normalize histogram on values 0-1
+  normalized_fhistogram <- (fhistogram - minimum) / max((maximum - minimum), scattermore.globals$epsilon)
 
   result <- .C("histogram_to_rgbwt",
     dimen = as.integer(c(rows, cols, size)),

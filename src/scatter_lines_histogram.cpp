@@ -46,10 +46,11 @@ scatter_lines_histogram(const float *xy,
   const float y_bin = (size_out_y - 1) / (y_end - y_begin);
 
   // lambda expression used for individual pixel when plotting a line
-  auto pixel_function_histogram = [histogram, size_out_x, size_out_y](size_t x, size_t y) {
-    if (x < size_out_x && y < size_out_y)
-      ++histogram[x * size_out_y + y];
-  };
+  auto pixel_function_histogram =
+    [histogram, size_out_x, size_out_y](size_t x, size_t y) {
+      if (x < size_out_x && y < size_out_y)
+        ++histogram[x * size_out_y + y];
+    };
 
   for (size_t i = 0; i < size_data; ++i) {
     int x0 = (xy[0 * size_data + i] - x_begin) * x_bin;
