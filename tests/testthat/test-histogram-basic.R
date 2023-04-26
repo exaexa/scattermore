@@ -1,10 +1,10 @@
 
-test_that("scatter_histogram does not fail on trivial data", {
-  expect_silent(scatter_histogram(cbind(rnorm(1e5), rnorm(1e5))))
+test_that("scatter_points_histogram does not fail on trivial data", {
+  expect_silent(scatter_points_histogram(cbind(rnorm(1e5), rnorm(1e5))))
 })
 
 test_that("apply_kernel_histogram does not fail with different filters", {
-  histogram <- scatter_histogram(cbind(rnorm(1e5), rnorm(1e5)))
+  histogram <- scatter_points_histogram(cbind(rnorm(1e5), rnorm(1e5)))
 
   expect_silent(apply_kernel_histogram(histogram))
 
@@ -16,7 +16,7 @@ test_that("apply_kernel_histogram does not fail with different filters", {
 })
 
 test_that("histogram_to_rgbwt does not fail", {
-  histogram <- scatter_histogram(cbind(rnorm(1e5), rnorm(1e5)))
+  histogram <- scatter_points_histogram(cbind(rnorm(1e5), rnorm(1e5)))
 
   expect_silent(histogram_to_rgbwt(histogram))
 
