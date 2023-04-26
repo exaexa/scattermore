@@ -20,7 +20,7 @@ library(scattermore)
 
 ## Create histogram
 ```{r}
-histogram <- scatter_histogram(cbind(rnorm(1e5), rnorm(1e5)), xlim=c(-5,5), ylim=c(-5,5))
+histogram <- scatter_points_histogram(cbind(rnorm(1e5), rnorm(1e5)), xlim=c(-5,5), ylim=c(-5,5))
 image(histogram)
 ```
 
