@@ -1,7 +1,7 @@
 # This file is part of scattermore.
 #
 # Copyright (C) 2022 Mirek Kratochvil <exa.exa@gmail.com>
-#               2022 Tereza Kulichova <kulichova.t@gmail.com>
+#               2023 Tereza Kulichova <kulichova.t@gmail.com>
 #
 # scattermore is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -48,6 +48,7 @@
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
+
 scatter_lines_histogram <- function(xy,
                                     xlim = c(min(xy[,c(1,3)]), max(xy[,c(1,3)])),
                                     ylim = c(min(xy[,c(2,4)]), max(xy[,c(2,4)])),

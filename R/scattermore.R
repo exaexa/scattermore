@@ -1,7 +1,7 @@
 # This file is part of scattermore.
 #
 # Copyright (C) 2019-2022 Mirek Kratochvil <exa.exa@gmail.com>
-#               2022 Tereza Kulichova <kulichova.t@gmail.com>
+#               2023 Tereza Kulichova <kulichova.t@gmail.com>
 #
 # scattermore is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -43,6 +43,7 @@
 #' plot(scattermore(cbind(rnorm(1e6), rnorm(1e6)), rgba = c(64, 128, 192, 10)))
 #' @export
 #' @importFrom grDevices as.raster
+
 scattermore <- function(xy,
                         size = c(512, 512),
                         xlim = c(min(xy[, 1]), max(xy[, 1])),

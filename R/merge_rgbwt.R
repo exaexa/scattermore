@@ -1,7 +1,7 @@
 # This file is part of scattermore.
 #
 # Copyright (C) 2022 Mirek Kratochvil <exa.exa@gmail.com>
-#               2022 Tereza Kulichova <kulichova.t@gmail.com>
+#               2023 Tereza Kulichova <kulichova.t@gmail.com>
 #
 # scattermore is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
+
 merge_rgbwt <- function(fRGBWT_1, fRGBWT_2) {
   if (!is.array(fRGBWT_1) || dim(fRGBWT_1)[3] != scattermore.globals$dim_RGBWT) stop("not supported fRGBWT_1 format")
   if (!is.array(fRGBWT_2) || dim(fRGBWT_2)[3] != scattermore.globals$dim_RGBWT) stop("not supported fRGBWT_2 format")

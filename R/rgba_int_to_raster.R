@@ -1,7 +1,7 @@
 # This file is part of scattermore.
 #
 # Copyright (C) 2022 Mirek Kratochvil <exa.exa@gmail.com>
-#               2022 Tereza Kulichova <kulichova.t@gmail.com>
+#               2023 Tereza Kulichova <kulichova.t@gmail.com>
 #
 # scattermore is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
 #' @importFrom grDevices as.raster
+
 rgba_int_to_raster <- function(i32RGBA) {
   if (!is.array(i32RGBA) || dim(i32RGBA)[3] != scattermore.globals$dim_RGBA) stop("not supported i32RGBA format")
 

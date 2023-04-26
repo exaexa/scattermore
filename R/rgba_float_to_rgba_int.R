@@ -1,7 +1,7 @@
 # This file is part of scattermore.
 #
 # Copyright (C) 2022 Mirek Kratochvil <exa.exa@gmail.com>
-#               2022 Tereza Kulichova <kulichova.t@gmail.com>
+#               2023 Tereza Kulichova <kulichova.t@gmail.com>
 #
 # scattermore is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
+
 rgba_float_to_rgba_int <- function(fRGBA) {
   if (!is.array(fRGBA) || dim(fRGBA)[3] != scattermore.globals$dim_RGBA) stop("not supported fRGBA format")
 
