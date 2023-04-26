@@ -1,7 +1,7 @@
 # This file is part of scattermore.
 #
 # Copyright (C) 2022 Mirek Kratochvil <exa.exa@gmail.com>
-#               2022 Tereza Kulichova <kulichova.t@gmail.com>
+#               2023 Tereza Kulichova <kulichova.t@gmail.com>
 #
 # scattermore is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -44,24 +44,22 @@
 #'
 #' @param palette Matrix with R, G, B and A channels in rows, of at `maximum(map)` columns.
 #'
-#' @param threads Number of parallel threads (default 0 chooses hardware concurrency).
-#'
 #' @return An array in RGBWT format with the scatterplot output.
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
+
 scatter_points_rgbwt <- function(xy,
                                  xlim = c(min(xy[, 1]), max(xy[, 1])),
                                  ylim = c(min(xy[, 2]), max(xy[, 2])),
                                  out_size = c(512, 512),
                                  RGBA = c(0, 0, 0, 255),
                                  map = NULL,
-                                 palette = NULL,
-                                 threads = 0) {
+                                 palette = NULL) {
   n <- dim(xy)[1]
   if (dim(xy)[2] != 2) stop("2-column xy input expected")
+
   if (!is.vector(xlim) || !is.vector(ylim) || !is.vector(out_size)) stop("vector input in parameters xlim, ylim or out_size expected")
-  if (threads < 0) stop("number of threads must not be negative")
 
   if (is.vector(map)) {
     map <- as.integer(map) - 1L
@@ -95,7 +93,7 @@ scatter_points_rgbwt <- function(xy,
   if (id == 1) # colorize using palette
     {
       result <- .C("scatter_indexed_rgbwt",
-        dimen = as.integer(c(size_x, size_y, n, threads)),
+        dimen = as.integer(c(size_x, size_y, n)),
         xlim = as.single(xlim),
         ylim = as.single(ylim),
         palette = as.single(palette / 255),
@@ -106,7 +104,7 @@ scatter_points_rgbwt <- function(xy,
     } else if (id == 2) # colorize with one color
     {
       result <- .C("scatter_singlecolor_rgbwt",
-        dimen = as.integer(c(size_x, size_y, n, threads)),
+        dimen = as.integer(c(size_x, size_y, n)),
         xlim = as.single(xlim),
         ylim = as.single(ylim),
         RGBA = as.single(RGBA / 255),
@@ -115,7 +113,7 @@ scatter_points_rgbwt <- function(xy,
       )
     } else { # colorize with given color for each point
     result <- .C("scatter_multicolor_rgbwt",
-      dimen = as.integer(c(size_x, size_y, n, threads)),
+      dimen = as.integer(c(size_x, size_y, n)),
       xlim = as.single(xlim),
       ylim = as.single(ylim),
       RGBA = as.single(RGBA / 255),

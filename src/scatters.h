@@ -27,7 +27,8 @@ extern "C"
 {
 #endif
 
-  void scatter_histogram(const unsigned *dim,
+  void scatter_histogram(const unsigned *pn,
+                         const unsigned *size_out,
                          unsigned *histogram,
                          const float *xlim,
                          const float *ylim,

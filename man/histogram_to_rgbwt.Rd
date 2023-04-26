@@ -6,8 +6,7 @@
 \usage{
 histogram_to_rgbwt(
   fhistogram,
-  RGBA = array(c(250, 128, 114, 255, 144, 238, 144, 255, 176, 224, 230, 255), c(4, 3)),
-  threads = 0
+  RGBA = array(c(250, 128, 114, 255, 144, 238, 144, 255, 176, 224, 230, 255), c(4, 3))
 )
 }
 \arguments{
@@ -15,8 +14,6 @@ histogram_to_rgbwt(
 
 \item{RGBA}{matrix (4xn dim, n>= 2) with R, G, B and alpha channels
 in integers, defaults to shades of \code{red}, \code{green} and \code{blue} with \code{alpha = 255}.}
-
-\item{threads}{Number of parallel threads (default 0 chooses hardware concurrency).}
 }
 \value{
 RGBWT matrix.

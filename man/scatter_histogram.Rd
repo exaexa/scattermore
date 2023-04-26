@@ -8,8 +8,7 @@ scatter_histogram(
   xy,
   xlim = c(min(xy[, 1]), max(xy[, 1])),
   ylim = c(min(xy[, 2]), max(xy[, 2])),
-  out_size = c(512L, 512L),
-  threads = 0
+  out_size = c(512L, 512L)
 )
 }
 \arguments{
@@ -29,8 +28,6 @@ system by flipping the \code{ylim} vector.}
 
 \item{out_size}{2-element vector size of the result histogram,
 defaults to \code{c(512,512)}.}
-
-\item{threads}{Number of parallel threads (default 0 chooses hardware concurrency).}
 }
 \value{
 Histogram with the result.
