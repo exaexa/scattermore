@@ -1,8 +1,8 @@
 ---
-title: "Scatter rgbwt with points"
+title: "Plot points"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Scatter rgbwt with points}
+  %\VignetteIndexEntry{Plot points}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

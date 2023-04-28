@@ -1,8 +1,8 @@
 ---
-title: "Merge and blend"
+title: "Combine more images together"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Merge and blend}
+  %\VignetteIndexEntry{Combine more images together}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
