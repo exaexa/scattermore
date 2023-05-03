@@ -1,8 +1,8 @@
 ---
-title: "Scatter rgbwt with lines"
+title: "Plot lines"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Scatter rgbwt with lines}
+  %\VignetteIndexEntry{Plot lines}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

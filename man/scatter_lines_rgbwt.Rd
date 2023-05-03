@@ -33,8 +33,8 @@ system by flipping the \code{ylim} vector.}
 \item{out_size}{2-element vector size of the result raster,
 defaults to \code{c(512,512)}.}
 
-\item{RGBA}{Vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B
-and alpha channels in integers, defaults to \code{c(0,0,0,255)}.}
+\item{RGBA}{Vector with 4 elements with R, G, B and alpha channels in integers,
+defaults to \code{c(0,0,0,255)}.}
 
 \item{skip_start_pixel}{TRUE if the start pixel of a line should not be plotted,
 otherwise 'FALSE', defaults to \code{FALSE}.}

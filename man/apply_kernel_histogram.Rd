@@ -9,7 +9,8 @@ apply_kernel_histogram(
   filter = "circle",
   mask,
   radius = 2,
-  sigma = radius/2
+  sigma = radius/2,
+  threads = 0
 )
 }
 \arguments{
@@ -22,6 +23,8 @@ apply_kernel_histogram(
 \item{radius}{Used for determining size of kernel, defaults to \code{2}.}
 
 \item{sigma}{Parameter for gaussian filtering, defaults to \code{radius / 2}.}
+
+\item{threads}{Number of parallel threads (default 0 chooses hardware concurrency).}
 }
 \value{
 Blurred histogram with the result.

@@ -1,9 +1,8 @@
-
 /*
  * This file is part of scattermore.
  *
  * Copyright (C) 2022 Mirek Kratochvil <exa.exa@gmail.com>
- *               2022 Tereza Kulichova <kulichova.t@gmail.com>
+ *               2022-2023 Tereza Kulichova <kulichova.t@gmail.com>
  *
  * scattermore is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -22,39 +21,47 @@
 #ifndef SCATTERS_H
 #define SCATTERS_H
 
-void
-scatter_histogram(const unsigned *pn,
-                  const unsigned *size_out,
-                  unsigned *histogram,
-                  const float *xlim,
-                  const float *ylim,
-                  const float *xy);
-void
-histogram_to_rgbwt(const unsigned *dim,
-                   float *RGBWT,
-                   const float *pallete,
-                   const float *histogram);
-void
-scatter_singlecolor_rgbwt(const unsigned *dim,
-                          const float *xlim,
-                          const float *ylim,
-                          const float *RGBA,
-                          float *RGBWT,
-                          const float *xy);
-void
-scatter_multicolor_rgbwt(const unsigned *dim,
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+  void scatter_histogram(const unsigned *pn,
+                         const unsigned *size_out,
+                         unsigned *histogram,
                          const float *xlim,
                          const float *ylim,
-                         const float *RGBA,
-                         float *RGBWT,
                          const float *xy);
-void
-scatter_indexed_rgbwt(const unsigned *dim,
-                      const float *xlim,
-                      const float *ylim,
-                      const float *palette,
-                      float *RGBWT,
-                      const unsigned *map,
-                      const float *xy);
+
+  void scatter_singlecolor_rgbwt(const unsigned *dim,
+                                 const float *xlim,
+                                 const float *ylim,
+                                 const float *RGBA,
+                                 float *RGBWT,
+                                 const float *xy);
+
+  void scatter_multicolor_rgbwt(const unsigned *dim,
+                                const float *xlim,
+                                const float *ylim,
+                                const float *RGBA,
+                                float *RGBWT,
+                                const float *xy);
+
+  void scatter_indexed_rgbwt(const unsigned *dim,
+                             const float *xlim,
+                             const float *ylim,
+                             const float *palette,
+                             float *RGBWT,
+                             const unsigned *map,
+                             const float *xy);
+
+  void histogram_to_rgbwt(const unsigned *dim,
+                          float *RGBWT,
+                          const float *pallete,
+                          const float *histogram);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

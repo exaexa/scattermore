@@ -1,8 +1,8 @@
 ---
-title: "Scatter histogram with points"
+title: "Plot density of points"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Scatter histogram with points}
+  %\VignetteIndexEntry{Plot density of points}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -20,7 +20,7 @@ library(scattermore)
 
 ## Create histogram
 ```{r}
-histogram <- scatter_histogram(cbind(rnorm(1e5), rnorm(1e5)), xlim=c(-5,5), ylim=c(-5,5))
+histogram <- scatter_points_histogram(cbind(rnorm(1e5), rnorm(1e5)), xlim=c(-5,5), ylim=c(-5,5))
 image(histogram)
 ```
 

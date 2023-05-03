@@ -18,31 +18,10 @@
  * scattermore. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef SCATTERS_LINES_H
-#define SCATTERS_LINES_H
+#ifndef MACROS_H
+#define MACROS_H
 
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
-  void scatter_lines_rgbwt(const float *xy,
-                           const unsigned *dim,
-                           const float *xlim,
-                           const float *ylim,
-                           const float *RGBA,
-                           const int *skip,
-                           float *RGBWT);
-
-  void scatter_lines_histogram(const float *xy,
-                               const unsigned *dim,
-                               const float *xlim,
-                               const float *ylim,
-                               const int *skip,
-                               unsigned *histogram);
-
-#ifdef __cplusplus
-}
-#endif
+#define max(x, y) (((x) >= (y)) ? (x) : (y))
+#define min(x, y) (((x) <= (y)) ? (x) : (y))
 
 #endif

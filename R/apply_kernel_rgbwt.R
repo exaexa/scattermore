@@ -1,7 +1,7 @@
 # This file is part of scattermore.
 #
 # Copyright (C) 2022 Mirek Kratochvil <exa.exa@gmail.com>
-#               2022 Tereza Kulichova <kulichova.t@gmail.com>
+#               2022-2023 Tereza Kulichova <kulichova.t@gmail.com>
 #
 # scattermore is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,22 +33,27 @@
 #'
 #' @param approx_limit Sets the size of the kernel, multiplied with `sigma`, defaults to `3.5`.
 #'
+#' @param threads Number of parallel threads (default 0 chooses hardware concurrency).
+#'
 #' @return RGBWT matrix.
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
+
 apply_kernel_rgbwt <- function(fRGBWT,
                                filter = "circle",
                                mask,
                                radius = 2,
                                sigma = radius / 2,
-                               approx_limit = 3.5) {
+                               approx_limit = 3.5,
+                               threads = 0) {
   if (!is.numeric(radius) || !is.numeric(sigma) || !is.numeric(approx_limit) || length(radius) != 1 || length(sigma) != 1 || length(approx_limit) != 1) {
-    stop("number in parameters radius, sigma or approx_limit expected")
+    stop("parameters radius, sigma or approx_limit expected must be numbers")
   }
-  if (radius <= 0) stop("positive radius expected")
+  if (radius <= 0) stop("radius must be positive")
+  if (threads < 0) stop("number of threads must not be negative")
 
-  if (!is.array(fRGBWT) || dim(fRGBWT)[3] != scattermore.globals$dim_RGBWT) stop("not supported fRGBWT format")
+  if (!is.array(fRGBWT) || dim(fRGBWT)[3] != scattermore.globals$dim_RGBWT) stop("bad fRGBWT format")
   size_y <- dim(fRGBWT)[1]
   size_x <- dim(fRGBWT)[2]
 
@@ -88,7 +93,7 @@ apply_kernel_rgbwt <- function(fRGBWT,
 
 
   result <- .C("kernel_rgbwt",
-    dimen = as.integer(c(size_x, size_y, kernel_pixels)),
+    dimen = as.integer(c(size_x, size_y, kernel_pixels, threads)),
     kernel = as.single(kernel),
     blurred_fRGBWT = as.single(blurred_fRGBWT),
     fRGBWT = as.single(fRGBWT)

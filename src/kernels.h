@@ -1,9 +1,8 @@
-
 /*
  * This file is part of scattermore.
  *
  * Copyright (C) 2022 Mirek Kratochvil <exa.exa@gmail.com>
- *               2022 Tereza Kulichova <kulichova.t@gmail.com>
+ *               2022-2023 Tereza Kulichova <kulichova.t@gmail.com>
  *
  * scattermore is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -22,15 +21,23 @@
 #ifndef KERNELS_H
 #define KERNELS_H
 
-void
-kernel_histogram(const unsigned *dim,
-                 const float *kernel,
-                 float *blurred_histogram,
-                 const float *histogram);
-void
-kernel_rgbwt(const unsigned *dim,
-             const float *kernel,
-             float *blurred_RGBWT,
-             const float *RGBWT);
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+  void kernel_histogram(const unsigned *dim,
+                        const float *kernel,
+                        float *blurred_histogram,
+                        const float *histogram);
+
+  void kernel_rgbwt(const unsigned *dim,
+                    const float *kernel,
+                    float *blurred_RGBWT,
+                    const float *RGBWT);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

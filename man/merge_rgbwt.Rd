@@ -4,17 +4,15 @@
 \alias{merge_rgbwt}
 \title{merge_rgbwt}
 \usage{
-merge_rgbwt(fRGBWT_1, fRGBWT_2)
+merge_rgbwt(fRGBWT_list)
 }
 \arguments{
-\item{fRGBWT_1}{RGBWT matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
+\item{fRGBWT_list}{list of RGBWT matrices (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
 \code{transparency} ~ 1 - alpha, dimension nxmx5).}
-
-\item{fRGBWT_2}{The same as fRGBWT_1 parameter.}
 }
 \value{
 RGBWT matrix.
 }
 \description{
-Merge two RGBWT matrices.
+Merge RGBWT matrices.
 }

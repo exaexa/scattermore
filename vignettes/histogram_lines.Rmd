@@ -1,8 +1,8 @@
 ---
-title: "Scatter histogram with lines"
+title: "Plot density of lines"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Scatter histogram with lines}
+  %\VignetteIndexEntry{Plot density of lines}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

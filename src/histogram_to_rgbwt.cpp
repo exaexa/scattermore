@@ -1,9 +1,8 @@
-
 /*
  * This file is part of scattermore.
  *
  * Copyright (C) 2022 Mirek Kratochvil <exa.exa@gmail.com>
- *               2022 Tereza Kulichova <kulichova.t@gmail.com>
+ *               2022-2023 Tereza Kulichova <kulichova.t@gmail.com>
  *
  * scattermore is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -43,27 +42,23 @@ histogram_to_rgbwt(const unsigned *dim,
   const size_t offset_T = size_out * 4;
 
   size_t i;
-  for (i = 0; i < size_out_y; ++i) {
-    size_t j;
-    for (j = 0; j < size_out_x; ++j) {
-      float histogram_value = histogram[j * size_out_y + i];
-      size_t palette_index =
-        ((size_t)(histogram_value / bin)); // determining column in palette
+  for (i = 0; i < size_out; ++i) {
+    float histogram_value = histogram[i];
+    size_t palette_index =
+      ((size_t)(histogram_value / bin)); // determining column in palette
 
-      if (palette_index == size_palette)
-        --palette_index;
+    if (palette_index == size_palette)
+      --palette_index;
 
-      float R = palette[4 * palette_index + 0];
-      float G = palette[4 * palette_index + 1];
-      float B = palette[4 * palette_index + 2];
-      float A = palette[4 * palette_index + 3];
+    float R = palette[4 * palette_index + 0];
+    float G = palette[4 * palette_index + 1];
+    float B = palette[4 * palette_index + 2];
+    float A = palette[4 * palette_index + 3];
 
-      size_t offset = j * size_out_y + i;
-      RGBWT[offset + offset_R] = R;
-      RGBWT[offset + offset_G] = G;
-      RGBWT[offset + offset_B] = B;
-      RGBWT[offset + offset_W] = 1;
-      RGBWT[offset + offset_T] = 1 - A;
-    }
+    RGBWT[i + offset_R] = R * A;
+    RGBWT[i + offset_G] = G * A;
+    RGBWT[i + offset_B] = B * A;
+    RGBWT[i + offset_W] = A;
+    RGBWT[i + offset_T] = 1 - A;
   }
 }

@@ -1,7 +1,7 @@
 # This file is part of scattermore.
 #
 # Copyright (C) 2022 Mirek Kratochvil <exa.exa@gmail.com>
-#               2022 Tereza Kulichova <kulichova.t@gmail.com>
+#               2022-2023 Tereza Kulichova <kulichova.t@gmail.com>
 #
 # scattermore is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -38,8 +38,8 @@
 #' @param out_size 2-element vector size of the result raster,
 #'                 defaults to `c(512,512)`.
 #'
-#' @param RGBA Vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B
-#'             and alpha channels in integers, defaults to `c(0,0,0,255)`.
+#' @param RGBA Vector with 4 elements with R, G, B and alpha channels in integers,
+#'             defaults to `c(0,0,0,255)`.
 #'
 #' @param skip_start_pixel TRUE if the start pixel of a line should not be plotted,
 #'                         otherwise 'FALSE', defaults to `FALSE`.
@@ -51,6 +51,7 @@
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
+
 scatter_lines_rgbwt <- function(xy,
                                 xlim = c(min(xy[,c(1,3)]), max(xy[,c(1,3)])),
                                 ylim = c(min(xy[,c(2,4)]), max(xy[,c(2,4)])),

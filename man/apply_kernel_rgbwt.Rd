@@ -10,7 +10,8 @@ apply_kernel_rgbwt(
   mask,
   radius = 2,
   sigma = radius/2,
-  approx_limit = 3.5
+  approx_limit = 3.5,
+  threads = 0
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ apply_kernel_rgbwt(
 \item{sigma}{Parameter for gaussian filtering, defaults to \code{radius / 2}.}
 
 \item{approx_limit}{Sets the size of the kernel, multiplied with \code{sigma}, defaults to \code{3.5}.}
+
+\item{threads}{Number of parallel threads (default 0 chooses hardware concurrency).}
 }
 \value{
 RGBWT matrix.

@@ -4,16 +4,14 @@
 \alias{blend_rgba_float}
 \title{blend_rgba_float}
 \usage{
-blend_rgba_float(fRGBA_1, fRGBA_2)
+blend_rgba_float(fRGBA_list)
 }
 \arguments{
-\item{fRGBA_1}{RGBA matrix (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4, values ~ 0-1).}
-
-\item{fRGBA_2}{The same as fRGBA_1 parameter.}
+\item{fRGBA_list}{list of RGBA matrices (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4, values ~ 0-1).}
 }
 \value{
 RGBA matrix.
 }
 \description{
-Blend two RGBA matrices.
+Blend RGBA matrices.
 }

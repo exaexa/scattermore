@@ -1,9 +1,8 @@
-
 /*
  * This file is part of scattermore.
  *
  * Copyright (C) 2022 Mirek Kratochvil <exa.exa@gmail.com>
- *               2022 Tereza Kulichova <kulichova.t@gmail.com>
+ *               2022-2023 Tereza Kulichova <kulichova.t@gmail.com>
  *
  * scattermore is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -20,10 +19,14 @@
  */
 
 #include "kernels.h"
+#include "thread_blocks.h"
 
 #include <stddef.h>
 
+using namespace std;
+
 // blur histogram using given kernel
+
 void
 kernel_histogram(const unsigned *dim,
                  const float *kernel,
@@ -34,28 +37,32 @@ kernel_histogram(const unsigned *dim,
   const size_t size_out_y = dim[1];
   const int radius = dim[2];
   const size_t kernel_size = 2 * radius + 1;
+  const size_t num_threads = dim[3];
+  const size_t block_size = 8;
 
-  size_t i;
-  for (i = 0; i < size_out_y; ++i) {
-    size_t j;
-    for (j = 0; j < size_out_x; ++j) {
-      float sum = 0;
+  auto apply_kernel = [&](size_t /*thread_id*/,
+                          size_t current_pixel_x,
+                          size_t current_pixel_y) {
+    float sum = 0;
 
-      int x;
-      for (x = -radius; x <= radius; ++x) {
-        int y;
-        for (y = -radius; y <= radius; ++y) {
-          int histogram_index = (j + x) * size_out_y + (i + y);
-          float kernel_value =
-            kernel[(radius + x) * kernel_size + (radius + y)];
+    int x;
+    for (x = -radius; x <= radius; ++x) {
+      int y;
+      for (y = -radius; y <= radius; ++y) {
+        int x_shift = current_pixel_x + x;
+        int y_shift = current_pixel_y + y;
+        int histogram_index = (x_shift)*size_out_y + (y_shift);
+        float kernel_value = kernel[(radius + x) * kernel_size + (radius + y)];
 
-          if (i + y >= 0 && i + y < size_out_y && j + x >= 0 &&
-              j + x < size_out_x)
-            sum += histogram[histogram_index] *
-                   kernel_value; // else add nothing (zero border padding)
-        }
+        if (y_shift >= 0 && (size_t)y_shift < size_out_y && x_shift >= 0 &&
+            (size_t)x_shift < size_out_x)
+          sum += histogram[histogram_index] *
+                 kernel_value; // else add nothing (zero border padding)
       }
-      blurred_histogram[j * size_out_y + i] = sum;
     }
-  }
+    blurred_histogram[current_pixel_x * size_out_y + current_pixel_y] = sum;
+  };
+
+  threaded_foreach_2dblocks(
+    size_out_x, size_out_y, block_size, block_size, num_threads, apply_kernel);
 }

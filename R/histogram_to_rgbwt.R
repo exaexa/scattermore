@@ -1,7 +1,7 @@
 # This file is part of scattermore.
 #
 # Copyright (C) 2022 Mirek Kratochvil <exa.exa@gmail.com>
-#               2022 Tereza Kulichova <kulichova.t@gmail.com>
+#               2022-2023 Tereza Kulichova <kulichova.t@gmail.com>
 #
 # scattermore is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -29,6 +29,7 @@
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
+
 histogram_to_rgbwt <- function(fhistogram,
                                RGBA = array(c(250, 128, 114, 255, 144, 238, 144, 255, 176, 224, 230, 255), c(4, 3))) {
   if (!is.matrix(fhistogram) && !is.array(fhistogram)) stop("fhistogram in matrix form expected")
@@ -44,7 +45,8 @@ histogram_to_rgbwt <- function(fhistogram,
 
   minimum <- min(fhistogram)
   maximum <- max(fhistogram)
-  normalized_fhistogram <- (fhistogram - minimum) / (maximum - minimum) # normalize histogram on values 0-1
+  # normalize histogram on values 0-1
+  normalized_fhistogram <- (fhistogram - minimum) / max((maximum - minimum), scattermore.globals$epsilon)
 
   result <- .C("histogram_to_rgbwt",
     dimen = as.integer(c(rows, cols, size)),

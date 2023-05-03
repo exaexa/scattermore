@@ -1,9 +1,8 @@
-
 /*
  * This file is part of scattermore.
  *
  * Copyright (C) 2022 Mirek Kratochvil <exa.exa@gmail.com>
- *               2022 Tereza Kulichova <kulichova.t@gmail.com>
+ *               2022-2023 Tereza Kulichova <kulichova.t@gmail.com>
  *
  * scattermore is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free
@@ -40,7 +39,7 @@ static const R_CMethodDef cMethods[] = {
 };
 
 void // # nocov start
-R_init_Scattermore2(DllInfo *info)
+R_init_Scattermore(DllInfo *info)
 {
   R_registerRoutines(info, cMethods, NULL, NULL, NULL);
   R_useDynamicSymbols(info, FALSE);
