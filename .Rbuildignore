@@ -2,6 +2,7 @@
 ^doc$
 ^\.github$
 ^\.idea$
+^LICENSE$
 ^media$
 ^Meta$
 ^pack_cran.sh$
