@@ -18,8 +18,8 @@
  * scattermore. If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include "scatter_lines_impl.h"
 #include "scatters_lines.h"
-#include "scatters_lines_impl.h"
 
 #include <cstdlib>
 
