@@ -52,19 +52,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/histogram_lines.html">Scatter histogram with lines</a>
+      <a href="articles/histogram_lines.html">Plot density of lines</a>
     </li>
     <li>
-      <a href="articles/histogram_points.html">Scatter histogram with points</a>
+      <a href="articles/histogram_points.html">Plot density of points</a>
     </li>
     <li>
-      <a href="articles/merge_and_blend.html">Merge and blend</a>
+      <a href="articles/merge_and_blend.html">Combine more images together</a>
     </li>
     <li>
-      <a href="articles/rgbwt_lines.html">Scatter rgbwt with lines</a>
+      <a href="articles/rgbwt_lines.html">Plot lines</a>
     </li>
     <li>
-      <a href="articles/rgbwt_points.html">Scatter rgbwt with points</a>
+      <a href="articles/rgbwt_points.html">Plot points</a>
     </li>
   </ul>
 </li>
@@ -84,7 +84,7 @@
 <div class="section level1">
 <div class="page-header"><h1 id="scattermore">scattermore<a class="anchor" aria-label="anchor" href="#scattermore"></a>
 </h1></div>
-
+<p><a href="https://cran.r-project.org/package=scattermore" class="external-link"><img src="https://www.r-pkg.org/badges/version/scattermore" alt="CRAN status"></a> <a href="https://cran.r-project.org/package=scattermore" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/scattermore" alt="CRAN downloads"></a> <img src="https://github.com/exaexa/scattermore/workflows/R-CMD-check/badge.svg" alt="R CMD check status"><a href="https://codecov.io/gh/exaexa/scattermore" class="external-link"><img src="https://codecov.io/gh/exaexa/scattermore/branch/master/graph/badge.svg?token=L1YIYBSLTW" alt="codecov"></a></p>
 <p>Scatterplots with more datapoints. If you want to plot bazillions of points without much waiting, use this.</p>
 <p>If you want to report the usage of scattermore within a scientific project, you may want to refer to it systematically – scattermore has been peer-reviewed as a part of a larger package for interactive cytometry data analysis (<a href="https://gitlab.com/exaexa/ShinySOM" class="external-link">ShinySOM</a>). Links here: <a href="https://pubmed.ncbi.nlm.nih.gov/32049322/" class="external-link">PubMed 32049322</a>, <a href="https://academic.oup.com/bioinformatics/article/36/10/3288/5734646?login=true" class="external-link">OUP</a>, <a href="https://doi.org/10.1093/bioinformatics/btaa091" class="external-link">doi:10.1093/bioinformatics/btaa091</a></p>
 <div class="section level2">
@@ -116,27 +116,27 @@
 <h2 id="advanced-usage">Advanced usage<a class="anchor" aria-label="anchor" href="#advanced-usage"></a>
 </h2>
 <p>Function <code>scattermore</code> only creates the raster graphics for the plots; this can be plotted out afterwards (or processed in any other weird ways). Let’s try a manual benchmark:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># create 10 million 2D datapoints</span></span>
-<span id="cb3-2"><a href="#cb3-2"></a>data &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="kw">rnorm</span>(<span class="fl">1e7</span>),<span class="kw">rnorm</span>(<span class="fl">1e7</span>))</span>
-<span id="cb3-3"><a href="#cb3-3"></a></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co"># prepare empty plot</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
-<span id="cb3-6"><a href="#cb3-6"></a></span>
-<span id="cb3-7"><a href="#cb3-7"></a><span class="co"># plot the datapoints and see how long it takes</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a><span class="kw">system.time</span>(<span class="kw">plot</span>(<span class="kw">scattermore</span>(data, <span class="dt">rgba=</span><span class="kw">c</span>(<span class="dv">64</span>,<span class="dv">128</span>,<span class="dv">192</span>,<span class="dv">10</span>), <span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">3</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">3</span>))))</span>
-<span id="cb3-9"><a href="#cb3-9"></a></span>
-<span id="cb3-10"><a href="#cb3-10"></a>   user  system elapsed</span>
-<span id="cb3-11"><a href="#cb3-11"></a>  <span class="fl">0.413</span>   <span class="fl">0.044</span>   <span class="fl">0.461</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create 10 million 2D datapoints</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="fu">rnorm</span>(<span class="fl">1e7</span>),<span class="fu">rnorm</span>(<span class="fl">1e7</span>))</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># prepare empty plot</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>))</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the datapoints and see how long it takes</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">plot</span>(<span class="fu">scattermore</span>(data, <span class="at">rgba=</span><span class="fu">c</span>(<span class="dv">64</span>,<span class="dv">128</span>,<span class="dv">192</span>,<span class="dv">10</span>), <span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>))))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>   user  system elapsed</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fl">0.413</span>   <span class="fl">0.044</span>   <span class="fl">0.461</span></span></code></pre></div>
 <p>You should immediately see <em>quite a heap</em> of tiny points:</p>
 <div class="figure">
 <img src="media/result.png" title="Scatterplot" alt=""><p class="caption">Resulting scatterplot</p>
 </div>
 <p>Now, how fast would the standard <code><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot()</a></code> do?</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># compare with the usual plot function on x11/cairo</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="kw">system.time</span>(<span class="kw">plot</span>(data, <span class="dt">pch=</span><span class="st">'.'</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">3</span>), <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">3</span>,<span class="dv">3</span>), <span class="dt">col=</span><span class="kw">rgb</span>(<span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span>,<span class="fl">0.04</span>)))</span>
-<span id="cb4-3"><a href="#cb4-3"></a></span>
-<span id="cb4-4"><a href="#cb4-4"></a>   user  system elapsed</span>
-<span id="cb4-5"><a href="#cb4-5"></a>  <span class="fl">9.752</span>   <span class="fl">0.023</span>   <span class="fl">9.794</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compare with the usual plot function on x11/cairo</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">system.time</span>(<span class="fu">plot</span>(data, <span class="at">pch=</span><span class="st">'.'</span>, <span class="at">xlim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>), <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">3</span>,<span class="dv">3</span>), <span class="at">col=</span><span class="fu">rgb</span>(<span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span>,<span class="fl">0.04</span>)))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>   user  system elapsed</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fl">9.752</span>   <span class="fl">0.023</span>   <span class="fl">9.794</span></span></code></pre></div>
 <p>This way, 0.46 seconds of <code>scattermore</code> means a nice ~20x speedup over <code>plot</code> on my laptop. Moreover, if you use different plotting setups (basically any non-Cairo, say windows- or quartz-based <code>grDevices</code> backends), you will very possibly see much greater speedups. Cairo itself is sometimes more than 10x faster than the other backends. That means scattermore may be over 200x faster in total.</p>
 </div>
 <div class="section level2">
@@ -230,14 +230,7 @@
 </ul>
 </div>
 
-<div class="dev-status">
-<h2 data-toc-skip>Dev status</h2>
-<ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/package=scattermore" class="external-link"><img src="https://www.r-pkg.org/badges/version/scattermore" alt="CRAN status"></a></li>
-<li><a href="https://cran.r-project.org/package=scattermore" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/scattermore" alt="CRAN downloads"></a></li>
-<li><a href="https://codecov.io/gh/exaexa/scattermore" class="external-link"><img src="https://codecov.io/gh/exaexa/scattermore/branch/master/graph/badge.svg?token=L1YIYBSLTW" alt="codecov"></a></li>
-</ul>
-</div>
+
 
   </div>
 </div>
@@ -250,7 +243,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

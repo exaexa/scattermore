@@ -73,13 +73,13 @@
     <loc>/reference/rgbwt_to_rgba_int.html</loc>
   </url>
   <url>
-    <loc>/reference/scatter_histogram.html</loc>
-  </url>
-  <url>
     <loc>/reference/scatter_lines_histogram.html</loc>
   </url>
   <url>
     <loc>/reference/scatter_lines_rgbwt.html</loc>
+  </url>
+  <url>
+    <loc>/reference/scatter_points_histogram.html</loc>
   </url>
   <url>
     <loc>/reference/scatter_points_rgbwt.html</loc>
