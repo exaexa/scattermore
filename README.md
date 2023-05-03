@@ -141,7 +141,7 @@ d <- cbind(rnorm(1e6),runif(1e6))
 ggsave('point.png', units='in', width=3, height=3,
   ggplot(data.frame(x=d[,1],y=d[,2])) +
   geom_point(shape='.', alpha=.05, aes(x,y,color=y)) +
-  scale_color_viridis_c(guide=F) +
+  scale_color_viridis_c(guide='none') +
   ggtitle("geom_point"))
 
 # second plot (geom_scattermost)
