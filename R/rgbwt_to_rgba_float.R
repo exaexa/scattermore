@@ -18,26 +18,22 @@
 
 #' rgbwt_to_rgba_float
 #'
-#' Convert RGBWT matrix to RGBA matrix.
+#' Convert RGBWT matrix to floating-point RGBA matrix, suitable for alpha-blending.
 #'
-#' @param fRGBWT RGBWT matrix (`red`, `green`, `blue` channels, `weight` ~ sum of alphas,
-#'                             `transparency` ~ 1 - alpha, dimension nxmx5).
+#' @param fRGBWT The RGBWT matrix.
 #' @return RGBA matrix, output *is premultiplied* by alpha.
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
 
 rgbwt_to_rgba_float <- function(fRGBWT) {
-  if (!is.array(fRGBWT) || dim(fRGBWT)[3] != 5) stop("not supported fRGBWT format")
-
-  rows <- dim(fRGBWT)[1]
-  cols <- dim(fRGBWT)[2]
+  if (!is.array(fRGBWT) || dim(fRGBWT)[3] != 5) stop("unsupported fRGBWT format")
 
   A <- 1 - fRGBWT[, , 5]
   W <- A / pmax(scattermore.globals$epsilon, fRGBWT[, , 4])
 
-  fRGBA <- array(0, c(rows, cols, 4))
-  fRGBA[, , 1] <- fRGBWT[, , 1] * W # we store premultiplied alpha!
+  fRGBA <- array(0, c(dim(fRGBWT)[1:2], 4))
+  fRGBA[, , 1] <- fRGBWT[, , 1] * W
   fRGBA[, , 2] <- fRGBWT[, , 2] * W
   fRGBA[, , 3] <- fRGBWT[, , 3] * W
   fRGBA[, , 4] <- A
