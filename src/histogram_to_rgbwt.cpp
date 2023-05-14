@@ -35,30 +35,23 @@ histogram_to_rgbwt(const unsigned *dim,
   const float bin = 1.0 / size_palette;
   const size_t size_out = size_out_y * size_out_x;
 
-  const size_t offset_R = size_out * 0;
-  const size_t offset_G = size_out * 1;
-  const size_t offset_B = size_out * 2;
-  const size_t offset_W = size_out * 3;
-  const size_t offset_T = size_out * 4;
-
-  size_t i;
-  for (i = 0; i < size_out; ++i) {
+  for (size_t i = 0; i < size_out; ++i) {
     float histogram_value = histogram[i];
     size_t palette_index =
       ((size_t)(histogram_value / bin)); // determining column in palette
 
-    if (palette_index == size_palette)
-      --palette_index;
+    if (palette_index >= size_palette)
+      palette_index = (size_palette - 1);
 
-    float R = palette[4 * palette_index + 0];
-    float G = palette[4 * palette_index + 1];
-    float B = palette[4 * palette_index + 2];
-    float A = palette[4 * palette_index + 3];
+    const float R = palette[4 * palette_index + 0];
+    const float G = palette[4 * palette_index + 1];
+    const float B = palette[4 * palette_index + 2];
+    const float A = palette[4 * palette_index + 3];
 
-    RGBWT[i + offset_R] = R * A;
-    RGBWT[i + offset_G] = G * A;
-    RGBWT[i + offset_B] = B * A;
-    RGBWT[i + offset_W] = A;
-    RGBWT[i + offset_T] = 1 - A;
+    RGBWT[i + 0] = R * A;
+    RGBWT[i + 1] = G * A;
+    RGBWT[i + 2] = B * A;
+    RGBWT[i + 3] = A;
+    RGBWT[i + 4] = 1 - A;
   }
 }
