@@ -81,7 +81,8 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">scattermore</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">2023</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>bitmapType<span class="op">=</span><span class="st">'cairo'</span><span class="op">)</span></span></code></pre></div>
+<span><span class="co"># this somehow fails on macs</span></span>
+<span><span class="kw">if</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.info.html" class="external-link">Sys.info</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="st">"sysname"</span><span class="op">]</span> <span class="op">!=</span> <span class="st">"Darwin"</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>bitmapType<span class="op">=</span><span class="st">'cairo'</span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
 <h2 id="low-level-interface-of-scattermore">Low-level interface of Scattermore<a class="anchor" aria-label="anchor" href="#low-level-interface-of-scattermore"></a>
 </h2>
