@@ -29,7 +29,7 @@
 #' @importFrom grDevices as.raster
 
 rgba_int_to_raster <- function(i32RGBA) {
-  if (!is.array(i32RGBA) || dim(i32RGBA)[3] != scattermore.globals$dim_RGBA) stop("not supported i32RGBA format")
+  if (!is.array(i32RGBA) || dim(i32RGBA)[3] != 4) stop("not supported i32RGBA format")
 
   return(grDevices::as.raster(i32RGBA, max = 255))
 }

@@ -66,13 +66,13 @@ scatter_points_rgbwt <- function(xy,
     if (length(map) != n) stop("map with the same data count as xy expected")
     if (any(map < 0L)) stop("indices in map must start from 1")
     if (!is.matrix(palette) && !is.array(palette)) stop("not supported palette format")
-    if (dim(palette)[1] != scattermore.globals$dim_RGBA) stop("palette with 4 rows expected")
+    if (dim(palette)[1] != 4) stop("palette with 4 rows expected")
     id <- 1
   } else if (is.vector(RGBA)) {
-    if (length(RGBA) != scattermore.globals$dim_RGBA) stop("RGBA vector of length 4 expected")
+    if (length(RGBA) != 4) stop("RGBA vector of length 4 expected")
     id <- 2
   } else if (is.matrix(RGBA) || is.array(RGBA)) {
-    if (dim(RGBA)[1] != scattermore.globals$dim_RGBA) stop("RGBA matrix with 4 rows expected")
+    if (dim(RGBA)[1] != 4) stop("RGBA matrix with 4 rows expected")
     if (dim(RGBA)[2] == n) {
       id <- 3
     } else if (dim(RGBA)[2] == 1) {
@@ -87,8 +87,8 @@ scatter_points_rgbwt <- function(xy,
   size_x <- as.integer(out_size[1])
   size_y <- as.integer(out_size[2])
 
-  RGBWT <- array(0, c(size_y, size_x, scattermore.globals$dim_RGBWT))
-  RGBWT[, , scattermore.globals$T] <- 1 # initialize transparency (multiplying)
+  RGBWT <- array(0, c(size_y, size_x, 5))
+  RGBWT[, , 5] <- 1 # initialize transparency (multiplying)
 
   if (id == 1) # colorize using palette
     {
@@ -122,6 +122,6 @@ scatter_points_rgbwt <- function(xy,
     )
   }
 
-  fRGBWT <- array(result$fRGBWT, c(size_y, size_x, scattermore.globals$dim_RGBWT))
+  fRGBWT <- array(result$fRGBWT, c(size_y, size_x, 5))
   return(fRGBWT)
 }

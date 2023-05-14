@@ -28,19 +28,19 @@
 #' @useDynLib scattermore, .registration=TRUE
 
 rgbwt_to_rgba_float <- function(fRGBWT) {
-  if (!is.array(fRGBWT) || dim(fRGBWT)[3] != scattermore.globals$dim_RGBWT) stop("not supported fRGBWT format")
+  if (!is.array(fRGBWT) || dim(fRGBWT)[3] != 5) stop("not supported fRGBWT format")
 
   rows <- dim(fRGBWT)[1]
   cols <- dim(fRGBWT)[2]
 
-  A <- 1 - fRGBWT[, , scattermore.globals$T]
-  W <- A / pmax(scattermore.globals$epsilon, fRGBWT[, , scattermore.globals$W])
+  A <- 1 - fRGBWT[, , 5]
+  W <- A / pmax(scattermore.globals$epsilon, fRGBWT[, , 4])
 
-  fRGBA <- array(0, c(rows, cols, scattermore.globals$dim_RGBA))
-  fRGBA[, , scattermore.globals$R] <- fRGBWT[, , scattermore.globals$R] * W # we store premultiplied alpha!
-  fRGBA[, , scattermore.globals$G] <- fRGBWT[, , scattermore.globals$G] * W
-  fRGBA[, , scattermore.globals$B] <- fRGBWT[, , scattermore.globals$B] * W
-  fRGBA[, , scattermore.globals$A] <- A
+  fRGBA <- array(0, c(rows, cols, 4))
+  fRGBA[, , 1] <- fRGBWT[, , 1] * W # we store premultiplied alpha!
+  fRGBA[, , 2] <- fRGBWT[, , 2] * W
+  fRGBA[, , 3] <- fRGBWT[, , 3] * W
+  fRGBA[, , 4] <- A
 
   return(fRGBA)
 }

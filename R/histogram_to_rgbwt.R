@@ -39,14 +39,14 @@ histogram_to_rgbwt <- function(fhistogram,
                                zlim=c(min(fhistogram), max(fhistogram))) {
   if (!is.matrix(fhistogram) && !is.array(fhistogram)) stop("unsupported histogram format")
   if (length(dim(fhistogram)) != 2) stop("unsupported histogram format")
-  if (dim(RGBA)[1] != scattermore.globals$dim_RGBA) stop("RGBA with 4 rows expected")
+  if (dim(RGBA)[1] != 4) stop("RGBA with 4 rows expected")
   if (dim(RGBA)[2] < 2) stop("at least 2-color palette is required")
 
   rows <- dim(fhistogram)[1]
   cols <- dim(fhistogram)[2]
   pal_size <- dim(RGBA)[2]
 
-  RGBWT <- rep(0, rows * cols * scattermore.globals$dim_RGBWT)
+  RGBWT <- rep(0, rows * cols * 5)
 
   normalized_fhistogram <- pmin(1, pmax(0,
     (fhistogram - zlim[1]) / max((zlim[2] - zlim[1]), scattermore.globals$epsilon)))
@@ -58,5 +58,5 @@ histogram_to_rgbwt <- function(fhistogram,
     normalized_fhistogram = as.single(normalized_fhistogram)
   )
 
-  return(array(result$fRGBWT, c(rows, cols, scattermore.globals$dim_RGBWT)))
+  return(array(result$fRGBWT, c(rows, cols, 5)))
 }

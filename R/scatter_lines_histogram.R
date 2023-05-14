@@ -57,8 +57,8 @@ scatter_lines_histogram <- function(xy,
                                     skip_end_pixel = TRUE) {
   if (!is.vector(xlim) || !is.vector(ylim) || !is.vector(out_size)) stop("vector input in parameters xlim, ylim or out_size expected")
 
-  if (is.vector(xy) && length(xy) == scattermore.globals$length_xy_lines) n <- 1
-  else if ((is.matrix(xy) || is.array(xy)) && dim(xy)[2] == scattermore.globals$length_xy_lines) n <- dim(xy)[1]
+  if (is.vector(xy) && length(xy) == 4) n <- 1
+  else if ((is.matrix(xy) || is.array(xy)) && dim(xy)[2] == 4) n <- dim(xy)[1]
   else stop("xy vector of length 4 expected or xy matrix with 4 columns expected")
 
   size_x <- as.integer(out_size[1])

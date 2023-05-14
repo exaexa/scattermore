@@ -44,12 +44,12 @@ apply_kernel_rgbwt <- function(fRGBWT,
                                threads = 0) {
   if (threads < 0) stop("number of threads must not be negative")
 
-  if (!is.array(fRGBWT) || dim(fRGBWT)[3] != scattermore.globals$dim_RGBWT) stop("bad fRGBWT format")
+  if (!is.array(fRGBWT) || dim(fRGBWT)[3] != 5) stop("bad fRGBWT format")
   size_y <- dim(fRGBWT)[1]
   size_x <- dim(fRGBWT)[2]
 
-  blurred_fRGBWT <- array(0, c(size_y, size_x, scattermore.globals$dim_RGBWT))
-  blurred_fRGBWT[, , scattermore.globals$T] <- 1 # initialize transparency (multiplicative)
+  blurred_fRGBWT <- array(0, c(size_y, size_x, 5))
+  blurred_fRGBWT[, , 5] <- 1 # initialize transparency (multiplicative)
 
   if (!is.matrix(mask) && !is.array(mask)) stop("kernel in matrix or array form expected")
   if (dim(mask)[1] != dim(mask)[2]) stop("kernel in square matrix expected")
@@ -64,6 +64,6 @@ apply_kernel_rgbwt <- function(fRGBWT,
     fRGBWT = as.single(fRGBWT)
   )
 
-  blurred_fRGBWT <- array(result$blurred_fRGBWT, c(size_y, size_x, scattermore.globals$dim_RGBWT))
+  blurred_fRGBWT <- array(result$blurred_fRGBWT, c(size_y, size_x, 5))
   return(blurred_fRGBWT)
 }
