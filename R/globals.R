@@ -17,5 +17,5 @@
 # along with scattermore. If not, see <https://www.gnu.org/licenses/>.
 
 scattermore.globals <- list(
-  epsilon = 1e-9,
+  epsilon = 1e-9
 )
