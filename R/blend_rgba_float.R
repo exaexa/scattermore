@@ -28,6 +28,7 @@
 #' @useDynLib scattermore, .registration=TRUE
 blend_rgba_float <- function(fRGBA_list) {
   if (length(fRGBA_list) < 1) stop("No input RGBA given.")
+  if (length(fRGBA_list) == 1) return(fRGBA_list[[1]])
 
   fRGBA_1 = fRGBA_list[[1]]
   if (!is.array(fRGBA_1) || dim(fRGBA_1)[3] != scattermore.globals$dim_RGBA) stop("unsupported RGBA format")

@@ -20,19 +20,20 @@
 #'
 #' Merge RGBWT matrices.
 #'
-#' @param fRGBWT_list list of RGBWT matrices (`red`, `green`, `blue` channels, `weight` ~ sum of alphas,
-#'                                            `transparency` ~ 1 - alpha, dimension nxmx5).
+#' @param fRGBWT_list List of RGBWT arrays. The order of the matrices does not matter (except for negligible floating-point rounding and other robustness errors).
 #'
-#' @return RGBWT matrix.
+#' @return Merged RGBWT matrix.
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
 
 merge_rgbwt <- function(fRGBWT_list) {
-  if (length(fRGBWT_list) < 2) stop("there have to be at least 2 elements in the fRGBWT_list")
+  if (length(fRGBWT_list) < 1) stop("No input RGBWT given.")
+  if (length(fRGBWT_list) == 1) return(fRGBWT_list[[1]])
 
   fRGBWT_1 = fRGBWT_list[[1]]
   if (!is.array(fRGBWT_1) || dim(fRGBWT_1)[3] != scattermore.globals$dim_RGBWT) stop("not supported RGBWT format")
+
   for (i in 2:length(fRGBWT_list)){
     fRGBWT_2 <- fRGBWT_list[[i]]
 
@@ -42,12 +43,9 @@ merge_rgbwt <- function(fRGBWT_list) {
     rows <- dim(fRGBWT_1)[1]
     cols <- dim(fRGBWT_1)[2]
 
-    fRGBWT <- array(0, c(rows, cols, scattermore.globals$dim_RGBWT))
-    fRGBWT[, , 1:4] <- fRGBWT_1[, , 1:4] + fRGBWT_2[, , 1:4] # merge
-    fRGBWT[, , scattermore.globals$T] <- fRGBWT_1[, , scattermore.globals$T] * fRGBWT_2[, , scattermore.globals$T]
-
-    fRGBWT_1 <- fRGBWT
+    fRGBWT_1[, , 1:4] <- fRGBWT_1[, , 1:4] + fRGBWT_2[, , 1:4]
+    fRGBWT_1[, , scattermore.globals$T] <- fRGBWT_1[, , scattermore.globals$T] * fRGBWT_2[, , scattermore.globals$T]
   }
 
-  return(fRGBWT)
+  return(fRGBWT_1)
 }
