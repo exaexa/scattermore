@@ -46,18 +46,18 @@ histogram_to_rgbwt <- function(fhistogram,
   cols <- dim(fhistogram)[2]
   pal_size <- dim(RGBA)[2]
 
-  RGBWT <- rep(0, rows * cols * 5)
+  RGBWT <- array(0, c(rows, cols, 5))
 
-  normalized_fhistogram <- pmin(1, pmax(
+  normalized_fhistogram <- pmin(pal_size, pmax(
     0,
-    (fhistogram - zlim[1]) / max((zlim[2] - zlim[1]), scattermore.globals$epsilon)
+    pal_size * (fhistogram - zlim[1]) / max((zlim[2] - zlim[1]), scattermore.globals$epsilon)
   ))
 
   result <- .C("histogram_to_rgbwt",
     dimen = as.integer(c(rows, cols, pal_size)),
     fRGBWT = as.single(RGBWT),
     RGBA = as.single(RGBA / 255),
-    normalized_fhistogram = as.single(normalized_fhistogram)
+    normalized_fhistogram = as.integer(normalized_fhistogram)
   )
 
   return(array(result$fRGBWT, c(rows, cols, 5)))

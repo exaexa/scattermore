@@ -58,7 +58,7 @@ extern "C"
   void histogram_to_rgbwt(const unsigned *dim,
                           float *RGBWT,
                           const float *pallete,
-                          const float *histogram);
+                          const int *histogram);
 
 #ifdef __cplusplus
 }

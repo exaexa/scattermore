@@ -35,7 +35,7 @@
 #' @param map Vector with N integer indices to `palette`. Overrides RGBA-based coloring.
 #'
 #' @param palette Matrix 4-by-K matrix of RGBA colors used as a palette lookup for the `map`
-#'                that gives the point colors. K is at least `maximum(map)`.
+#'                that gives the point colors. K is at least `max(map)`.
 #'                Notably, using a palette may be faster than filling and processing the whole RGBA matrix.
 #'
 #' @return A RGBWT array with the rendered points.
@@ -69,7 +69,7 @@ scatter_points_rgbwt <- function(xy,
     if (any(map < 0L)) stop("indices in map must start from 1")
     if (!is.matrix(palette) && !is.array(palette)) stop("unsupported palette format")
     if (dim(palette)[1] != 4) stop("unsupported palette format")
-    if (maximum(map) >= dim(palette)[2]) stop("map indices too high for this palette")
+    if (max(map) >= dim(palette)[2]) stop("map indices too high for this palette")
     .C("scatter_indexed_rgbwt",
       dimen = as.integer(c(size_x, size_y, n)),
       xlim = as.single(xlim),

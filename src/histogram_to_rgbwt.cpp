@@ -27,31 +27,27 @@ void
 histogram_to_rgbwt(const unsigned *dim,
                    float *RGBWT,
                    const float *palette,
-                   const float *histogram)
+                   const int *histogram)
 {
   const size_t size_out_y = dim[0];
   const size_t size_out_x = dim[1];
   const size_t size_palette = dim[2];
-  const float bin = 1.0 / size_palette;
   const size_t size_out = size_out_y * size_out_x;
 
   for (size_t i = 0; i < size_out; ++i) {
-    float histogram_value = histogram[i];
-    size_t palette_index =
-      ((size_t)(histogram_value / bin)); // determining column in palette
+    int histogram_value = histogram[i];
+    if(histogram_value < 0) histogram_value = 0;
+    if(histogram_value >= size_palette) histogram_value = size_palette - 1;
 
-    if (palette_index >= size_palette)
-      palette_index = (size_palette - 1);
+    const float R = palette[4 * histogram_value + 0];
+    const float G = palette[4 * histogram_value + 1];
+    const float B = palette[4 * histogram_value + 2];
+    const float A = palette[4 * histogram_value + 3];
 
-    const float R = palette[4 * palette_index + 0];
-    const float G = palette[4 * palette_index + 1];
-    const float B = palette[4 * palette_index + 2];
-    const float A = palette[4 * palette_index + 3];
-
-    RGBWT[i + 0] = R * A;
-    RGBWT[i + 1] = G * A;
-    RGBWT[i + 2] = B * A;
-    RGBWT[i + 3] = A;
-    RGBWT[i + 4] = 1 - A;
+    RGBWT[i + size_out * 0] = R * A;
+    RGBWT[i + size_out * 1] = G * A;
+    RGBWT[i + size_out * 2] = B * A;
+    RGBWT[i + size_out * 3] = A;
+    RGBWT[i + size_out * 4] = 1 - A;
   }
 }
