@@ -10,7 +10,8 @@ vignette: >
 ```{r setup}
 library(scattermore)
 set.seed(2023)
-options(bitmapType='cairo')
+# this somehow fails on macs
+if(Sys.info()["sysname"] != "Darwin") options(bitmapType='cairo')
 ```
 
 # Low-level interface of Scattermore
