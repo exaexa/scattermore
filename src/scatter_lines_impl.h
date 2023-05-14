@@ -26,37 +26,6 @@
 
 template<typename PF>
 inline void
-plot_line(int x0,
-          int y0,
-          int x1,
-          int y1,
-          int skip_start_pixel,
-          int skip_end_pixel,
-          PF pixel_function)
-{
-  /*
-   * Bresenham algorithm; this is the initial case division, actual plotting is
-   * handled by plot_line_low and plot_line_high.
-   */
-  if (abs(y1 - y0) < abs(x1 - x0)) {
-    if (x0 > x1)
-      plot_line_low(
-        x1, y1, x0, y0, skip_end_pixel, skip_start_pixel, pixel_function);
-    else
-      plot_line_low(
-        x0, y0, x1, y1, skip_start_pixel, skip_end_pixel, pixel_function);
-  } else {
-    if (y0 > y1)
-      plot_line_high(
-        x1, y1, x0, y0, skip_end_pixel, skip_start_pixel, pixel_function);
-    else
-      plot_line_high(
-        x0, y0, x1, y1, skip_start_pixel, skip_end_pixel, pixel_function);
-  }
-}
-
-template<typename PF>
-inline void
 plot_line_low(int x_start,
               int y_start,
               int x_finish,
@@ -140,6 +109,37 @@ plot_line_high(int x_start,
       D += two_dxy;
     } else
       D += two_dx;
+  }
+}
+
+template<typename PF>
+inline void
+plot_line(int x0,
+          int y0,
+          int x1,
+          int y1,
+          int skip_start_pixel,
+          int skip_end_pixel,
+          PF pixel_function)
+{
+  /*
+   * Bresenham algorithm; this is the initial case division, actual plotting is
+   * handled by plot_line_low and plot_line_high.
+   */
+  if (abs(y1 - y0) < abs(x1 - x0)) {
+    if (x0 > x1)
+      plot_line_low(
+        x1, y1, x0, y0, skip_end_pixel, skip_start_pixel, pixel_function);
+    else
+      plot_line_low(
+        x0, y0, x1, y1, skip_start_pixel, skip_end_pixel, pixel_function);
+  } else {
+    if (y0 > y1)
+      plot_line_high(
+        x1, y1, x0, y0, skip_end_pixel, skip_start_pixel, pixel_function);
+    else
+      plot_line_high(
+        x0, y0, x1, y1, skip_start_pixel, skip_end_pixel, pixel_function);
   }
 }
 
