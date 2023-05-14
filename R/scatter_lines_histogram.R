@@ -40,8 +40,8 @@
 #' @useDynLib scattermore, .registration=TRUE
 
 scatter_lines_histogram <- function(xy,
-                                    xlim = c(min(xy[,c(1,3)]), max(xy[,c(1,3)])),
-                                    ylim = c(min(xy[,c(2,4)]), max(xy[,c(2,4)])),
+                                    xlim = c(min(xy[, c(1, 3)]), max(xy[, c(1, 3)])),
+                                    ylim = c(min(xy[, c(2, 4)]), max(xy[, c(2, 4)])),
                                     out_size = c(512L, 512L),
                                     skip_start_pixel = FALSE,
                                     skip_end_pixel = TRUE) {
@@ -49,8 +49,11 @@ scatter_lines_histogram <- function(xy,
   if (!is.numeric(ylim) || length(ylim) != 2) stop("invalid ylim")
   if (!is.numeric(out_size) || length(out_size) != 2) stop("invalid out_size")
 
-  n <- if ((is.matrix(xy) || is.array(xy)) && dim(xy)[2] == 4) dim(xy)[1]
-       else stop("invalid line coordinates in xy (expected 4-column matrix)")
+  n <- if ((is.matrix(xy) || is.array(xy)) && dim(xy)[2] == 4) {
+    dim(xy)[1]
+  } else {
+    stop("invalid line coordinates in xy (expected 4-column matrix)")
+  }
 
   size_x <- as.integer(out_size[1])
   size_y <- as.integer(out_size[2])

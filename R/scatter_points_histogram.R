@@ -34,9 +34,9 @@
 #' @useDynLib scattermore, .registration=TRUE
 
 scatter_points_histogram <- function(xy,
-                              xlim = c(min(xy[, 1]), max(xy[, 1])),
-                              ylim = c(min(xy[, 2]), max(xy[, 2])),
-                              out_size = c(512L, 512L)) {
+                                     xlim = c(min(xy[, 1]), max(xy[, 1])),
+                                     ylim = c(min(xy[, 2]), max(xy[, 2])),
+                                     out_size = c(512L, 512L)) {
   if (dim(xy)[2] != 2) stop("2-column xy input expected")
   n <- dim(xy)[1]
 

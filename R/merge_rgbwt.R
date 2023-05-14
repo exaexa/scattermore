@@ -29,12 +29,14 @@
 
 merge_rgbwt <- function(fRGBWT_list) {
   if (length(fRGBWT_list) < 1) stop("No input RGBWT given.")
-  if (length(fRGBWT_list) == 1) return(fRGBWT_list[[1]])
+  if (length(fRGBWT_list) == 1) {
+    return(fRGBWT_list[[1]])
+  }
 
-  fRGBWT_1 = fRGBWT_list[[1]]
+  fRGBWT_1 <- fRGBWT_list[[1]]
   if (!is.array(fRGBWT_1) || dim(fRGBWT_1)[3] != 5) stop("not supported RGBWT format")
 
-  for (i in 2:length(fRGBWT_list)){
+  for (i in 2:length(fRGBWT_list)) {
     fRGBWT_2 <- fRGBWT_list[[i]]
 
     if (!is.array(fRGBWT_2) || dim(fRGBWT_2)[3] != 5) stop("not supported RGBWT format")

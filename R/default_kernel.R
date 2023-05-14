@@ -1,4 +1,3 @@
-
 # This file is part of scattermore.
 #
 # Copyright (C) 2022-2023 Mirek Kratochvil <exa.exa@gmail.com>

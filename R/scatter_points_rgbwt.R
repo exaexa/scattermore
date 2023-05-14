@@ -79,7 +79,7 @@ scatter_points_rgbwt <- function(xy,
       map = as.integer(map),
       xy = as.single(xy)
     )
-  } else if (is.vector(RGBA) || ((is.matrix(RGBA) || is.array(RGBA)) && dim(RGBA)[2]==1)) {
+  } else if (is.vector(RGBA) || ((is.matrix(RGBA) || is.array(RGBA)) && dim(RGBA)[2] == 1)) {
     if (length(RGBA) != 4) stop("RGBA vector of length 4 expected")
     .C("scatter_singlecolor_rgbwt",
       dimen = as.integer(c(size_x, size_y, n)),

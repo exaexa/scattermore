@@ -34,9 +34,9 @@
 #' @useDynLib scattermore, .registration=TRUE
 
 histogram_to_rgbwt <- function(fhistogram,
-                               RGBA = col2rgb(col, alpha=T),
-                               col=c('white','black'),
-                               zlim=c(min(fhistogram), max(fhistogram))) {
+                               RGBA = col2rgb(col, alpha = T),
+                               col = c("white", "black"),
+                               zlim = c(min(fhistogram), max(fhistogram))) {
   if (!is.matrix(fhistogram) && !is.array(fhistogram)) stop("unsupported histogram format")
   if (length(dim(fhistogram)) != 2) stop("unsupported histogram format")
   if (dim(RGBA)[1] != 4) stop("RGBA with 4 rows expected")
@@ -48,8 +48,10 @@ histogram_to_rgbwt <- function(fhistogram,
 
   RGBWT <- rep(0, rows * cols * 5)
 
-  normalized_fhistogram <- pmin(1, pmax(0,
-    (fhistogram - zlim[1]) / max((zlim[2] - zlim[1]), scattermore.globals$epsilon)))
+  normalized_fhistogram <- pmin(1, pmax(
+    0,
+    (fhistogram - zlim[1]) / max((zlim[2] - zlim[1]), scattermore.globals$epsilon)
+  ))
 
   result <- .C("histogram_to_rgbwt",
     dimen = as.integer(c(rows, cols, pal_size)),
