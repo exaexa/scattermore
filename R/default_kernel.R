@@ -35,7 +35,7 @@ default_kernel <- function(filter, radius, sigma) {
       size, size
     )
   } else if (filter == "square") {
-    kernel <- rep(1, size * size)
+    kernel <- matrix(1, size, size)
   } else if (filter == "gauss") {
     kernel <- matrix(
       exp(
