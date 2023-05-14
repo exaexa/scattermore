@@ -20,23 +20,22 @@
 #'
 #' Blend RGBA matrices.
 #'
-#' @param fRGBA_list list of RGBA matrices (`red`, `green`, `blue` and `alpha` channels, dimension nxmx4, values ~ 0-1).
+#' @param fRGBA_list List of floating-point RGBA arrays with premultiplied alpha (each of the same size N-by-M-by-4). The "first" matrix in the list is the one that will be rendered on "top".
 #'
-#' @return RGBA matrix.
+#' @return Blended RGBA matrix.
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
-
 blend_rgba_float <- function(fRGBA_list) {
-  if (length(fRGBA_list) < 2) stop("there have to be at least 2 elements in the fRGBA_list")
+  if (length(fRGBA_list) < 1) stop("No input RGBA given.")
 
   fRGBA_1 = fRGBA_list[[1]]
-  if (!is.array(fRGBA_1) || dim(fRGBA_1)[3] != scattermore.globals$dim_RGBA) stop("not supported RGBA format")
+  if (!is.array(fRGBA_1) || dim(fRGBA_1)[3] != scattermore.globals$dim_RGBA) stop("unsupported RGBA format")
   for (i in 2:length(fRGBA_list)) {
     fRGBA_2 <- fRGBA_list[[i]]
 
-    if (!is.array(fRGBA_2) || dim(fRGBA_2)[3] != scattermore.globals$dim_RGBA) stop("not supported RGBA format")
-    if ((dim(fRGBA_1)[1] != dim(fRGBA_2)[1]) || (dim(fRGBA_1)[2] != dim(fRGBA_2)[2])) stop("parameters do not have same dimensions")
+    if (!is.array(fRGBA_2) || dim(fRGBA_2)[3] != scattermore.globals$dim_RGBA) stop("unsupported RGBA format")
+    if ((dim(fRGBA_1)[1] != dim(fRGBA_2)[1]) || (dim(fRGBA_1)[2] != dim(fRGBA_2)[2])) stop("input bitmap dimensions differ")
 
     rows <- dim(fRGBA_1)[1]
     cols <- dim(fRGBA_1)[2]
@@ -54,5 +53,5 @@ blend_rgba_float <- function(fRGBA_list) {
     fRGBA_1 <- fRGBA
   }
 
-  return(fRGBA)
+  return(fRGBA_1)
 }
