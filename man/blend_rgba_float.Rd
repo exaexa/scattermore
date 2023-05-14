@@ -7,10 +7,10 @@
 blend_rgba_float(fRGBA_list)
 }
 \arguments{
-\item{fRGBA_list}{list of RGBA matrices (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4, values ~ 0-1).}
+\item{fRGBA_list}{List of floating-point RGBA arrays with premultiplied alpha (each of the same size N-by-M-by-4). The "first" matrix in the list is the one that will be rendered on "top".}
 }
 \value{
-RGBA matrix.
+Blended RGBA matrix.
 }
 \description{
 Blend RGBA matrices.

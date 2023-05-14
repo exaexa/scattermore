@@ -6,14 +6,19 @@
 \usage{
 histogram_to_rgbwt(
   fhistogram,
-  RGBA = array(c(250, 128, 114, 255, 144, 238, 144, 255, 176, 224, 230, 255), c(4, 3))
+  RGBA = col2rgb(col, alpha = T),
+  col = c("white", "black"),
+  zlim = c(min(fhistogram), max(fhistogram))
 )
 }
 \arguments{
-\item{fhistogram}{Matrix or array R datatype interpreted as histogram.}
+\item{fhistogram}{Matrix or 2D array with the histogram of values.}
 
-\item{RGBA}{matrix (4xn dim, n>= 2) with R, G, B and alpha channels
-in integers, defaults to shades of \code{red}, \code{green} and \code{blue} with \code{alpha = 255}.}
+\item{RGBA}{4-by-N matrix floating-point R, G, B and A channels for the palette. Overrides \code{col}.}
+
+\item{col}{Colors to use for coloring.}
+
+\item{zlim}{Values to use as extreme values of the histogram}
 }
 \value{
 RGBWT matrix.

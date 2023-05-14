@@ -8,39 +8,29 @@ scatter_lines_histogram(
   xy,
   xlim = c(min(xy[, c(1, 3)]), max(xy[, c(1, 3)])),
   ylim = c(min(xy[, c(2, 4)]), max(xy[, c(2, 4)])),
-  out_size = c(512, 512),
+  out_size = c(512L, 512L),
   skip_start_pixel = FALSE,
   skip_end_pixel = TRUE
 )
 }
 \arguments{
-\item{xy}{4-column matrix with point coordinates. Format is
-\verb{(x_begin, y_begin, x_end, y_end)}. As usual with
-rasters in R, X axis grows right, and Y axis grows DOWN.
-Flipping \code{ylim} causes the "usual" mathematical behavior.}
+\item{xy}{4-column matrix with point coordinates.
+Each row contains X and Y coordinates of line start and X and Y coordinates of line end, in this order.}
 
-\item{xlim}{Limits as usual (position of the first pixel on the
-left/top, and the last pixel on the right/bottom), 2-element vector.
-You can easily flip the top/bottom to the "usual" mathematical
-system by flipping the \code{ylim} vector.}
+\item{xlim, ylim}{2-element vector of rendered area limits (position of the first pixel on the
+left/top, and the last pixel on the right/bottom).
+You can flip the image coordinate system by flipping the \verb{*lim} vectors.}
 
-\item{ylim}{Limits as usual (position of the first pixel on the
-left/top, and the last pixel on the right/bottom), 2-element vector.
-You can easily flip the top/bottom to the "usual" mathematical
-system by flipping the \code{ylim} vector.}
+\item{out_size}{2-element vector size of the result raster, defaults to \code{c(512L,512L)}.}
 
-\item{out_size}{2-element vector size of the result raster,
-defaults to \code{c(512,512)}.}
+\item{skip_start_pixel}{TRUE if the start pixel of the lines should be omitted, defaults to \code{FALSE}.}
 
-\item{skip_start_pixel}{TRUE if the start pixel of a line should not be plotted,
-otherwise 'FALSE', defaults to \code{FALSE}.}
-
-\item{skip_end_pixel}{TRUE if the end pixel of a line should not be plotted,
-otherwise 'FALSE', defaults to \code{TRUE}.}
+\item{skip_end_pixel}{TRUE if the end pixel of a line should be omitted, defaults to \code{TRUE}.
+(When plotting long ribbons of connected lines, this prevents counting the connecting pixels twice.)}
 }
 \value{
-Histogram with the result.
+Histogram with the rendered lines.
 }
 \description{
-Create histogram using lines with given start and end points.
+Render lines into a histogram.
 }

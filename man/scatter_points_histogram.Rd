@@ -12,26 +12,17 @@ scatter_points_histogram(
 )
 }
 \arguments{
-\item{xy}{2-column matrix with point coordinates. As usual with
-rasters in R, X axis grows right, and Y axis grows DOWN.
-Flipping \code{ylim} causes the "usual" mathematical behavior.}
+\item{xy}{2-column matrix with point coordinates (X and Y).}
 
-\item{xlim}{Limits as usual (position of the first pixel on the
-left/top, and the last pixel on the right/bottom), 2-element vector.
-You can easily flip the top/bottom to the "usual" mathematical
-system by flipping the \code{ylim} vector.}
+\item{xlim, ylim}{2-element vector of rendered area limits (position of the first pixel on the
+left/top, and the last pixel on the right/bottom).
+You can flip the image coordinate system by flipping the \verb{*lim} vectors.}
 
-\item{ylim}{Limits as usual (position of the first pixel on the
-left/top, and the last pixel on the right/bottom), 2-element vector.
-You can easily flip the top/bottom to the "usual" mathematical
-system by flipping the \code{ylim} vector.}
-
-\item{out_size}{2-element vector size of the result histogram,
-defaults to \code{c(512,512)}.}
+\item{out_size}{2-element vector size of the result raster, defaults to \code{c(512L,512L)}.}
 }
 \value{
-Histogram with the result.
+2D histogram with the points "counted" in appropriate pixels.
 }
 \description{
-Create histogram from given point coordinates.
+Render a 2D histogram with given points
 }

@@ -7,28 +7,28 @@
 apply_kernel_histogram(
   fhistogram,
   filter = "circle",
-  mask,
+  mask = default_kernel(filter, radius, sigma),
   radius = 2,
   sigma = radius/2,
   threads = 0
 )
 }
 \arguments{
-\item{fhistogram}{Matrix or array interpreted as histogram.}
+\item{fhistogram}{Matrix or array interpreted as histogram of floating-point values.}
 
-\item{filter}{Either \code{circle}, \code{square}, \code{gauss} or \code{own}, defaults to \code{circle}.}
+\item{filter}{Use the pre-defined filter, either \code{circle}, \code{square}, \code{gauss}. Defaults to \code{circle}.}
 
-\item{mask}{Own kernel used for blurring, \code{filter} parameter has to be set to \code{own}.}
+\item{mask}{Custom kernel used for blurring, overrides \code{filter}. Must be a square matrix of odd size.}
 
-\item{radius}{Used for determining size of kernel, defaults to \code{2}.}
+\item{radius}{Radius of the kernel (counted without the "middle" pixel"), defaults to 2. The generated kernel matrix will be a square with (2*radius+1) pixels on each side.}
 
-\item{sigma}{Parameter for gaussian filtering, defaults to \code{radius / 2}.}
+\item{sigma}{Radius of the Gaussian function selected by \code{filter}, defaults to \code{radius/2}.}
 
 \item{threads}{Number of parallel threads (default 0 chooses hardware concurrency).}
 }
 \value{
-Blurred histogram with the result.
+2D matrix with the histogram processed by the kernel application.
 }
 \description{
-Blur given histogram using \code{square} or \code{gauss} filtering.
+Apply a kernel to the given histogram.
 }

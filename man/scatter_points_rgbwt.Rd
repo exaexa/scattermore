@@ -15,33 +15,27 @@ scatter_points_rgbwt(
 )
 }
 \arguments{
-\item{xy}{2-column matrix with point coordinates. As usual with
-rasters in R, X axis grows right, and Y axis grows DOWN.
-Flipping \code{ylim} causes the "usual" mathematical behavior.}
+\item{xy}{2-column matrix with N point coordinates (X and Y) in rows.}
 
-\item{xlim}{Limits as usual (position of the first pixel on the
-left/top, and the last pixel on the right/bottom), 2-element vector.
-You can easily flip the top/bottom to the "usual" mathematical
-system by flipping the \code{ylim} vector.}
+\item{xlim, ylim}{2-element vector of rendered area limits (position of the first pixel on the
+left/top, and the last pixel on the right/bottom).
+You can flip the image coordinate system by flipping the \verb{*lim} vectors.}
 
-\item{ylim}{Limits as usual (position of the first pixel on the
-left/top, and the last pixel on the right/bottom), 2-element vector.
-You can easily flip the top/bottom to the "usual" mathematical
-system by flipping the \code{ylim} vector.}
+\item{out_size}{2-element vector size of the result raster, defaults to \code{c(512L,512L)}.}
 
-\item{out_size}{2-element vector, size of the result histogram,
-defaults to \code{c(512,512)}.}
+\item{RGBA}{Point colors. Either a 4-element vector that specifies the same color for all points,
+or 4-by-N matrix that specifies color for each of the individual points.
+Color is specified using integer RGBA; i.e. the default black is \code{c(0,0,0,255)}.}
 
-\item{RGBA}{Vector with 4 elements or matrix or array (4xn dim, n >= 2, n ~ xy rows) with R, G, B
-and alpha channels in integers, defaults to \code{c(0,0,0,255)}.}
+\item{map}{Vector with N integer indices to \code{palette}. Overrides RGBA-based coloring.}
 
-\item{map}{Vector with integer indices to \code{palette}.}
-
-\item{palette}{Matrix with R, G, B and A channels in rows, of at \code{maximum(map)} columns.}
+\item{palette}{Matrix 4-by-K matrix of RGBA colors used as a palette lookup for the \code{map}
+that gives the point colors. K is at least \code{max(map)}.
+Notably, using a palette may be faster than filling and processing the whole RGBA matrix.}
 }
 \value{
-An array in RGBWT format with the scatterplot output.
+A RGBWT array with the rendered points.
 }
 \description{
-Colorize given data with one given color or each point has its corresponding given color.
+Render colored points into a RGBWT bitmap
 }
