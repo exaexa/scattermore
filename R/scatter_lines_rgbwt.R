@@ -27,6 +27,8 @@
 #'                   left/top, and the last pixel on the right/bottom).
 #'                   You can flip the image coordinate system by flipping the `*lim` vectors.
 #'
+#' @param out_size 2-element vector size of the result raster, defaults to `c(512L,512L)`.
+#'
 #' @param RGBA Vector of 4 elements with integral RGBA color for the lines, defaults to `c(0,0,0,255)`.
 #'
 #' @param skip_start_pixel TRUE if the start pixel of the lines should be omitted, defaults to `FALSE`.

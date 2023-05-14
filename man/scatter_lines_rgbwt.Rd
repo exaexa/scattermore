@@ -22,6 +22,8 @@ Each row contains X and Y coordinates of line start and X and Y coordinates of l
 left/top, and the last pixel on the right/bottom).
 You can flip the image coordinate system by flipping the \verb{*lim} vectors.}
 
+\item{out_size}{2-element vector size of the result raster, defaults to \code{c(512L,512L)}.}
+
 \item{RGBA}{Vector of 4 elements with integral RGBA color for the lines, defaults to \code{c(0,0,0,255)}.}
 
 \item{skip_start_pixel}{TRUE if the start pixel of the lines should be omitted, defaults to \code{FALSE}.}
