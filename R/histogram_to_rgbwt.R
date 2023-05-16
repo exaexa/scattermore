@@ -32,10 +32,11 @@
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
-
+#' @importFrom grDevices col2rgb
+#' @importFrom grDevices hcl.colors
 histogram_to_rgbwt <- function(fhistogram,
-                               RGBA = col2rgb(col, alpha = T),
-                               col = c("white", "black"),
+                               RGBA = grDevices::col2rgb(col, alpha = T),
+                               col = grDevices::hcl.colors(10),
                                zlim = c(min(fhistogram), max(fhistogram))) {
   if (!is.matrix(fhistogram) && !is.array(fhistogram)) stop("unsupported histogram format")
   if (length(dim(fhistogram)) != 2) stop("unsupported histogram format")

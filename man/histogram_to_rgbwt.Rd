@@ -6,8 +6,8 @@
 \usage{
 histogram_to_rgbwt(
   fhistogram,
-  RGBA = col2rgb(col, alpha = T),
-  col = c("white", "black"),
+  RGBA = grDevices::col2rgb(col, alpha = T),
+  col = grDevices::hcl.colors(10),
   zlim = c(min(fhistogram), max(fhistogram))
 )
 }
