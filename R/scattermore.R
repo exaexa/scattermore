@@ -247,6 +247,7 @@ GeomScattermore <- ggplot2::ggproto("GeomScattermore", ggplot2::Geom,
 #'     interpolate = TRUE
 #'   )
 #' @export
+#' @importFrom ggplot2 .data
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 layer
 geom_scattermost <- function(xy,
@@ -260,7 +261,7 @@ geom_scattermost <- function(xy,
         x = c(min(xy[, 1]), max(xy[, 1])),
         y = c(min(xy[, 2]), max(xy[, 2]))
       ),
-    mapping = ggplot2::aes(x, y),
+    mapping = ggplot2::aes(x = .data$x, y = .data$y),
     stat = "identity",
     position = "identity",
     geom = GeomScattermost,
