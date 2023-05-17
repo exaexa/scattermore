@@ -7,12 +7,11 @@
 rgbwt_to_rgba_int(fRGBWT)
 }
 \arguments{
-\item{fRGBWT}{fRGBWT matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
-\code{transparency} ~ 1 - alpha, dimension nxmx5).}
+\item{fRGBWT}{The RGBWT matrix.}
 }
 \value{
-RGBA matrix, output \emph{is not premultiplied} by alpha.
+A RGBA matrix. The output \emph{is not premultiplied} by alpha.
 }
 \description{
-Convert RGBWT matrix to integer RGBA matrix.
+Convert a RGBWT matrix to an integer RGBA matrix.
 }

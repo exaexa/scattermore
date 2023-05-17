@@ -7,11 +7,10 @@
 merge_rgbwt(fRGBWT_list)
 }
 \arguments{
-\item{fRGBWT_list}{list of RGBWT matrices (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
-\code{transparency} ~ 1 - alpha, dimension nxmx5).}
+\item{fRGBWT_list}{List of RGBWT arrays. The order of the matrices does not matter (except for negligible floating-point rounding and other robustness errors).}
 }
 \value{
-RGBWT matrix.
+Merged RGBWT matrix.
 }
 \description{
 Merge RGBWT matrices.

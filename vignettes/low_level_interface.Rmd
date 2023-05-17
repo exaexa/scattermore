@@ -10,6 +10,8 @@ vignette: >
 ```{r setup}
 library(scattermore)
 set.seed(2023)
+```
+```{r, echo=FALSE}
 # this somehow fails on macs
 if(Sys.info()["sysname"] != "Darwin") options(bitmapType='cairo')
 ```
@@ -227,7 +229,7 @@ blending with other RGBWT data.
 ```{r, fig.asp=1, fig.width=6}
 pdens <- scattermore::scatter_points_histogram(pts, out_size=c(512,512))
 pdens <- apply_kernel_histogram(pdens, 'circle', radius=10)
-rgbwt <- histogram_to_rgbwt(log1p(pdens), RGBA=col2rgb(topo.colors(100)[10:100], alpha=T))
+rgbwt <- histogram_to_rgbwt(log1p(pdens), col=topo.colors(100)[10:100])
 rstr <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
 
 par(mar=c(0,0,0,0), bg='white')

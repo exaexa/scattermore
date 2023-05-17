@@ -20,42 +20,46 @@
 #'
 #' Colorize given histogram with input palette.
 #'
-#' @param fhistogram Matrix or array R datatype interpreted as histogram.
+#' @param fhistogram Matrix or 2D array with the histogram of values.
 #'
-#' @param RGBA matrix (4xn dim, n>= 2) with R, G, B and alpha channels
-#'             in integers, defaults to shades of `red`, `green` and `blue` with `alpha = 255`.
+#' @param RGBA 4-by-N matrix floating-point R, G, B and A channels for the palette. Overrides `col`.
+#'
+#' @param col Colors to use for coloring.
+#'
+#' @param zlim Values to use as extreme values of the histogram
 #'
 #' @return RGBWT matrix.
 #'
 #' @export
 #' @useDynLib scattermore, .registration=TRUE
-
+#' @importFrom grDevices col2rgb
+#' @importFrom grDevices hcl.colors
 histogram_to_rgbwt <- function(fhistogram,
-                               RGBA = array(c(250, 128, 114, 255, 144, 238, 144, 255, 176, 224, 230, 255), c(4, 3))) {
-  if (!is.matrix(fhistogram) && !is.array(fhistogram)) stop("fhistogram in matrix form expected")
-  if (dim(fhistogram)[2] < 2) stop("not fhistogram format")
-  if (dim(RGBA)[1] != scattermore.globals$dim_RGBA) stop("RGBA with 4 rows expected")
-  if (dim(RGBA)[2] < 2) stop("RGBA with at least 2 colors expected")
+                               RGBA = grDevices::col2rgb(col, alpha = T),
+                               col = grDevices::hcl.colors(10),
+                               zlim = c(min(fhistogram), max(fhistogram))) {
+  if (!is.matrix(fhistogram) && !is.array(fhistogram)) stop("unsupported histogram format")
+  if (length(dim(fhistogram)) != 2) stop("unsupported histogram format")
+  if (dim(RGBA)[1] != 4) stop("RGBA with 4 rows expected")
+  if (dim(RGBA)[2] < 2) stop("at least 2-color palette is required")
 
   rows <- dim(fhistogram)[1]
   cols <- dim(fhistogram)[2]
-  size <- dim(RGBA)[2]
+  pal_size <- dim(RGBA)[2]
 
-  RGBWT <- rep(0, rows * cols * scattermore.globals$dim_RGBWT)
+  RGBWT <- array(0, c(rows, cols, 5))
 
-  minimum <- min(fhistogram)
-  maximum <- max(fhistogram)
-  # normalize histogram on values 0-1
-  normalized_fhistogram <- (fhistogram - minimum) / max((maximum - minimum), scattermore.globals$epsilon)
+  normalized_fhistogram <- pmin(pal_size, pmax(
+    0,
+    pal_size * (fhistogram - zlim[1]) / max((zlim[2] - zlim[1]), scattermore.globals$epsilon)
+  ))
 
   result <- .C("histogram_to_rgbwt",
-    dimen = as.integer(c(rows, cols, size)),
+    dimen = as.integer(c(rows, cols, pal_size)),
     fRGBWT = as.single(RGBWT),
     RGBA = as.single(RGBA / 255),
-    normalized_fhistogram = as.single(normalized_fhistogram)
+    normalized_fhistogram = as.integer(normalized_fhistogram)
   )
 
-
-  fRGBWT <- array(result$fRGBWT, c(rows, cols, scattermore.globals$dim_RGBWT))
-  return(fRGBWT)
+  return(array(result$fRGBWT, c(rows, cols, 5)))
 }

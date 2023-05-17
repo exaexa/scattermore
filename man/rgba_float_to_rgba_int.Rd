@@ -7,11 +7,11 @@
 rgba_float_to_rgba_int(fRGBA)
 }
 \arguments{
-\item{fRGBA}{RGBA matrix (\code{red}, \code{green}, \code{blue} and \code{alpha} channels, dimension nxmx4, values ~ 0-1).}
+\item{fRGBA}{RGBA bitmap in N-by-M-by-4 array.}
 }
 \value{
-RGBA matrix, output \emph{is not premultiplied} by alpha.
+RGBA matrix. The output \emph{is not premultiplied} by alpha.
 }
 \description{
-Convert RGBA matrix to RGBA matrix.
+Convert a float RGBA bitmap with pre-multiplied alpha to integer RGBA bitmap.
 }

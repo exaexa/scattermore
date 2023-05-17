@@ -7,26 +7,22 @@
 apply_kernel_rgbwt(
   fRGBWT,
   filter = "circle",
-  mask,
+  mask = default_kernel(filter, radius, sigma),
   radius = 2,
   sigma = radius/2,
-  approx_limit = 3.5,
   threads = 0
 )
 }
 \arguments{
-\item{fRGBWT}{RGBWT matrix (\code{red}, \code{green}, \code{blue} channels, \code{weight} ~ sum of alphas,
-\code{transparency} ~ 1 - alpha, dimension nxmx5).}
+\item{fRGBWT}{RGBWT array with channels \code{red}, \code{green}, \code{blue}, \code{weight} and \code{transparency}. The dimension should be N times M times 5.}
 
-\item{filter}{Either \code{circle}, \code{square}, \code{gauss} or \code{own}, defaults to `circle.}
+\item{filter}{Use the pre-defined filter, either \code{circle}, \code{square}, \code{gauss}. Defaults to \code{circle}.}
 
-\item{mask}{Own kernel used for blurring, \code{filter} parameter has to be set to \code{own}.}
+\item{mask}{Custom kernel used for blurring, overrides \code{filter}. Must be a square matrix of odd size.}
 
-\item{radius}{Size of circle kernel, defaults to \code{2}.}
+\item{radius}{Radius of the kernel (counted without the "middle" pixel"), defaults to 2. The generated kernel matrix will be a square with (2*radius+1) pixels on each side.}
 
-\item{sigma}{Parameter for gaussian filtering, defaults to \code{radius / 2}.}
-
-\item{approx_limit}{Sets the size of the kernel, multiplied with \code{sigma}, defaults to \code{3.5}.}
+\item{sigma}{Radius of the Gaussian function selected by \code{filter}, defaults to \code{radius/2}.}
 
 \item{threads}{Number of parallel threads (default 0 chooses hardware concurrency).}
 }
@@ -34,5 +30,5 @@ apply_kernel_rgbwt(
 RGBWT matrix.
 }
 \description{
-Blur given RGBWT matrix using \code{circle} or \code{gauss} filtering.
+Apply a kernel to the given RGBWT raster.
 }
