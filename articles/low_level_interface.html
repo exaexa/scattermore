@@ -128,14 +128,14 @@ directions:</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">pdens</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-3-1.png" width="480"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>The same can be done for plotting the densities over the lines:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ldens</span> <span class="op">&lt;-</span> <span class="fu">scattermore</span><span class="fu">::</span><span class="fu"><a href="../reference/scatter_lines_histogram.html">scatter_lines_histogram</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">pts</span>, <span class="va">pts2</span><span class="op">)</span>, out_size<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">256</span>,<span class="fl">256</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">ldens</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-4-1.png" width="480"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>Densities are simple matrices, so in order to improve the
 visualization you can apply the usual R math functions to their
 contents:</p>
@@ -144,7 +144,7 @@ contents:</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log1p</a></span><span class="op">(</span><span class="va">ldens</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-5-1.png" width="480"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="plotting-data-as-colored-pixels">Plotting data as colored pixels<a class="anchor" aria-label="anchor" href="#plotting-data-as-colored-pixels"></a>
@@ -162,7 +162,7 @@ displayed area using <code>xlim</code> and <code>ylim</code>.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rstr</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-6-1.png" width="480"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>You can specify a single color (possibly with alpha channel) for
 plotting; here we force a lower resolution and turn off pixel
 interpolation to show the transparency effect more precisely:</p>
@@ -172,7 +172,7 @@ interpolation to show the transparency effect more precisely:</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rstr</span>, interpolate<span class="op">=</span><span class="cn">F</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-7-1.png" width="480"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>The <code>RGBA</code> parameter may also assign individual colors to
 each pixel:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -181,7 +181,7 @@ each pixel:</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rstr</span>, interpolate<span class="op">=</span><span class="cn">F</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-8-1.png" width="480"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 <p>For plotting large clusters that share the colors, arguments
 <code>map</code> and <code>palette</code> allow for simpler and more
 efficient specification of the plotting:</p>
@@ -192,7 +192,7 @@ efficient specification of the plotting:</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rstr</span>, interpolate<span class="op">=</span><span class="cn">F</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-9-1.png" width="480"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
 <p>Colored RGBWT lines are plotted similarly:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#TODO as.vector</span></span>
@@ -203,7 +203,7 @@ efficient specification of the plotting:</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rstr</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-10-1.png" width="576"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="expanding-densities-and-rgbwt-plots">Expanding densities and RGBWT plots<a class="anchor" aria-label="anchor" href="#expanding-densities-and-rgbwt-plots"></a>
@@ -222,7 +222,7 @@ computationally regular, giving additional speedups.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rstr</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-11-1.png" width="576"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
 <p>This is sub-optimal because the pixels are too small; to fix that we
 can expand them:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -232,7 +232,7 @@ can expand them:</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rstr</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-12-1.png" width="576"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 <p>There are also other expansion options (such as <code>gauss</code>
 and <code>square</code>). You can also supply your own kernel in order
 to plot different shapes of pixels:</p>
@@ -244,7 +244,7 @@ to plot different shapes of pixels:</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rstr</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-13-1.png" width="576"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 <p>The same can be applied to line data to get thicker lines (we limit
 the number of lines for simplicity here):</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
@@ -256,7 +256,7 @@ the number of lines for simplicity here):</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rstr</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-14-1.png" width="576"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
 <p>Gaussian kernels are excellent for smoothing out point and line
 densities. As the main change, we need to use the histogram-specific
 kernel function:</p>
@@ -266,7 +266,7 @@ kernel function:</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">pdens</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">rainbow</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-15-1.png" width="480"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
 <p>The calculated densities can be trivially used for overlaying the
 images with contours. (N. B. that the default gaussian kernels are not
 “balanced” and increase the total weight present in the graphics; you
@@ -276,7 +276,7 @@ parameter.)</p>
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/image.html" class="external-link">image</a></span><span class="op">(</span><span class="va">pdens</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">topo.colors</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span><span class="op">[</span><span class="fl">20</span><span class="op">:</span><span class="fl">100</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/contour.html" class="external-link">contour</a></span><span class="op">(</span><span class="va">pdens</span><span class="op">-</span><span class="fl">15</span>, levels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">10</span>,<span class="fl">0</span>,<span class="fl">30</span><span class="op">)</span>, add<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-16-1.png" width="480"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="coloring-densities">Coloring densities<a class="anchor" aria-label="anchor" href="#coloring-densities"></a>
@@ -292,7 +292,7 @@ useful for later blending with other RGBWT data.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rstr</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-17-1.png" width="576"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="merging-rgbwt-and-rgba-layers">Merging RGBWT and RGBA layers<a class="anchor" aria-label="anchor" href="#merging-rgbwt-and-rgba-layers"></a>
@@ -324,7 +324,7 @@ commutative (except for small numerical imperfections).</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rstr</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-19-1.png" width="576"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
 <p>In this case, neither the lines and points is “in foreground”, the
 colors are correctly merged according to the total amount of “ink”
 applied to each point in the canvas.</p>
@@ -336,7 +336,7 @@ order. First with lines on top:</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rstr</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-20-1.png" width="576"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
 <p>…and with points on top:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">rgba</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/blend_rgba_float.html">blend_rgba_float</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="../reference/rgbwt_to_rgba_float.html">rgbwt_to_rgba_float</a></span><span class="op">(</span><span class="va">rgbwt2</span><span class="op">)</span>, <span class="fu"><a href="../reference/rgbwt_to_rgba_float.html">rgbwt_to_rgba_float</a></span><span class="op">(</span><span class="va">rgbwt1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -344,7 +344,7 @@ order. First with lines on top:</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html" class="external-link">par</a></span><span class="op">(</span>mar<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span>,<span class="fl">0</span><span class="op">)</span>, bg<span class="op">=</span><span class="st">'white'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">rstr</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-21-1.png" width="576"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
 <p>For demonstration, we produce a huge, colorful, truly psychidelic
 graphics that combines all of the elements:</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
@@ -376,7 +376,7 @@ graphics that combines all of the elements:</p>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/rasterImage.html" class="external-link">rasterImage</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/t.html" class="external-link">t</a></span><span class="op">(</span><span class="va">rstr</span><span class="op">)</span>, xleft<span class="op">=</span><span class="op">-</span><span class="fl">3</span>, xright<span class="op">=</span><span class="fl">7</span>, ybottom<span class="op">=</span><span class="op">-</span><span class="fl">5</span>, ytop<span class="op">=</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="co"># a trick is required to flip the bitmap vertically</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/contour.html" class="external-link">contour</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">3</span>,<span class="fl">7</span>,length.out<span class="op">=</span><span class="fl">512</span><span class="op">)</span>, y<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">5</span>,<span class="fl">2</span>,length.out<span class="op">=</span><span class="fl">512</span><span class="op">)</span>, <span class="va">pdens</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">ncol</a></span><span class="op">(</span><span class="va">pdens</span><span class="op">)</span><span class="op">:</span><span class="fl">1</span><span class="op">]</span>, add<span class="op">=</span><span class="cn">T</span>, levels<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">10</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="low_level_interface_files/figure-html/unnamed-chunk-22-1.png" width="576"></p>
+<p><img src="low_level_interface_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="exporting-high-quality-graphics">Exporting high-quality graphics<a class="anchor" aria-label="anchor" href="#exporting-high-quality-graphics"></a>
