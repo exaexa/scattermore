@@ -58,7 +58,7 @@ pts2 <- cbind(5+rnorm(n), -5*rexp(n))
 ```
 
 We can convert the density data to an integer density map:
-```{r, fig.asp=1, fig.width=5}
+```{r, dev='jpeg'}
 pdens <- scattermore::scatter_points_histogram(pts, out_size=c(128,128))
 
 par(mar = c(0,0,0,0), bg='white')
@@ -66,7 +66,7 @@ image(pdens)
 ```
 
 The same can be done for plotting the densities over the lines:
-```{r, fig.asp=1, fig.width=5}
+```{r, dev='jpeg'}
 ldens <- scattermore::scatter_lines_histogram(cbind(pts, pts2), out_size=c(256,256))
 
 par(mar = c(0,0,0,0), bg='white')
@@ -76,7 +76,7 @@ image(ldens)
 Densities are simple matrices, so in order to improve the visualization you can
 apply the usual R math functions to their contents:
 
-```{r, fig.asp=1, fig.width=5}
+```{r, dev='jpeg'}
 ldens <- scattermore::scatter_lines_histogram(cbind(pts, pts2), out_size=c(256,256))
 
 par(mar = c(0,0,0,0), bg='white')
@@ -92,7 +92,7 @@ either RGBA or a standard R rasters for plotting.
 We can plot the points with a single color to the RGBWT format using
 `scatter_points_rgbwt`. We also show how to fix the precise displayed area
 using `xlim` and `ylim`.
-```{r, fig.asp=1, fig.width=5}
+```{r, dev='jpeg'}
 # TODO xlim docs
 rgbwt <- scatter_points_rgbwt(pts, out_size=c(512,512), xlim=c(-3,3), ylim=c(-3,3))
 rstr <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
@@ -105,7 +105,7 @@ You can specify a single color (possibly with alpha channel) for plotting; here
 we force a lower resolution and turn off pixel interpolation to show the
 transparency effect more precisely:
 
-```{r, fig.asp=1, fig.width=5}
+```{r, dev='jpeg'}
 rgbwt <- scatter_points_rgbwt(pts, out_size=c(128,128), RGBA=col2rgb('#8010f010', alpha=T))
 rstr <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
 
@@ -114,7 +114,7 @@ plot(rstr, interpolate=F)
 ```
 
 The `RGBA` parameter may also assign individual colors to each pixel:
-```{r, fig.asp=1, fig.width=5}
+```{r, dev='jpeg'}
 rgbwt <- scatter_points_rgbwt(pts, out_size=c(128,128), RGBA=col2rgb(rainbow(n, alpha=0.3), alpha=T))
 rstr <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
 
@@ -124,7 +124,7 @@ plot(rstr, interpolate=F)
 
 For plotting large clusters that share the colors, arguments `map` and
 `palette` allow for simpler and more efficient specification of the plotting:
-```{r, fig.asp=1, fig.width=5}
+```{r, dev='jpeg'}
 clusters <- 1 + (pts[,1] < 0) + 2 * (pts[,2] < 0)
 rgbwt <- scatter_points_rgbwt(pts, out_size=c(128,128), palette=col2rgb(rainbow(4, alpha=0.2), alpha=T), map=clusters)
 rstr <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
@@ -134,7 +134,7 @@ plot(rstr, interpolate=F)
 ```
 
 Colored RGBWT lines are plotted similarly:
-```{r, fig.asp=1, fig.width=6}
+```{r, dev='jpeg'}
 #TODO as.vector
 rgbwt <- scatter_lines_rgbwt(cbind(pts, pts2), out_size=c(512,512),
     xlim=c(-3,7), ylim=c(-5,2),
@@ -157,7 +157,7 @@ and the operation is much more computationally regular, giving additional
 speedups.
 
 First, let's increase the resolution of the example from above:
-```{r, fig.asp=1, fig.width=6}
+```{r, dev='jpeg'}
 rgbwt <- scatter_points_rgbwt(pts, out_size=c(512,512), palette=col2rgb(rainbow(4, alpha=0.5), alpha=T), map=clusters)
 rstr <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
 
@@ -166,7 +166,7 @@ plot(rstr)
 ```
 
 This is sub-optimal because the pixels are too small; to fix that we can expand them:
-```{r, fig.asp=1, fig.width=6}
+```{r, dev='jpeg'}
 rgbwt <- scatter_points_rgbwt(pts, out_size=c(512,512), palette=col2rgb(rainbow(4, alpha=0.1), alpha=T), map=clusters)
 rgbwt <- apply_kernel_rgbwt(rgbwt, 'circle', radius=10)
 rstr <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
@@ -177,7 +177,7 @@ plot(rstr)
 
 There are also other expansion options (such as `gauss` and `square`). You can
 also supply your own kernel in order to plot different shapes of pixels:
-```{r, fig.asp=1, fig.width=6}
+```{r, dev='jpeg'}
 rgbwt <- scatter_points_rgbwt(pts, out_size=c(512,512), palette=col2rgb(rainbow(4, alpha=1), alpha=T), map=clusters)
 rgbwt <- apply_kernel_rgbwt(rgbwt, 'own',
     mask=outer(1:11, 1:11, Vectorize(function(x,y) 1/(x*y))))
@@ -189,7 +189,7 @@ plot(rstr)
 
 The same can be applied to line data to get thicker lines (we limit the number
 of lines for simplicity here):
-```{r, fig.asp=1, fig.width=6}
+```{r, dev='jpeg'}
 rgbwt <- scatter_lines_rgbwt(cbind(pts, pts2)[1:30,], out_size=c(512,512),
     xlim=c(-3,7), ylim=c(-5,2),
     RGBA=as.vector(col2rgb('#8010f010', alpha=T)))
@@ -202,7 +202,7 @@ plot(rstr)
 
 Gaussian kernels are excellent for smoothing out point and line densities. As
 the main change, we need to use the histogram-specific kernel function:
-```{r, fig.asp=1, fig.width=5}
+```{r, dev='jpeg'}
 pdens <- scattermore::scatter_points_histogram(pts, out_size=c(256,256), xlim=c(-3,3), ylim=c(-3,3))
 pdens <- apply_kernel_histogram(pdens, 'gauss', radius=10)
 
@@ -214,7 +214,7 @@ The calculated densities can be trivially used for overlaying the images with
 contours. (N. B. that the default gaussian kernels are not "balanced" and
 increase the total weight present in the graphics; you may still supply a unit
 weight kernel using the `own` parameter.)
-```{r, fig.asp=1, fig.width=5}
+```{r, dev='jpeg'}
 par(mar = c(0,0,0,0), bg='white')
 image(pdens, col=topo.colors(100)[20:100])
 contour(pdens-15, levels=c(-10,0,30), add=T)
@@ -226,7 +226,7 @@ Specific functionality is provided for converting densities to colorized "heat"
 maps, converting the histogram to RGBWT format. This is useful for later
 blending with other RGBWT data.
 
-```{r, fig.asp=1, fig.width=6}
+```{r, dev='jpeg'}
 pdens <- scattermore::scatter_points_histogram(pts, out_size=c(512,512))
 pdens <- apply_kernel_histogram(pdens, 'circle', radius=10)
 rgbwt <- histogram_to_rgbwt(log1p(pdens), col=topo.colors(100)[10:100])
@@ -261,7 +261,7 @@ rgbwt2 <- apply_kernel_rgbwt(rgbwt2, 'circle', radius=3)
 We now merge the data as RGBWT, without overplotting either layer. Notably, the
 `merge_rgbwt` operation is associative and commutative (except for small
 numerical imperfections).
-```{r, fig.asp=1, fig.width=6}
+```{r, dev='jpeg'}
 rgbwt <- merge_rgbwt(list(rgbwt1, rgbwt2))
 rstr <- rgba_int_to_raster(rgbwt_to_rgba_int(rgbwt))
 
@@ -275,7 +275,7 @@ in the canvas.
 
 If blending in RGBA format, the colors will overlay depending on the order.
 First with lines on top:
-```{r, fig.asp=1, fig.width=6}
+```{r, dev='jpeg'}
 rgbwt <- blend_rgba_float(list(rgbwt_to_rgba_float(rgbwt1), rgbwt_to_rgba_float(rgbwt2)))
 rstr <- rgba_int_to_raster(rgba_float_to_rgba_int(rgbwt))
 
@@ -284,7 +284,7 @@ plot(rstr)
 ```
 
 ...and with points on top:
-```{r, fig.asp=1, fig.width=6}
+```{r, dev='jpeg'}
 rgba <- blend_rgba_float(list(rgbwt_to_rgba_float(rgbwt2), rgbwt_to_rgba_float(rgbwt1)))
 rstr <- rgba_int_to_raster(rgba_float_to_rgba_int(rgba))
 
@@ -294,7 +294,7 @@ plot(rstr)
 
 For demonstration, we produce a huge, colorful, truly psychidelic graphics that
 combines all of the elements:
-```{r, fig.asp=1, fig.width=6}
+```{r, dev='jpeg'}
 # lines
 rgbwt1 <- scatter_lines_rgbwt(cbind(pts, pts2),
     out_size=c(512,512), xlim=c(-3,7), ylim=c(-5,2),
@@ -318,7 +318,7 @@ rgba <- blend_rgba_float(list(
 ))
 rstr <- rgba_int_to_raster(rgba_float_to_rgba_int(rgba))
 
-par(mar=rep(2,4), bg='white')
+par(mar=c(2,2,0.5,0.5), bg='white')
 plot(c(), xlim=c(-3,7), ylim=c(-5,2))
 rasterImage(t(rstr), xleft=-3, xright=7, ybottom=-5, ytop=2)
 # a trick is required to flip the bitmap vertically
