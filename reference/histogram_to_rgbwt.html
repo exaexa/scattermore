@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">scattermore</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1</span>
       </span>
     </div>
 
@@ -56,19 +56,28 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">histogram_to_rgbwt</span><span class="op">(</span></span>
 <span>  <span class="va">fhistogram</span>,</span>
-<span>  RGBA <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/array.html" class="external-link">array</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">250</span>, <span class="fl">128</span>, <span class="fl">114</span>, <span class="fl">255</span>, <span class="fl">144</span>, <span class="fl">238</span>, <span class="fl">144</span>, <span class="fl">255</span>, <span class="fl">176</span>, <span class="fl">224</span>, <span class="fl">230</span>, <span class="fl">255</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span>  RGBA <span class="op">=</span> <span class="fu">grDevices</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/col2rgb.html" class="external-link">col2rgb</a></span><span class="op">(</span><span class="va">col</span>, alpha <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>,</span>
+<span>  col <span class="op">=</span> <span class="fu">grDevices</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/palettes.html" class="external-link">hcl.colors</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>  zlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">min</a></span><span class="op">(</span><span class="va">fhistogram</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html" class="external-link">max</a></span><span class="op">(</span><span class="va">fhistogram</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>fhistogram</dt>
-<dd><p>Matrix or array R datatype interpreted as histogram.</p></dd>
+<dd><p>Matrix or 2D array with the histogram of values.</p></dd>
 
 
 <dt>RGBA</dt>
-<dd><p>matrix (4xn dim, n&gt;= 2) with R, G, B and alpha channels
-in integers, defaults to shades of <code>red</code>, <code>green</code> and <code>blue</code> with <code>alpha = 255</code>.</p></dd>
+<dd><p>4-by-N matrix floating-point R, G, B and A channels for the palette. Overrides <code>col</code>.</p></dd>
+
+
+<dt>col</dt>
+<dd><p>Colors to use for coloring.</p></dd>
+
+
+<dt>zlim</dt>
+<dd><p>Values to use as extreme values of the histogram</p></dd>
 
 </dl></div>
     <div id="value">
