@@ -36,7 +36,8 @@ histogram_to_rgbwt(const unsigned *dim,
 
   for (size_t i = 0; i < size_out; ++i) {
     size_t histogram_value = histogram[i] < 0 ? 0 : histogram[i];
-    if(histogram_value >= size_palette) histogram_value = size_palette - 1;
+    if (histogram_value >= size_palette)
+      histogram_value = size_palette - 1;
 
     const float R = palette[4 * histogram_value + 0];
     const float G = palette[4 * histogram_value + 1];
