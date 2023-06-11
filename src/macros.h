@@ -1,7 +1,7 @@
 /*
  * This file is part of scattermore.
  *
- * Copyright (C) 2022 Mirek Kratochvil <exa.exa@gmail.com>
+ * Copyright (C) 2022-2023 Mirek Kratochvil <exa.exa@gmail.com>
  *               2022-2023 Tereza Kulichova <kulichova.t@gmail.com>
  *
  * scattermore is free software: you can redistribute it and/or modify it under
@@ -21,7 +21,15 @@
 #ifndef MACROS_H
 #define MACROS_H
 
-#define max(x, y) (((x) >= (y)) ? (x) : (y))
-#define min(x, y) (((x) <= (y)) ? (x) : (y))
+#include <cstddef>
+#include <limits>
+
+inline size_t
+f2i(float x)
+{
+  if (x < 0 || x > float(std::numeric_limits<size_t>::max()))
+    return std::numeric_limits<size_t>::max();
+  return size_t(x);
+}
 
 #endif
