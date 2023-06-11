@@ -1,7 +1,7 @@
 /*
  * This file is part of scattermore.
  *
- * Copyright (C) 2022 Mirek Kratochvil <exa.exa@gmail.com>
+ * Copyright (C) 2022-2023 Mirek Kratochvil <exa.exa@gmail.com>
  *               2022-2023 Tereza Kulichova <kulichova.t@gmail.com>
  *
  * scattermore is free software: you can redistribute it and/or modify it under
@@ -18,9 +18,10 @@
  * scattermore. If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include "macros.h"
 #include "scatters.h"
 
-#include <stddef.h>
+#include <cstddef>
 
 // calculate RGBWT matrix with given color for each point
 void
@@ -53,9 +54,8 @@ scatter_multicolor_rgbwt(const unsigned *dim,
 
   size_t i;
   for (i = 0; i < size_data; ++i) {
-    size_t x =
-      (xy[i] - x_begin) * x_bin; // get new point coordinates for result raster
-    size_t y = (xy[i + size_data] - y_begin) * y_bin;
+    size_t x = f2i((xy[i] - x_begin) * x_bin);
+    size_t y = f2i((xy[i + size_data] - y_begin) * y_bin);
 
     if (x >= size_out_x || y >= size_out_y)
       continue;

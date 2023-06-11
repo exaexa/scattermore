@@ -22,7 +22,7 @@
 #include "thread_blocks.h"
 
 #include <cmath>
-#include <stddef.h>
+#include <cstddef>
 #include <thread>
 #include <vector>
 

@@ -21,7 +21,7 @@
 #include "kernels.h"
 #include "thread_blocks.h"
 
-#include <stddef.h>
+#include <cstddef>
 
 using namespace std;
 
