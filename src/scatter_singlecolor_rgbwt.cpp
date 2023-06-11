@@ -20,7 +20,7 @@
 
 #include "scatters.h"
 
-#include <stddef.h>
+#include <cstddef>
 
 // calculate RGBWT matrix with one given color
 void

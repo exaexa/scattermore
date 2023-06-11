@@ -21,8 +21,8 @@
 #ifndef SCATTERS_LINES_IMPL_H
 #define SCATTERS_LINES_IMPL_H
 
+#include <cstddef>
 #include <cstdlib>
-#include <stddef.h>
 
 template<typename PF>
 inline void

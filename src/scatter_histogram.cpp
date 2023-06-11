@@ -20,7 +20,7 @@
 
 #include "scatters.h"
 
-#include <stddef.h>
+#include <cstddef>
 
 void
 scatter_histogram(const unsigned *pn,

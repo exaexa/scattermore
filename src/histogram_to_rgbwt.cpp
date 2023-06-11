@@ -20,7 +20,7 @@
 
 #include "scatters.h"
 
-#include <stddef.h>
+#include <cstddef>
 
 // colorize histogram with given color palette
 void
